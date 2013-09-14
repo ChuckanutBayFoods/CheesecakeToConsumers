@@ -1,0 +1,4 @@
+/.idea
+web-app/css/site.css
+*.min.css
+*.min.js
