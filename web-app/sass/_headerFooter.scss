@@ -1,0 +1,66 @@
+$headerFooterHeight: 50px;
+
+.header-footer-base {
+  background-color: $transparentLightGray;
+  height: $headerFooterHeight;
+
+  .content {
+    margin: auto;
+    line-height: $headerFooterHeight;
+  }
+}
+header {
+  @extend .header-footer-base;
+  border-bottom: 1px solid $transparentMediumGray;
+
+  .free-shipping {
+    color: $mediumGray;
+    text-align: center;
+  }
+
+  .questions {
+    text-align: right;
+
+    .popover {
+      line-height: initial;
+      max-width: 500px;
+
+      .question {
+        font-weight: 700;
+        margin-top: 8px;
+      }
+
+      .answer {
+        margin-left: 12px;
+        padding: 6px 0;
+      }
+    }
+  }
+}
+
+footer {
+  @extend .header-footer-base;
+  border-top: 1px solid $transparentMediumGray;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition: all .25s ease;
+  text-align: center;
+  cursor: pointer;
+
+  .next-prompt {
+    font-size: $large;
+    line-height: $headerFooterHeight * 3/5;
+  }
+
+  .continue-prompt {
+    color: $mediumGray;
+    font-size: $tiny;
+    line-height: $headerFooterHeight * 2/5;
+  }
+
+  &.slide-down {
+    bottom: -$headerFooterHeight;
+  }
+}
