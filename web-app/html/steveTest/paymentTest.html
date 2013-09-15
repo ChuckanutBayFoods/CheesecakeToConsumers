@@ -9,10 +9,11 @@
     <script src="../../js/bootstrap.js"></script>
     <script src="../../js/site.js"></script>
     <script src="../../js/deparam.js"></script>
+    <script src="C2C.js"></script>
     <script>
-        loadAmazonPaymentsIFrame = function() {
-        	var url = 'https://authorize.payments-sandbox.amazon.com/cobranded-ui/actions/start?paymentReason=HarryPotter+1-5+DVD+set&transactionAmount=5&signatureMethod=HmacSHA256&currencyCode=USD&signatureVersion=2&pipelineName=SingleUse&callerKey=AKIAJIVLZ2A56TTH7TBQ&signature=4ZVBPMcEm3XIWLpc2%2BFIOcTK0CKlE7aKycdVjN8d%2FoY%3D&returnURL=http%3A%2F%2Flocalhost%3A8080%2FCheesecakeToConsumers%2Fhtml%2FsteveTest%2FclosePopup.html&callerReference=callerReferenceSingleUseSat+Sep+14+18%3A30%3A18+PDT+2013&version=2009-01-09';
-        	window.open(url, '_blank', 'location=yes,resizable=yes,status=yes,toolbar=no');
+        var c2c = new C2C();
+        openAmazonCoBrandedPopUp = function() {
+            window.open(c2c.amazonCoBrandedPopUpUrl, '_blank', 'location=yes,resizable=yes,status=yes,toolbar=no');
         };
         paymentComplete = function(redirectUrl) {
         	console.log(redirectUrl);
@@ -22,9 +23,10 @@
         	var queryStringObject = $.String.deparam(redirectUrl);
             console.log(queryStringObject);
         };
+        $().ready(c2c.getAmazonCoBrandedUrl());
     </script>
 </head>
 <body>
-    <a onclick="loadAmazonPaymentsIFrame();">Click Me</a>
+    <a onclick="openAmazonCoBrandedPopUp();">Click Me</a>
 </body>
 </html>
