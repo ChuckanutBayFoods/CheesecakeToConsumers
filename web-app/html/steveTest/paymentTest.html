@@ -4,29 +4,62 @@
     <!-- Edit this later -->
     <title>Cheesecake to Consumers Payment Test</title>
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../../css/site.css">
     <script src="../../js/jquery.js"></script>
     <script src="../../js/bootstrap.js"></script>
-    <script src="../../js/site.js"></script>
     <script src="../../js/deparam.js"></script>
     <script src="C2C.js"></script>
     <script>
-        var c2c = new C2C();
-        openAmazonCoBrandedPopUp = function() {
-            window.open(c2c.amazonCoBrandedPopUpUrl, '_blank', 'location=yes,resizable=yes,status=yes,toolbar=no');
+        $().ready(function() {
+            var c2c = new C2C();
+            $('a').click(function() {
+                c2c.openAmazonCoBrandedPopUp();
+            });
+            c2c.initialize(getOrder(), {
+                errorGettingAmazonCoBrandedUrl : function() {
+                    console.error('errorGettingAmazonCoBrandedUrl');
+                },
+                errorOpeningPopUp : function() {
+                    console.error('errorOpeningPopUp');
+                },
+                errorPopUpClosed : function() {
+                    console.error('errorPopUpClosed');
+                },
+                errorWithPayment : function() {
+                    console.error('errorWithPayment');
+                },
+                success : function() {
+                    console.info('success');
+                },
+            });
+        });
+        
+        var getOrder = function() {
+            return {
+                recipient : {
+                    name : 'JavaScript Person',
+                    addressLine1 : '711 Briar Rd.',
+                    addressLine2 : 'Appartment D',
+                    city : 'CitySteveMadeUp',
+                    state : 'WA',
+                    zipCode : '98229',
+                    phoneNumber : '360-123-1234'
+                },
+                cheesecakes : [
+                    {
+                        id : 'newYork',
+                        quantity : 4
+                    }, {
+                        id : 'veryBerry',
+                        quantity : 4
+                    }
+                ],
+                arrivalDate : '2013-10-25',
+                giftMessage : 'Dear Mom,  I hope you have a wonderful birthday.  We love you!'
+            };
         };
-        paymentComplete = function(redirectUrl) {
-        	console.log(redirectUrl);
-        	setTimeout(handlePaymentComplete, 0, redirectUrl);
-        };
-        handlePaymentComplete = function(redirectUrl) {
-        	var queryStringObject = $.String.deparam(redirectUrl);
-            console.log(queryStringObject);
-        };
-        $().ready(c2c.getAmazonCoBrandedUrl());
     </script>
 </head>
 <body>
-    <a onclick="openAmazonCoBrandedPopUp();">Click Me</a>
+    <a>Click Me</a>
 </body>
 </html>
