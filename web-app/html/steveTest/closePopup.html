@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Communicate Payment Complete</title>
+    <script src="../../js/jquery.js"></script>
+    <script>
+        $().ready(function() {
+        	window.opener.paymentComplete(window.location.href);
+        	window.close();
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
