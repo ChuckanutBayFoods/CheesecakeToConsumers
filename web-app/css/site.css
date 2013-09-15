@@ -1,3 +1,145 @@
-body,
+.header-footer-base, header, footer {
+  background-color: rgba(240, 240, 240, 0.85);
+  height: 50px; }
+  .header-footer-base .content, header .content, footer .content {
+    margin: auto;
+    line-height: 50px; }
+
+header {
+  border-bottom: 1px solid rgba(138, 138, 138, 0.85); }
+  header .free-shipping {
+    color: #8a8a8a;
+    text-align: center; }
+  header .questions {
+    text-align: right; }
+    header .questions .popover {
+      line-height: initial;
+      max-width: 500px; }
+      header .questions .popover .question {
+        font-weight: 700;
+        margin-top: 8px; }
+      header .questions .popover .answer {
+        margin-left: 12px;
+        padding: 6px 0; }
+
+footer {
+  border-top: 1px solid rgba(138, 138, 138, 0.85);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition: all 0.25s ease;
+  text-align: center;
+  cursor: pointer; }
+  footer .next-prompt {
+    font-size: 18px;
+    line-height: 30px; }
+  footer .continue-prompt {
+    color: #8a8a8a;
+    font-size: 12px;
+    line-height: 20px; }
+  footer.slide-down {
+    bottom: -50px; }
+
+#side-nav {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100px;
+  margin: auto;
+  font-size: 12px;
+  color: #8a8a8a; }
+  #side-nav * {
+    -webkit-transition: all 0.1s; }
+  #side-nav > div {
+    text-align: right; }
+    #side-nav > div:hover {
+      cursor: pointer;
+      font-size: 14px; }
+      #side-nav > div:hover .dot {
+        width: 9.6px;
+        height: 9.6px;
+        /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+        -webkit-border-radius: 4.8px;
+        /* Firefox 1-3.6 */
+        -moz-border-radius: 4.8px;
+        /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+        border-radius: 4.8px; }
+  #side-nav .dot {
+    margin: 0 8px;
+    display: inline-block;
+    background-color: rgba(138, 138, 138, 0.85);
+    width: 8px;
+    height: 8px;
+    /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+    -webkit-border-radius: 4px;
+    /* Firefox 1-3.6 */
+    -moz-border-radius: 4px;
+    /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+    border-radius: 4px; }
+  #side-nav .selected {
+    color: #0088cc; }
+    #side-nav .selected .dot {
+      background-color: #0088cc; }
+
 html {
-  background-color: lightslategrey; }
+  overflow: hidden; }
+
+body {
+  background-color: white;
+  font-weight: 300; }
+
+h1 {
+  font-weight: 300;
+  font-size: 48px;
+  text-align: center;
+  margin: 20px 0 10px 0; }
+
+h2 {
+  font-weight: 100;
+  font-size: 24px;
+  text-align: center; }
+
+#flavor-carousel {
+  margin: 0px auto;
+  width: 80%; }
+  #flavor-carousel .well {
+    height: 180px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0; }
+    #flavor-carousel .well .scroll {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      height: 100%; }
+    #flavor-carousel .well .flavor {
+      float: left;
+      text-align: center;
+      margin: 0 12px;
+      cursor: pointer;
+      width: 300px;
+      height: 100%;
+      transition: all 0.5s ease; }
+    #flavor-carousel .well .active {
+      -webkit-transform: scale(1.4); }
+  #flavor-carousel .arrow-right {
+    float: right;
+    margin: 81px 16px; }
+  #flavor-carousel .arrow-left {
+    float: left;
+    margin: 81px 16px; }
+
+.arrow-base, .arrow-right, .arrow-left {
+  width: 12px;
+  height: 24px;
+  display: inline-block;
+  cursor: pointer; }
+  .arrow-base.disabled, .disabled.arrow-right, .disabled.arrow-left {
+    opacity: .25; }
+
+.arrow-right {
+  background-image: url("../img/arrow-right.png"); }
+
+.arrow-left {
+  background-image: url("../img/arrow-left.png"); }

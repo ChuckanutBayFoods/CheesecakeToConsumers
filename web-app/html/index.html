@@ -6,10 +6,78 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap.js.js"></script>
-    <script src="../js/site.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/sly.js"></script>
 </head>
 <body>
+    <header>
+        <div class="content container">
+            <div class="row">
+                <span class="span4"><img src="../img/chuckanutbaylogo-small.png"/></span>
+                <span class="span4 free-shipping"><span>Free Overnight Shipping</span></span>
+                <span class="span4 questions">
+                    <a href="#">Questions?</a>
+                    <div class="hide questions-content">
+                        <div class="question">Do my cheesecakes have to be refrigerated?</div>
+                        <div class="answer">Yes, the cheesecakes must be refrigerated. They will last 10 days in the fridge. They can last over a year in the freezer. Just make sure to thaw them before consuming them.</div>
 
+                        <div class="question">Where else can I order Chuckanut Bay Cheesecakes?</div>
+                        <div class="answer">You can find grocery stores and markets that carry our products using our <a href="http://www.chuckanutbay.com/store-locator">Store Locator</a> tool.</div>
+
+                        <div class="question">Are any Chuckanut Bay Cheesecakes gluten free?</div>
+                        <div class="answer">Chuckanut Bay is proud to offer a number of gluten-free flavors. Not all flavors are gluten-free. Gluten-free flavors are noted with a gluten-free icon.</div>
+
+                    </div>
+                </span>
+            </div>
+        </div>
+    </header>
+    <div id="side-nav">
+        <div>
+            <span class="section-label">Pick</span><span class="dot"></span>
+        </div>
+        <div class="selected">
+            <span class="section-label">Personalize</span><span class="dot"></span>
+        </div>
+        <div>
+            <span class="section-label">Pack</span><span class="dot"></span>
+        </div>
+        <div>
+            <span class="section-label">Pay</span><span class="dot"></span>
+        </div>
+    </div>
+    <section id="pick">
+        <h1>Pick your Flavors</h1>
+        <h2>Mix-and-Match from all 20 flavors</h2>
+        <div id="flavor-carousel">
+            <div class="arrow-left"></div>
+            <div class="arrow-right"></div>
+            <div class="well">
+                <ul class="scroll">
+                    <li class="flavor">
+                        <img src="../img/very-berry.png"/>
+                        <div class="flavor-label">Very Berry</div>
+                    </li>
+                    <li class="flavor">
+                        <img src="../img/very-berry.png"/>
+                        <div class="flavor-label">Very Berry</div>
+                    </li>
+                    <li class="flavor">
+                        <img src="../img/very-berry.png"/>
+                        <div class="flavor-label">Very Berry</div>
+                    </li>
+                    <li class="flavor">
+                        <img src="../img/very-berry.png"/>
+                        <div class="flavor-label">Very Berry</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer class="slide-down">
+            <div class="next-prompt">Personalize gift message</div>
+            <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
+        </footer>
+    </section>
+    <script src="../js/site.js"></script>
 </body>
 </html>

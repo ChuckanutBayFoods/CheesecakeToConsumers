@@ -1,0 +1,46 @@
+$dotSize: 8px;
+#side-nav {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100px;
+  margin: auto;
+  font-size: $tiny;
+  color: $mediumGray;
+
+  * {
+    -webkit-transition: all .1s;
+  }
+
+  > div {
+    text-align: right;
+
+    &:hover {
+      cursor: pointer;
+      font-size: $small;
+
+      .dot {
+        @include square($dotSize*1.2);
+        @include border-radius($dotSize/2*1.2);
+
+      }
+    }
+  }
+
+  .dot {
+    margin: 0 8px;
+    display: inline-block;
+    background-color: $transparentMediumGray;
+    @include square($dotSize);
+    @include border-radius($dotSize/2);
+  }
+
+  .selected {
+    color: $lightBlue;
+
+    .dot {
+      background-color: $lightBlue;
+    }
+  }
+}
