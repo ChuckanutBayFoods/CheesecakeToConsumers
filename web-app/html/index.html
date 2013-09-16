@@ -8,6 +8,7 @@
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.js"></script>
     <script src="../js/sly.js"></script>
+    <script src="../js/flavorData.js"></script>
 </head>
 <body>
     <header>
@@ -33,16 +34,16 @@
         </div>
     </header>
     <div id="side-nav">
-        <div>
+        <div class="selected" data-section="pick">
             <span class="section-label">Pick</span><span class="dot"></span>
         </div>
-        <div class="selected">
+        <div class="disabled" data-section="personalize">
             <span class="section-label">Personalize</span><span class="dot"></span>
         </div>
-        <div>
+        <div class="disabled" data-section="pack">
             <span class="section-label">Pack</span><span class="dot"></span>
         </div>
-        <div>
+        <div class="disabled" data-section="pay">
             <span class="section-label">Pay</span><span class="dot"></span>
         </div>
     </div>
@@ -54,30 +55,48 @@
             <div class="arrow-right"></div>
             <div class="well">
                 <ul class="scroll">
-                    <li class="flavor">
-                        <img src="../img/very-berry.png"/>
-                        <div class="flavor-label">Very Berry</div>
-                    </li>
-                    <li class="flavor">
-                        <img src="../img/very-berry.png"/>
-                        <div class="flavor-label">Very Berry</div>
-                    </li>
-                    <li class="flavor">
-                        <img src="../img/very-berry.png"/>
-                        <div class="flavor-label">Very Berry</div>
-                    </li>
-                    <li class="flavor">
-                        <img src="../img/very-berry.png"/>
-                        <div class="flavor-label">Very Berry</div>
-                    </li>
                 </ul>
+                <div class="arrow"></div>
             </div>
+            <div class="carrot-container">
+                <div class="outer-carrot"></div>
+                <div class="inner-carrot"></div>
+            </div>
+        </div>
+        <div id="selected-cheesecake-btns" class="btn-container">
+            <div class="btn">More info</div>
+            <div class="btn btn-success">Add to Box</div>
         </div>
         <footer class="slide-down">
             <div class="next-prompt">Personalize gift message</div>
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
         </footer>
     </section>
+    <div id="box-container-wrapper">
+        <div id="box-container">
+            <div id="shield1" class="shield"></div>
+            <div id="shield2" class="shield"></div>
+            <div id='box1' class="box">
+                <img class="back box-part" src="../img/box-back.png">
+                <img class="mid box-part" src="../img/box-mid.png">
+                <img class="front box-part" src="../img/box-front.png">
+            </div>
+            <div id='box2' class="box">
+                <img class="back box-part" src="../img/box-back.png">
+                <img class="mid box-part" src="../img/box-mid.png">
+                <img class="front box-part" src="../img/box-front.png">
+            </div>
+            <div id="styro-container" class="hide">
+                <img class="styro front" src="../img/styro/front.png">
+                <p class="styro front styro-label">Keep Refrigerated</p>
+                <img class="styro left" src="../img/styro/left.png">
+                <img class="styro top" src="../img/styro/top.png">
+                <img class="styro back" src="../img/styro/back.png">
+                <img class="styro right" src="../img/styro/right.png">
+                <img class="styro base" src="../img/styro/base.png">
+            </div>
+        </div>
+    </div>
     <script src="../js/site.js"></script>
 </body>
 </html>

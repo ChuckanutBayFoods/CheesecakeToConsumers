@@ -43,4 +43,12 @@ $dotSize: 8px;
       background-color: $lightBlue;
     }
   }
+
+  .disabled {
+    color: $lightGray;
+
+    .dot {
+      background-color: $lightGray;
+    }
+  }
 }
