@@ -48,6 +48,11 @@ $.extend(C2C.prototype, {
     	).fail(this._callbacks.errorGettingAmazonCoBrandedUrl);
     },
     
+    _reinitialize : function() {
+        // Reset with a new popUp URL in case the popUp is initiated again.
+        this.initialize(this._order, this._callbacks);
+    },
+    
     _cleanUp : function() {
         this._amazonCoBrandedUrl = null;
         this._amazonCallerReference = null;
@@ -90,6 +95,7 @@ $.extend(C2C.prototype, {
         this._amazonSingleUseResponseParameters = $.String.deparam(redirectUrl.substring(redirectUrl.indexOf('?') + 1));
         console.log(this._amazonSingleUseResponseParameters);
         if (!this._amazonSingleUseResponseParameters.status || !this._amazonSingleUseResponseParameters.status.match(/^S[ABC]$/)) {
+            this._reinitialize();
             this._callbacks.errorWithPayment();
             return;
         }
@@ -103,17 +109,17 @@ $.extend(C2C.prototype, {
             }),
             contentType: "application/json",
             processData : false
-        }).done($.proxy(function(successfullyRequestedPayment) {
-                if (successfullyRequestedPayment) {
+        })
+        .always($.proxy(this._reinitialize, this))
+        .done($.proxy(function(response) {
+                if (response.result) {
                     this._callbacks.success();
                 } else {
-                    console.error('Did not charge customer.');
+                    this._reinitialize();
+                    this._callbacks.errorWithPayment();
                 }
             }, this)    
-        ).fail(function() {
-            // TODO: what should we do here?
-            console.error('Could not charge customer.');
-        });
+        ).fail(this._callbacks.errorWithPayment);
         
     }
 });

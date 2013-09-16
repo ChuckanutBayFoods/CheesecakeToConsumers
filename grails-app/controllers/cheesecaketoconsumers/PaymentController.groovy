@@ -9,6 +9,8 @@ import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
 import java.sql.ResultSet;
 import java.util.Date;
 
+import net.sf.ehcache.transaction.TransactionID;
+
 import org.springframework.aop.TrueClassFilter;
 
 import com.amazonaws.cbui.AmazonFPSSingleUsePipeline;
@@ -21,13 +23,19 @@ import com.amazonaws.fps.model.PayRequest;
 import com.amazonaws.fps.model.PayResponse;
 import com.amazonaws.fps.model.PayResult;
 import com.amazonaws.fps.model.ResponseMetadata;
+import com.amazonaws.fps.model.TransactionStatus;
 import com.amazonaws.utils.PropertyBundle;
 import com.amazonaws.utils.PropertyKeys;
-import com.oracle.jrockit.jfr.ContentType;
 
 class PaymentController {
 
 	static scope = "singleton"
+	
+	private final String TRANSACTION_AMOUNT = "50"
+	// http://docs.aws.amazon.com/AmazonFPS/latest/FPSBasicGuide/CHAP_Sandbox.html
+	// On 9/15/13, Steve couldn't get these values to trigger an error.
+	//private final String TRANSACTION_AMOUNT = "50.61"; // Temporary Decline: Occurs when a downstream process is not available
+	//private final String TRANSACTION_AMOUNT = "50.71" // Payment Error: Insufficient funds
 	
 	private AmazonFPS service;
 	private String accessKeyId = PropertyBundle.getProperty(PropertyKeys.AWS_ACCESS_KEY);
@@ -40,18 +48,11 @@ class PaymentController {
 		try {
 			service = new AmazonFPSClient(accessKeyId, secretAccessKey);
 		} catch (AmazonFPSException e) {
-			log.error([
-				"Caught Exception" : e.getMessage(),
-			    "Response Status Code: " : e.getStatusCode(),
-			    "Error Code: " : e.getErrorCode(),
-			    "Error Type: " : e.getErrorType(),
-			    "Request ID: " : e.getRequestId(),
-			    "XML: " : e.getXML()
-			], e)
+			log.error(pullKeysFromAmazonFPSException, e)
 			throw new IllegalStateException(e)
 		}
 	}
-
+	
 	def index() { 
 		render "what up dog?!"
 	}
@@ -79,7 +80,7 @@ class PaymentController {
 			zip : order.recipient.zipCode,
 			phoneNumber : order.recipient.phoneNumber,
 			collectShippingAddress : false as String,
-			transactionAmount : "50",
+			transactionAmount : TRANSACTION_AMOUNT,
 			currencyCode : "USD",
 			// TODO: it doesn't currently look like this is being respected
 			paymentMethod : "ACH,ABT,CC",
@@ -104,6 +105,7 @@ class PaymentController {
 		return "Gift for ${order.recipient.name}:" + writer.toString();
 	}
 	
+	// http://docs.aws.amazon.com/AmazonFPS/latest/FPSBasicGuide/Pay.html
 	def chargeCustomer() {
 		// TODO: See if there's a way for Grails to do this automatically.
 		Order order = new Order(request.JSON.order);
@@ -112,70 +114,48 @@ class PaymentController {
 		log.debug(amazonSingleUseResponseParameters);
 		
 		PayRequest payRequest = new PayRequest([
-			callerReference : request.JSON.amazonCallerReference,
+			//callerReference : request.JSON.amazonCallerReference,
+			callerReference : new Date() as String, // Useful when doing error testing
 			senderTokenId : amazonSingleUseResponseParameters.tokenID,
+			// http://docs.aws.amazon.com/AmazonFPS/latest/FPSBasicGuide/CHAP_Sandbox.html
+			//senderTokenId : "Z1LGRXR4HMDZBSFKXELA32KZASGWD8IHMHZCK4DETR784LDLD1GMFW4P3WT8VTGX", // Closed Account
+			//senderTokenId : "E3FR7BARJV3PB631PMKV74PGKCJLBHI1Q1KMQN7BJ2JJICPDKN3N1CJIKFZ8D7NN", // Email Address Not Verified
+			//senderTokenId : "H216UECZ8ZM1G8G4QA3V7RKF8JDFZ9SI3SJAFSGUKBBNDHX1NVM8GUQRZNRNAHER", // Suspended Account
 			transactionAmount : [
 				currencyCode : CurrencyCode.USD,
-				value : "50"
+				value : TRANSACTION_AMOUNT
 			]
-		]);
-		invokePay(payRequest)
+		])
+		
+		boolean payRequestSuccessfullyMade = false
+		try {
+			PayResponse payResponse = service.pay(payRequest);
+			PayResult payResult = payResponse.getPayResult();
+			// TODO: persist transaction ID
+			log.debug([
+				transactionId : payResult.getTransactionId(),
+				transactionStatus : payResult.getTransactionStatus().value()
+			]);
+		
+		    if ([TransactionStatus.PENDING, TransactionStatus.SUCCESS].contains(payResult.getTransactionStatus())) {
+				payRequestSuccessfullyMade =  true;
+			}
+		} catch (AmazonFPSException e) {
+			log.error(pullKeysFromAmazonFPSException(e), e)
+		}
 		render(contentType : "application/json") {[
-			result : "true"
+			result : payRequestSuccessfullyMade
 		]}
 	}
 	
-	public void invokePay(PayRequest payRequest) {
-		try {
-			
-			PayResponse payResponse = service.pay(payRequest);
-
-			
-			System.out.println ("Pay Action Response");
-			System.out.println ("=============================================================================");
-			System.out.println ();
-
-			System.out.println("    PayResponse");
-			System.out.println();
-			if (payResponse.isSetPayResult()) {
-				System.out.println("        PayResult");
-				System.out.println();
-				PayResult  payResult = payResponse.getPayResult();
-				if (payResult.isSetTransactionId()) {
-					System.out.println("            TransactionId");
-					System.out.println();
-					System.out.println("                " + payResult.getTransactionId());
-					System.out.println();
-				}
-				if (payResult.isSetTransactionStatus()) {
-					System.out.println("            TransactionStatus");
-					System.out.println();
-					System.out.println("                " + payResult.getTransactionStatus().value());
-					System.out.println();
-				}
-			}
-			if (payResponse.isSetResponseMetadata()) {
-				System.out.println("        ResponseMetadata");
-				System.out.println();
-				ResponseMetadata  payResponseMetadata = payResponse.getResponseMetadata();
-				if (payResponseMetadata.isSetRequestId()) {
-					System.out.println("            RequestId");
-					System.out.println();
-					System.out.println("                " + payResponseMetadata.getRequestId());
-					System.out.println();
-				}
-			}
-			System.out.println();
-
-		   
-		} catch (AmazonFPSException ex) {
-			
-			System.out.println("Caught Exception: " + ex.getMessage());
-			System.out.println("Response Status Code: " + ex.getStatusCode());
-			System.out.println("Error Code: " + ex.getErrorCode());
-			System.out.println("Error Type: " + ex.getErrorType());
-			System.out.println("Request ID: " + ex.getRequestId());
-			System.out.print("XML: " + ex.getXML());
-		}
+	private def pullKeysFromAmazonFPSException(AmazonFPSException e) {
+		return [
+			"Caught Exception" : e.getMessage(),
+			"Response Status Code" : e.getStatusCode(),
+			"Error Code" : e.getErrorCode(),
+			"Error Type" : e.getErrorType(),
+			"Request ID" : e.getRequestId(),
+			"XML" : e.getXML()
+		]
 	}
 }
