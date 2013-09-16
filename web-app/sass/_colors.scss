@@ -1,6 +1,7 @@
 $white: #FFF;
-$transparentLightGray: rgba(240,240,240,.85);
-$lightGray: rgba(240,240,240, 1);
-$transparentMediumGray: darken($transparentLightGray, 40%);
-$mediumGray: darken($lightGray, 40%);
+$offWhite: rgba(240,240,240, 1);
+$transparentLightGray: rgba(230,230,230,.25);
+$lightGray: rgba(230,230,230, 1);
+$transparentMediumGray: darken($transparentLightGray, 20%);
+$mediumGray: darken($lightGray, 20%);
 $lightBlue: rgb(0, 136, 204)
