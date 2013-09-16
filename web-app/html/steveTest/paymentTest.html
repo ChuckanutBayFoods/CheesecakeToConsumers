@@ -11,7 +11,7 @@
     <script>
         $().ready(function() {
             var c2c = new C2C();
-            $('a').click(function() {
+            $('#launchPopUp').click(function() {
                 c2c.openAmazonCoBrandedPopUp();
             });
             c2c.initialize(getOrder(), {
@@ -30,6 +30,9 @@
                 success : function() {
                     console.info('success');
                 },
+            });
+            $('#simulatePopUpComplete').click(function() {
+                c2c._popUpComplete('http://localhost:8080/CheesecakeToConsumers/html/steveTest/closePopup.html?tokenID=A1K8IV2D7HUQKJRBE7S54UGB4F5TKZLDU93TFX6HN8I762QXPPPBLS6ODLK9Y2UQ&signatureMethod=RSA-SHA1&status=SC&signatureVersion=2&signature=aahcsPxb%2F1YNQMbgNVnE3xpzwLrdpscooPSQCBXzjY9St4DRKkSXsHyVFs0Ck6gQraYIEeIs8Xg5%0AOylbFSxqLVc4PMx9clsJeY6oXl%2FAbgdD9nJYpgeE6DZM4wBJEDY6sqagLtj4YxywAhYOoRW3RKdM%0AsSBAIoOkWy8KYY1UhrCfm5D%2FkXObCPp55hMAPWCPseah4HUwil6XxEDFSX8jG1IglIEdeGeekv2U%0Awh1LSOi3shTeF0UAjhbmmzaghIwSUO9RridrgoTVdxLjGJCwYu9xORh0ok8qHs3ua6iRbOnZ1IDi%0APirddGMO4Bmwpst3ZjOqCz28FKDsccK9kYhmTw%3D%3D&certificateUrl=https%3A%2F%2Ffps.sandbox.amazonaws.com%2Fcerts%2F110713%2FPKICert.pem%3FrequestId%3D1mkp7jmy45r06jbcsd6ghjbrtchx6wu3mnaspz2pgz8eg9n1o5&expiry=07%2F2015&callerReference=callerReferenceSingleUseSun+Sep+15+17%3A38%3A13+PDT+2013')
             });
         });
         
@@ -60,6 +63,9 @@
     </script>
 </head>
 <body>
-    <a>Click Me</a>
+    <a id="launchPopUp">Launch Pop Up</a>
+    <br/>
+    <br/>
+    <a id="simulatePopUpComplete">Simulate Pop Up Complete</a>
 </body>
 </html>

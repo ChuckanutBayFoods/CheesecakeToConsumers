@@ -37,17 +37,20 @@ $.extend(C2C.prototype, {
     	    type : 'POST',
     	    url : '/CheesecakeToConsumers/payment/getAmazonCoBrandedUrl', 
     	    data : JSON.stringify(this._order),
-    	    contentType: "application/json; charset=utf-8",
+    	    contentType: "application/json",
     	    processData : false
-    	}).done($.proxy(function(url) {
-        		console.log('amazonCoBrandedPopUpUrl: <%s>', url);
-        		this._amazonCoBrandedUrl = url;
+    	}).done($.proxy(function(response) {
+    	        console.log('getAmazonCoBrandedUrl response:');
+    	        console.log(response);
+    	        this._amazonCoBrandedUrl = response.amazonCoBrandedUrl;
+        		this._amazonCallerReference = response.amazonCallerReference;
         	}, this)
     	).fail(this._callbacks.errorGettingAmazonCoBrandedUrl);
     },
     
     _cleanUp : function() {
         this._amazonCoBrandedUrl = null;
+        this._amazonCallerReference = null;
         this._amazonSingleUseResponseParameters = null;
         this._callbacks = null;
         // close window if it's open
@@ -79,30 +82,35 @@ $.extend(C2C.prototype, {
         console.log(redirectUrl);
         clearInterval(this._checkIfPopUpIsClosedIntervalId);
         // Defer this work in case there's an error.  We don't want to affect the closing of the popup.
-        setTimeout(this._handlePopUpComplete, 0, redirectUrl);
+        setTimeout($.proxy(this._handlePopUpComplete, this), 0, redirectUrl);
     },
     
     _handlePopUpComplete : function(redirectUrl) {
-        this._amazonSingleUseResponseParameters = $.String.deparam(redirectUrl);
+        // Convert the query string params to a map.
+        this._amazonSingleUseResponseParameters = $.String.deparam(redirectUrl.substring(redirectUrl.indexOf('?') + 1));
         console.log(this._amazonSingleUseResponseParameters);
         if (!this._amazonSingleUseResponseParameters.status || !this._amazonSingleUseResponseParameters.status.match(/^S[ABC]$/)) {
             this._callbacks.errorWithPayment();
             return;
         }
-        var that = this;
         $.ajax({
             type : 'POST',
             url : '/CheesecakeToConsumers/payment/chargeCustomer', 
             data : JSON.stringify({
                 order : this._order,
+                amazonCallerReference : this._amazonCallerReference,
                 amazonSingleUseResponseParameters : this._amazonSingleUseResponseParameters
             }),
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             processData : false
-        }).done(function(url) {
-            console.log('Successfully charged user');
-            that.callbacks.success();
-        }).fail(function() {
+        }).done($.proxy(function(successfullyRequestedPayment) {
+                if (successfullyRequestedPayment) {
+                    this._callbacks.success();
+                } else {
+                    console.error('Did not charge customer.');
+                }
+            }, this)    
+        ).fail(function() {
             // TODO: what should we do here?
             console.error('Could not charge customer.');
         });
