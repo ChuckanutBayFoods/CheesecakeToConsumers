@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap-datepicker.js"></script>
     <script src="../js/sly.js"></script>
     <script src="../js/flavorData.js"></script>
 </head>
@@ -78,6 +79,12 @@
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
         </footer>
     </section>
+    <section id="pack">
+        <footer class="slide-down">
+            <div class="next-prompt">Proceed to Payment</div>
+            <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
+        </footer>
+    </section>
     <div id="box-container-wrapper">
         <div id="box-container">
             <div id="shield1" class="shield"></div>
@@ -101,7 +108,7 @@
                 <img class="styro right" src="../img/styro/right.png">
                 <img class="styro base" src="../img/styro/base.png">
             </div>
-            <div id="gift-message">
+            <div id="gift-message" class="hide">
                     <div class="info">
                         <h3>All Natural Ingredients</h3>
                         <p>These cheesecakes were handmade in the beautiful pacific northwest by Chuckanut Bay Foods.</p>
@@ -111,13 +118,13 @@
                     </div><div class="message">
                         <h1>A Gift for You!</h1>
                         <div class="non-edit">
-                            <listing>
+                            <pre>
 My dearest,
 
 I hope you enjoy this all natural delicious dessert.
 
 Love,
-Your secret admirer</listing>
+Your secret admirer</pre>
                             <a href="#" class="edit-message-label right-aligned">Edit Message</a>
                         </div>
                         <div class="edit hide">
@@ -131,6 +138,58 @@ Your secret admirer</listing>
                         <p class="handmade-cheesecakes">8 Handmade Cheesecakes</p>
                         <img class="cheesecake-plated" src="../img/cheesecake-plated.png"/>
                         <img class="logo-cover" src="../img/logos/chuckanutbaylogo-narrow-medium.png"/>
+                    </div>
+                </div>
+                <div id="box" class="slide-down hide">
+                    <img class="box-part back" src="../img/box/back.png">
+                    <img class="box-part front" src="../img/box/front.png">
+                    <img class="box-part flaps" src="../img/box/flaps.png">
+                    <img class="box-part top transparent" src="../img/box/top.png">
+                    <img class="box-part tape transparent" src="../img/box/tape.png">
+                </div>
+                <div id="label" class="slide-down hide">
+                    <div class="return-address">
+                        Chuckanut Bay Foods<br>
+                        5501 Hovander Rd #1<br>
+                        Ferndale, WA 98248
+                    </div>
+                    <div class="ship-to-wrapper">
+                        <div class="ship-to-label">SHIP TO:</div>
+                        <pre class="ship-to hide"></pre>
+                        <div class="form">
+                            <input class="name" type="text" placeholder="Recipient Name"/><br>
+                            <input class="address" type="text" placeholder="Address"/><br>
+                            <input class="city" type="text" placeholder="City"/>
+                            <input class="state" type="text" placeholder="State" maxlength="2" />
+                            <input class="zip" type="text" placeholder="Zip" maxlength="5" />
+                        </div>
+                    </div>
+                    <div class="date-picker-wrapper">
+                        <div class="date-picker-label">
+                            Deliver on:
+                        </div>
+                        <input type="text" id="datepicker" />
+                        <div class="deliver-date hide"></div>
+                    </div>
+                    <div class="shipping-constraints">
+                        Orders placed after 1:00PM PST cannot be shipped until next day.<br>
+                        Orders can only be scheduled for arrival on a Tue, Wed, Thur, or Fri.
+                    </div>
+                    <div class="next-day-wrapper">
+                        <div class="two-d-barcode-wrapper">
+                            <img class="box-part back" src="../img/label/2dbarcode.png">
+                        </div>
+                        <div class="next-day-label-wrapper">
+                            <div class="next-day-label">
+                                UPS Next-Day Air
+                            </div>
+                            <div class="freshness-label">
+                                For maximum freshness
+                            </div>
+                        </div>
+                    </div>
+                    <div class="barcode-wrapper">
+                        <img class="box-part back" src="../img/label/barcode.png">
                     </div>
                 </div>
             </div>

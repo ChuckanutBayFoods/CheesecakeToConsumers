@@ -38,22 +38,22 @@
 
             $('#side-nav > div').removeClass('selected');
             gotoNavElement.addClass('selected');
-            test();
+            advanceSection();
 
-            function test() {
+            function advanceSection() {
                 acceptScrolling = false;
                 if (currentSectionIndex - targetSectionIndex > 0) {
-                    sectionTransitionFunctions['from' + capitalise(currentSection) + 'To' + capitalise(enabledSections[currentSectionIndex - 1])](function() {
+                    sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex - 1])](function() {
                         currentSectionIndex--;
-                        test();
+                        advanceSection();
                         acceptScrolling = true;
                     });
                 }
 
                 if (currentSectionIndex - targetSectionIndex < 0) {
-                    sectionTransitionFunctions['from' + capitalise(currentSection) + 'To' + capitalise(enabledSections[currentSectionIndex + 1])](function() {
+                    sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex + 1])](function() {
                         currentSectionIndex++;
-                        test();
+                        advanceSection();
                         acceptScrolling = true;
                     });
                 }
@@ -71,10 +71,13 @@
     }
 
     function disableSection(section) {
+        var foundSection = false;
         enabledSections = $.grep(enabledSections, function(value) {
-            return value != section;
+            if (value == section){
+                foundSection = true;
+            }
+            return !foundSection || !getNavElement(value).addClass('disabled');
         });
-        getNavElement(section).addClass('disabled');
 
     }
 
@@ -212,6 +215,57 @@
         gotoSection('personalize');
     });
 
+    $("#personalize footer").click(function() {
+        gotoSection('pack');
+    });
+
+    $("#pack footer").click(function() {
+        gotoSection('pay');
+    });
+
+    $('#label input').keyup(function() {
+        if ($('#label .zip').val().length == 5) {
+            labelTooltips.hideAll();
+
+            setTimeout(function() {
+                if (!validArrivalDate(new Date($('#datepicker').val()))) {
+                    labelTooltips.datePicker.show();
+                    return;
+                }
+
+                if (!$('#label .name').val()) {
+                    labelTooltips.name.show();
+                    return;
+                }
+
+                if (!$('#label .address').val()) {
+                    labelTooltips.address.show();
+                    return;
+                }
+
+                if (!$('#label .city').val()) {
+                    labelTooltips.city.show();
+                    return;
+                }
+
+                if ($('#label .state').val().length != 2) {
+                    labelTooltips.state.show();
+                    return;
+                }
+
+                if ($('#label .zip').val().length != 5 || !parseInt($('#label .zip').val())) {
+                    labelTooltips.zip.show();
+                    return;
+                }
+                enableSection('pay');
+                $('#pack footer').removeClass('slide-down');
+            }, 500);
+        } else {
+            disableSection('pay');
+            $('#pack footer').addClass('slide-down');
+        }
+    });
+
     function findOpenCheesecakeSlot() {
         for(var i = 1; i <= 8; i++) {
             if (!pickedCheesecakes[i]) {
@@ -220,27 +274,68 @@
         }
     }
 
-    function setupCheesecakePopover() {
-
-    }
-
     $('.questions > a').popover({
         placement: 'bottom',
         content: $('.questions-content').html(),
         html: true
     });
 
-    $('#gift-message').find('listing, .edit-message-label').click(function() {
-        $('textarea').val($('listing').text());
+    $('#gift-message').find('pre, .edit-message-label').click(function() {
+        $('textarea').val($('pre').text());
         $('#gift-message .non-edit').addClass('hide');
         $('#gift-message .edit').removeClass('hide');
     });
 
     $('#gift-message .btn-save').click(function() {
-        $('listing').text($('textarea').val());
+        $('pre').text($('textarea').val());
         $('#gift-message .non-edit').removeClass('hide');
         $('#gift-message .edit').addClass('hide');
     });
+
+    var labelTooltips = {
+        datePicker: $('#datepicker').tooltip({
+            title: 'Select valid delivery date',
+            placement: 'right',
+            trigger: 'manual'
+        }).data('tooltip'),
+
+        name: $('#label .name').tooltip({
+            title: 'Enter a recipient',
+            trigger: 'manual'
+        }).data('tooltip'),
+
+        address: $('#label .address').tooltip({
+            title: 'Enter an address',
+            trigger: 'manual'
+        }).data('tooltip'),
+
+        city: $('#label .city').tooltip({
+            title: 'Enter a city',
+            placement: 'bottom',
+            trigger: 'manual'
+        }).data('tooltip'),
+
+        state: $('#label .state').tooltip({
+            title: 'Enter a state',
+            placement: 'bottom',
+            trigger: 'manual'
+        }).data('tooltip'),
+
+        zip: $('#label .zip').tooltip({
+            title: 'Enter a valid zip code',
+            placement: 'bottom',
+            trigger: 'manual'
+        }).data('tooltip'),
+
+        hideAll: function() {
+            this.datePicker.hide();
+            this.name.hide();
+            this.address.hide();
+            this.city.hide();
+            this.state.hide();
+            this.zip.hide();
+        }
+    }
 
     var sectionTransitionFunctions = {
         fromPickToPersonalize: function(callback) {
@@ -252,7 +347,9 @@
                         $('#styro-container').removeClass('hide')
                         $('#box1').animate({top:'+=50'}, 500, function() {
                             $('#styro-container').addClass('collapsed');
+                            $('#gift-message').show();
                             setTimeout(function() {
+                                $('.box').hide();
                                 $('#gift-message').addClass('slide-up');
                                 setTimeout(function() {
                                     $('#personalize footer').removeClass('slide-down');
@@ -267,13 +364,14 @@
         },
 
         fromPersonalizeToPick: function(callback) {
-            disableSection('pack');
             $('#personalize footer').addClass('slide-down');
             setTimeout(function() {
                 $('#gift-message').removeClass('slide-up');
                 setTimeout(function() {
+                    $('.box').show();
                     $('#styro-container').removeClass('collapsed');
                     setTimeout(function() {
+                        $('#gift-message').hide();
                         $("#box1").animate({top:'-=50'}, 500, function() {
                             $('#styro-container').addClass('hide')
                             $("#box2").animate({left:'600'}, 500, function() {
@@ -296,21 +394,100 @@
             $('#gift-message').addClass('fold');
             setTimeout(function() {
                 $('#gift-message').addClass('shrink');
+                $('#box').show();
+                $('#label').show();
                 setTimeout(function() {
-                    callback();
+                    $('#box').removeClass('slide-down');
+                    $('#label').removeClass('slide-down');
+                    setTimeout(function() {
+                        callback();
+                    }, 2000);
                 }, 1000);
             }, 2000);
         },
 
         fromPackToPersonalize: function(callback) {
-            $('#gift-message').removeClass('shrink');
+            $('#pack footer').addClass('slide-down');
+            $('#label').addClass('slide-down');
+            $('#box').addClass('slide-down');
             setTimeout(function() {
-                $('#gift-message').removeClass('fold');
+                $('#label').hide();
+                $('#box').hide();
+                $('#gift-message').removeClass('shrink');
                 setTimeout(function() {
-                    $('#personalize footer').removeClass('slide-down');
+                    $('#gift-message').removeClass('fold');
+                    setTimeout(function() {
+                        $('#personalize footer').removeClass('slide-down');
+                        callback();
+                    }, 2000);
+                }, 1000);
+            }, 1000);
+        },
+
+        fromPackToPay: function(callback) {
+            $('#pack footer').addClass('slide-down');
+            var addressString = $('#label .name').val() + '\n' +
+                $('#label .address').val() + '\n' +
+                $('#label .city').val() + ' ' + $('#label .city').val() + ' ' + $('#label .zip').val();
+
+            $('#label .deliver-date').text($('#datepicker').val()).show();
+            $('#label .ship-to').text(addressString.toUpperCase()).show();
+            $('#label input').hide();
+            $('#box .flaps').addClass('transparent');
+            $('#box .top').removeClass('transparent');
+            setTimeout(function() {
+                $('#label').addClass('shrink');
+                $('#box .tape').removeClass('transparent');
+                setTimeout(function() {
                     callback();
-                }, 2000);
+                }, 1000);
+            }, 1000);
+        },
+
+        fromPayToPack: function(callback) {
+            $('#pay footer').addClass('slide-down');
+            $('#label').removeClass('shrink');
+            $('#box .tape').addClass('transparent');
+            setTimeout(function() {
+                $('#box .flaps').removeClass('transparent');
+                $('#box .top').addClass('transparent');
+                setTimeout(function() {
+                    $('#label .deliver-date').hide();
+                    $('#label .ship-to').hide();
+                    $('#label input').show();
+                    callback();
+                }, 1000);
             }, 1000);
         }
     }
+
+    function validArrivalDate(date) {
+        return startDate.valueOf() <= date.valueOf() && $.inArray(date.getDay(), [0, 1, 6]) == -1;
+    }
+
+    function getStartDate() {
+        var startDate = new Date();
+        startDate.setDate(startDate.getDate() + 1); // Earliest delivery is next day
+        if (startDate.getUTCHours() >= 20) {
+            startDate.setDate(startDate.getDate() + 1); // After 1PM, won't ship until next day
+        }
+
+        var daysToAdd = 0;
+        switch (startDate.getDay()) {
+            case 0: daysToAdd = 2; break; //Sunday - can't deliver until Tue
+            case 1: daysToAdd = 1; break; //Monday - can't deliver until Tue
+            case 6: daysToAdd = 3; break; //Saturday - can't deliver until Tue
+        }
+        startDate.setDate(startDate.getDate() + daysToAdd);
+        startDate.setHours(0, 0, 0, 0);
+        return startDate;
+    }
+
+    var startDate = getStartDate();
+    $('#datepicker').datepicker({
+        format: 'mm-dd-yyyy',
+        onRender: function(date) {
+            return !validArrivalDate(date) ? 'disabled' : '';
+        }
+    }).data('datepicker').setValue(startDate);
 })();

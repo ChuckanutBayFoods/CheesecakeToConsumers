@@ -26,6 +26,7 @@ header {
     .popover {
       line-height: initial;
       max-width: 500px;
+      -webkit-transform: translateX(0px) translateX(0px);
 
       .question {
         font-weight: 700;

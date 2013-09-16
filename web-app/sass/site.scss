@@ -27,12 +27,15 @@
 
 $width: 1170px;
 
+@import "bootstrap";
+@import "bootstrap-datepicker";
 @import "colors";
 @import "fontSizes";
 @import "headerFooter";
 @import "sideNav";
 @import "pick";
 @import "personalize";
+@import "pack";
 
 html {
   overflow: hidden;
@@ -43,7 +46,12 @@ body {
   font-weight: 300;
 }
 
+input {
+  height: 30px !important;
+}
+
 * {
+  opacity: 1;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box
@@ -66,6 +74,14 @@ h1, h3, h5 {
 
 h2, h4, h6 {
   font-weight: 100;
+}
+
+pre {
+  font-family: inherit;
+}
+
+.transparent {
+  opacity: 0;
 }
 
 .popover {

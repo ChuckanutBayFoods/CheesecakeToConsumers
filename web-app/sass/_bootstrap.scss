@@ -174,7 +174,7 @@ textarea {
   a[href^="#"]:after {
     content: "";
   }
-  pre,
+
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
@@ -807,8 +807,9 @@ address {
   font-style: normal;
   line-height: 20px;
 }
-code,
-pre {
+
+//pre,
+code {
   padding: 0 3px 2px;
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
   font-size: 12px;
@@ -824,6 +825,8 @@ code {
   border: 1px solid #e1e1e8;
   white-space: nowrap;
 }
+
+/*
 pre {
   display: block;
   padding: 9.5px;
@@ -856,6 +859,9 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
+
+*/
+
 .label,
 .badge {
   display: inline-block;
@@ -5261,9 +5267,9 @@ button.close {
 .collapse.in {
   height: auto;
 }
-@-ms-viewport {
-  width: device-width;
-}
+//@-ms-viewport {
+//  width: device-width;
+//}
 .hidden {
   display: none;
   visibility: hidden;

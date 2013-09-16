@@ -1,0 +1,166 @@
+#box {
+  position: absolute;
+  top: -213px;
+  left: -56px;
+  transition: all 2s ease;
+
+  &.slide-down {
+    top: 100%;
+  }
+
+  .box-part {
+    position: absolute;
+    transition: all 1s;
+
+    &.back {
+      z-index: 500;
+    }
+
+    &.front {
+      z-index: 7000;
+    }
+
+    &.flaps {
+       z-index: 7500;
+    }
+
+    &.top {
+      z-index: 7600;
+    }
+
+    &.tape {
+      z-index: 7700;
+    }
+  }
+}
+
+.label-label {
+  font-size: $small;
+  font-weight: 300;
+  color: $mediumGray;
+}
+
+#label {
+  @include box-shadow(0 5px 10px $shadowColor);
+  @include border-radius(12px);
+
+  border: 1px solid $mediumGray;
+  padding: 12px;
+  font-family: "Arial Narrow", Arial;
+  font-weight: 600;
+  position: absolute;
+  top: -200px;
+  left: 500px;
+  width: 400px;
+  z-index: 8700;
+  background-color: $white;
+  transition: all 2s ease;
+
+  &.slide-down {
+    top: 100%;
+  }
+
+  &.shrink {
+    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5);
+    left: -50px;
+    top: -315px;
+  }
+
+  .return-address {
+    line-height: 16px;
+  }
+
+  .ship-to-wrapper {
+    height: 120px;
+    margin: 20px 0;
+
+    > * {
+      float: left;
+    }
+
+    .ship-to-label {
+      width: 40px;
+      font-size: $large;
+      vertical-align: top;
+    }
+
+    .ship-to {
+      margin: 0;
+    }
+
+    .form {
+      .name {
+        width: 250px;
+      }
+
+      .address {
+        width: 250px;
+      }
+
+      .city {
+        width: 124px;
+      }
+
+      .state {
+        width: 50px;
+      }
+
+      .zip {
+        width: 70px;
+      }
+    }
+  }
+
+  .date-picker-wrapper {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+
+    .date-picker-label {
+      font-size: $large;
+    }
+
+    #datepicker {
+      width: 180px;
+    }
+  }
+
+  .shipping-constraints {
+    @extend .label-label;
+    clear: both;
+  }
+
+  .next-day-wrapper {
+    border-top: 1px solid $black;
+    border-bottom: 3px solid $black;
+
+    > * {
+      display: inline-block;
+      padding: 12px;
+    }
+
+    .two-d-barcode-wrapper {
+      border-right: 1px solid $black;
+    }
+
+    .next-day-label-wrapper {
+      .next-day-label {
+        font-size: $large;
+      }
+
+      .freshness-label {
+        @extend .label-label;
+      }
+    }
+
+
+  }
+}
+
+.datepicker {
+  z-index: 9500;
+
+  .disabled:hover {
+    background: none !important;
+  }
+}
