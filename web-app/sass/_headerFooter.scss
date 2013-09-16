@@ -12,6 +12,8 @@ $headerFooterHeight: 50px;
 header {
   @extend .header-footer-base;
   border-bottom: 1px solid $transparentMediumGray;
+  position: relative;
+  z-index: 8000;
 
   .free-shipping {
     color: $mediumGray;
@@ -48,6 +50,7 @@ footer {
   transition: all .25s ease;
   text-align: center;
   cursor: pointer;
+  z-index: 8000;
 
   .next-prompt {
     font-size: $large;

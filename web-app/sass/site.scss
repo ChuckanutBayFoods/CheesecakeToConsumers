@@ -14,10 +14,14 @@
   height: $size;
 }
 
-@import "_colors.scss";
-@import "_fontSizes.scss";
+//@import "compass";
+@import "colors";
+@import "fontSizes";
 @import "headerFooter";
-@import "_sideNav.scss";
+@import "sideNav";
+
+
+$width: 1170px;
 
 html {
   overflow: hidden;
@@ -30,23 +34,28 @@ body {
 
 h1 {
   font-weight: 300;
-  font-size: 48px;
+  font-size: $massive;
   text-align: center;
   margin: 20px 0 10px 0;
 }
 
 h2 {
   font-weight: 100;
-  font-size: 24px;
+  font-size: $huge;
   text-align: center;
+}
+
+.popover {
+  z-index: 9000;
 }
 
 #flavor-carousel {
   margin: 0px auto;
   width: 80%;
+  text-align: center;
 
   .well {
-    height: 180px;
+    height: 150px;
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -65,23 +74,71 @@ h2 {
       cursor: pointer;
       width: 300px;
       height: 100%;
-      transition: all .5s ease;
+      //transition: all .5s ease;
+
+      > img {
+        margin-top: -12px;
+      }
+
+      .flavor-label {
+        margin-top: -8px;
+      }
     }
 
     .active {
+      line-height: 0px;
       -webkit-transform: scale(1.4);
     }
   }
 
   .arrow-right {
     float: right;
-    margin: 81px 16px;
+    margin: 64px 16px;
   }
 
   .arrow-left {
     float: left;
-    margin: 81px 16px;
+    margin: 64px 16px;
   }
+
+  $carrotSize: 11px;
+  .carrot-container {
+    display: inline-block;
+    position: relative;
+    height: $carrotSize;
+    width: $carrotSize * 2;
+    top: -(4 + $carrotSize);
+  }
+
+  .carrot-base {
+    width: 0;
+    height: 0;
+    border-left: $carrotSize solid transparent;
+    border-right: $carrotSize solid transparent;
+    position: absolute;
+  }
+
+  .outer-carrot {
+    @extend .carrot-base;
+
+    top: -1px;
+    border-bottom: $carrotSize solid $lightGray;
+  }
+
+  .inner-carrot {
+    @extend .carrot-base;
+
+    border-bottom: $carrotSize solid $white;
+  }
+}
+
+#selected-cheesecake-btns {
+  clear: both;
+  margin: -6px 0 6px 0;
+}
+
+.btn-container {
+  text-align: center;
 }
 
 .arrow-base {
@@ -105,4 +162,172 @@ h2 {
   @extend .arrow-base;
 
   background-image: url('../img/arrow-left.png');
+}
+
+#box-container-wrapper {
+  position: absolute;
+  top: 375px;
+  left: 50%;
+}
+
+#box-container {
+  width: $width;
+  margin: 0 auto;
+  position: relative;
+  left: -$width/2;
+  top: 0;
+
+  .box {
+    position: absolute;
+
+    .box-part {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 550px;
+    }
+    .back {
+      z-index: 1000;
+    }
+
+    .mid {
+      z-index: 2000;
+    }
+
+    .front {
+      z-index: 3000;
+    }
+  }
+
+  #box1 {
+    left: 0;
+  }
+
+  #box2 {
+    left: 600px;
+  }
+
+  .shield {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    background-color: $white;
+  }
+
+  #shield1 {
+    z-index: 1999;
+    top: 130px;
+  }
+
+  #shield2 {
+    z-index: 2999;
+    top: 230px;
+  }
+
+  .cheesecake {
+    position: absolute;
+    width: 135px;
+    cursor: pointer;
+  }
+
+  a.cheesecake-event-catcher {
+    opacity: 0;
+    z-index: 5000;
+  }
+
+  $backRowTop: 144px;
+  $frontRowTop: 258px;
+  .cheesecake1,
+  .cheesecake5 {
+    top: $backRowTop;
+    left: 86px;
+    z-index: 1100;
+  }
+
+  .cheesecake2,
+  .cheesecake6 {
+    top: $backRowTop;
+    left: 300px;
+    z-index: 1200;
+  }
+
+  .cheesecake3,
+  .cheesecake7 {
+    top: $frontRowTop;
+    left: 122px;
+    z-index: 2300;
+  }
+
+  .cheesecake4,
+  .cheesecake8 {
+    top: $frontRowTop;
+    left: 336px;
+    z-index: 2400;
+  }
+
+  .popover {
+    width: 200px;
+
+    .btn-remove {
+      margin-left: 4px;
+    }
+  }
+
+
+  $expodeDistance: 200px;
+  #styro-container {
+    position: absolute;
+    top: -213px;
+    left: -56px;
+
+    &.collapsed > * {
+      opacity: 1 !important;
+      left: 0 !important;
+      top: 0 !important;
+    }
+    .styro {
+      position: absolute;
+      opacity: 0;
+      transition: opacity .5s, left 1s ease 1s, top 1s ease 1s;
+
+      &.base {
+        z-index: 100;
+        top: $expodeDistance;
+      }
+
+      &.back {
+        z-index: 200;
+        top: -.95 * $expodeDistance;
+        left: -.31 * $expodeDistance;
+      }
+
+      &.right {
+        z-index: 300;
+        left: $expodeDistance;
+      }
+
+      &.left {
+        z-index: 3100;
+        left: -$expodeDistance;
+      }
+
+      &.front {
+        z-index: 3200;
+        top: .95 * $expodeDistance;
+        left: .31 * $expodeDistance;
+      }
+
+      &.top {
+        z-index: 3300;
+        top: -$expodeDistance;
+      }
+
+      &.styro-label {
+        color: $mediumGray;
+        margin: 440px 0 0 280px;
+        width: 300px;
+        font-size: $huge;
+      }
+    }
+  }
 }
