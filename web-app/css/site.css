@@ -89,27 +89,6 @@ footer {
     #side-nav .disabled .dot {
       background-color: #e6e6e6; }
 
-html {
-  overflow: hidden; }
-
-body {
-  background-color: white;
-  font-weight: 300; }
-
-h1 {
-  font-weight: 300;
-  font-size: 48px;
-  text-align: center;
-  margin: 20px 0 10px 0; }
-
-h2 {
-  font-weight: 100;
-  font-size: 24px;
-  text-align: center; }
-
-.popover {
-  z-index: 9000; }
-
 #flavor-carousel {
   margin: 0px auto;
   width: 80%;
@@ -166,30 +145,15 @@ h2 {
   clear: both;
   margin: -6px 0 6px 0; }
 
-.btn-container {
-  text-align: center; }
-
-.arrow-base, .arrow-right, .arrow-left {
-  width: 12px;
-  height: 24px;
-  display: inline-block;
-  cursor: pointer; }
-  .arrow-base.disabled, .disabled.arrow-right, .disabled.arrow-left {
-    opacity: .25; }
-
-.arrow-right {
-  background-image: url("../img/arrow-right.png"); }
-
-.arrow-left {
-  background-image: url("../img/arrow-left.png"); }
-
 #box-container-wrapper {
+  height: 100%;
   position: absolute;
   top: 375px;
   left: 50%; }
 
 #box-container {
   width: 1170px;
+  height: 100%;
   margin: 0 auto;
   position: relative;
   left: -585px;
@@ -253,40 +217,193 @@ h2 {
     width: 200px; }
     #box-container .popover .btn-remove {
       margin-left: 4px; }
-  #box-container #styro-container {
+
+#styro-container {
+  position: absolute;
+  top: -213px;
+  left: -56px; }
+  #styro-container.collapsed > * {
+    opacity: 1 !important;
+    left: 0 !important;
+    top: 0 !important; }
+  #styro-container .styro {
     position: absolute;
-    top: -213px;
-    left: -56px; }
-    #box-container #styro-container.collapsed > * {
-      opacity: 1 !important;
-      left: 0 !important;
-      top: 0 !important; }
-    #box-container #styro-container .styro {
+    opacity: 0;
+    transition: opacity 1s, left 2s ease-in-out, top 2s ease-in-out; }
+    #styro-container .styro.base {
+      z-index: 100;
+      top: 200px; }
+    #styro-container .styro.back {
+      z-index: 200;
+      top: -190px;
+      left: -62px; }
+    #styro-container .styro.right {
+      z-index: 300;
+      left: 200px; }
+    #styro-container .styro.left {
+      z-index: 3100;
+      left: -200px; }
+    #styro-container .styro.front {
+      z-index: 3200;
+      top: 190px;
+      left: 62px; }
+    #styro-container .styro.top {
+      z-index: 3300;
+      top: -200px; }
+    #styro-container .styro.styro-label {
+      color: #b3b3b3;
+      margin: 440px 0 0 280px;
+      width: 300px;
+      font-size: 24px; }
+
+.gift-message-page-base, #gift-message .info, #gift-message .message, #gift-message .cover {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  position: relative;
+  vertical-align: top;
+  padding: 12px;
+  transition: all 2s ease; }
+
+#gift-message {
+  /* Firefox 1-3.6 */
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #b3b3b3;
+  position: absolute;
+  top: 100%;
+  left: 270px;
+  width: 900px;
+  height: 700px;
+  z-index: 5000;
+  background-color: white;
+  transition: all 2s ease;
+  overflow: hidden; }
+  #gift-message.slide-up {
+    top: -300px; }
+  #gift-message.fold {
+    left: 100px;
+    width: 450px !important; }
+    #gift-message.fold .info {
+      left: -100% !important;
+      width: 100%;
+      opacity: 0; }
+    #gift-message.fold .message {
+      left: 0% !important;
+      width: 100%; }
+    #gift-message.fold .cover {
+      left: -0.5% !important;
+      width: 100%; }
+    #gift-message.fold.shrink {
+      transition: all 1s ease;
+      top: -400px;
+      left: 60px;
+      -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) rotate(90deg); }
+  #gift-message h1, #gift-message h2, #gift-message h3, #gift-message h4, #gift-message h5, #gift-message h6 {
+    color: #8b0025; }
+  #gift-message .info {
+    border-right: 1px solid #e6e6e6;
+    position: absolute;
+    left: 0; }
+    #gift-message .info .logo-container {
+      text-align: center;
       position: absolute;
-      opacity: 0;
-      transition: opacity 0.5s, left 1s ease 1s, top 1s ease 1s; }
-      #box-container #styro-container .styro.base {
-        z-index: 100;
-        top: 200px; }
-      #box-container #styro-container .styro.back {
-        z-index: 200;
-        top: -190px;
-        left: -62px; }
-      #box-container #styro-container .styro.right {
-        z-index: 300;
-        left: 200px; }
-      #box-container #styro-container .styro.left {
-        z-index: 3100;
-        left: -200px; }
-      #box-container #styro-container .styro.front {
-        z-index: 3200;
-        top: 190px;
-        left: 62px; }
-      #box-container #styro-container .styro.top {
-        z-index: 3300;
-        top: -200px; }
-      #box-container #styro-container .styro.styro-label {
-        color: #b3b3b3;
-        margin: 440px 0 0 280px;
-        width: 300px;
-        font-size: 24px; }
+      bottom: 10px;
+      left: 0;
+      width: 100%; }
+  #gift-message .message {
+    position: absolute;
+    left: 50%; }
+    #gift-message .message h1 {
+      text-align: left;
+      margin-bottom: 20px; }
+    #gift-message .message textarea {
+      width: 100%;
+      resize: none; }
+    #gift-message .message listing {
+      font-family: inherit; }
+    #gift-message .message .right-aligned {
+      float: right;
+      margin-left: 12px; }
+    #gift-message .message .max-characters-label {
+      color: #b3b3b3; }
+    #gift-message .message .ingredients {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 350px; }
+    #gift-message .message .refrigerate-label {
+      position: absolute;
+      bottom: 12px;
+      width: 30px; }
+  #gift-message .cover {
+    position: absolute;
+    left: -50%;
+    background-color: white;
+    border-right: 1px solid #b3b3b3; }
+    #gift-message .cover > * {
+      -webkit-transform: rotate(270deg);
+      position: absolute; }
+    #gift-message .cover .handmade-cheesecakes {
+      font-size: 30px;
+      font-weight: 100;
+      top: 80px;
+      left: 250px;
+      line-height: initial;
+      text-align: center; }
+    #gift-message .cover .cheesecake-plated {
+      top: 330px;
+      left: 110px; }
+    #gift-message .cover .logo-cover {
+      top: 280px;
+      left: -70px; }
+
+html {
+  overflow: hidden; }
+
+body {
+  background-color: white;
+  font-weight: 300; }
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box; }
+
+h1 {
+  font-size: 48px;
+  text-align: center;
+  margin: 20px 0 10px 0; }
+
+h2 {
+  font-size: 24px;
+  text-align: center; }
+
+h1, h3, h5 {
+  font-weight: 300; }
+
+h2, h4, h6 {
+  font-weight: 100; }
+
+.popover {
+  z-index: 9000; }
+
+.btn-container {
+  text-align: center; }
+
+.arrow-base, .arrow-right, .arrow-left {
+  width: 12px;
+  height: 24px;
+  display: inline-block;
+  cursor: pointer; }
+  .arrow-base.disabled, .disabled.arrow-right, .disabled.arrow-left {
+    opacity: .25; }
+
+.arrow-right {
+  background-image: url("../img/arrow-right.png"); }
+
+.arrow-left {
+  background-image: url("../img/arrow-left.png"); }

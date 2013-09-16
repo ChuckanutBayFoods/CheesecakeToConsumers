@@ -133,7 +133,7 @@
         next: $('#flavor-carousel .arrow-right')
     });
 
-    $('.btn-success').click(function() {
+    $('.btn-add').click(function() {
         var flavor = getFlavorById($('.flavor.active').attr('data-id'));
         var openSlot = findOpenCheesecakeSlot();
         if (!openSlot) {
@@ -229,38 +229,88 @@
         content: $('.questions-content').html(),
         html: true
     });
-})();
 
-var sectionTransitionFunctions = {
-    fromPickToPersonalize: function(callback) {
-        $('#pick').animate({opacity: '0'}, 1000, function() {
-            $('#pick').hide();
-            $('.shield').hide();
-            $('#box1').animate({top:'-=200'}, 500, function() {
-                $('#box2').animate({left:'0'}, 500, function() {
-                    $('#styro-container').removeClass('hide')
-                    $('#box1').animate({top:'+=50'}, 500, function() {
-                        $('#styro-container').addClass('collapsed');
-                        callback();
+    $('#gift-message').find('listing, .edit-message-label').click(function() {
+        $('textarea').val($('listing').text());
+        $('#gift-message .non-edit').addClass('hide');
+        $('#gift-message .edit').removeClass('hide');
+    });
+
+    $('#gift-message .btn-save').click(function() {
+        $('listing').text($('textarea').val());
+        $('#gift-message .non-edit').removeClass('hide');
+        $('#gift-message .edit').addClass('hide');
+    });
+
+    var sectionTransitionFunctions = {
+        fromPickToPersonalize: function(callback) {
+            $('#pick').animate({opacity: '0'}, 1000, function() {
+                $('#pick').hide();
+                $('.shield').hide();
+                $('#box1').animate({top:'-=200'}, 500, function() {
+                    $('#box2').animate({left:'0'}, 500, function() {
+                        $('#styro-container').removeClass('hide')
+                        $('#box1').animate({top:'+=50'}, 500, function() {
+                            $('#styro-container').addClass('collapsed');
+                            setTimeout(function() {
+                                $('#gift-message').addClass('slide-up');
+                                setTimeout(function() {
+                                    $('#personalize footer').removeClass('slide-down');
+                                    enableSection('pack');
+                                    callback();
+                                }, 2000)
+                            }, 2000);
+                        });
                     });
                 });
-            });
-        }).find('footer').addClass('slide-down');
-    },
+            }).find('footer').addClass('slide-down');
+        },
 
-    fromPersonalizeToPick: function(callback) {
-        $('#styro-container').removeClass('collapsed');
-        $("#box1").animate({top:'-=50'}, 500, function() {
-            $('#styro-container').addClass('hide')
-            $("#box2").animate({left:'600'}, 500, function() {
-                $("#box1").animate({top:'+=200'}, 500, function() {
-                    $('.shield').show();
-                    $("#pick").show().animate({opacity: '1'}, 1000, function() {
-                        $('#pick footer').removeClass('slide-down');
-                        callback();
-                    });
-                });
-            });
-        });
+        fromPersonalizeToPick: function(callback) {
+            disableSection('pack');
+            $('#personalize footer').addClass('slide-down');
+            setTimeout(function() {
+                $('#gift-message').removeClass('slide-up');
+                setTimeout(function() {
+                    $('#styro-container').removeClass('collapsed');
+                    setTimeout(function() {
+                        $("#box1").animate({top:'-=50'}, 500, function() {
+                            $('#styro-container').addClass('hide')
+                            $("#box2").animate({left:'600'}, 500, function() {
+                                $("#box1").animate({top:'+=200'}, 500, function() {
+                                    $('.shield').show();
+                                    $("#pick").show().animate({opacity: '1'}, 1000, function() {
+                                        $('#pick footer').removeClass('slide-down');
+                                        callback();
+                                    });
+                                });
+                            });
+                        });
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        },
+
+        fromPersonalizeToPack: function(callback) {
+            $('#personalize footer').addClass('slide-down');
+            $('#gift-message').addClass('fold');
+            setTimeout(function() {
+                $('#gift-message').addClass('shrink');
+                setTimeout(function() {
+                    callback();
+                }, 1000);
+            }, 2000);
+        },
+
+        fromPackToPersonalize: function(callback) {
+            $('#gift-message').removeClass('shrink');
+            setTimeout(function() {
+                $('#gift-message').removeClass('fold');
+                setTimeout(function() {
+                    $('#personalize footer').removeClass('slide-down');
+                    callback();
+                }, 2000);
+            }, 1000);
+        }
     }
-}
+})();
