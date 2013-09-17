@@ -7,6 +7,44 @@
  */
 (function() {
 
+    var flavorData;
+    $.get('../product/getDump').done(function (result) {
+        console.log(result);
+        flavorData = result;
+        $.each(flavorData, function(i, v) {
+            $('#flavor-carousel .scroll').append(
+                '<li class="flavor" data-id="' + v.id + '">' +
+                    (v.isGlutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
+                    '<img src="../img/very-berry.png">' + //' + v.platedImage + '"/>' +
+                    '<div class="flavor-label">' + v.name + '</div>' +
+                    '</li>'
+            );
+        });
+
+        // See http://darsa.in/sly/examples/horizontal.html
+        $('#flavor-carousel .well').sly({
+            horizontal: 1,
+            itemNav: 'forceCentered',
+            smart: 1,
+            activateMiddle: 1,
+            activateOn: 'click',
+            mouseDragging: 1,
+            touchDragging: 1,
+            releaseSwing: 1,
+            startAt: 0,
+            scrollBy: 1,
+            speed: 300,
+            elasticBounds: 1,
+            dragHandle: 1,
+            dynamicHandle: 1,
+            clickBar: 1,
+
+            // Buttons
+            prev: $('#flavor-carousel .arrow-left'),
+            next: $('#flavor-carousel .arrow-right')
+        });
+    });
+
     var pickedCheesecakes = [];
     var enabledSections = ['pick'];
     var sectionChangeQueue = [];
@@ -27,7 +65,7 @@
 
     var acceptScrolling = true;
     $('html').bind('mousewheel', function(e) {
-        if (!acceptScrolling) {
+        if (!acceptScrolling || $('.modal').hasClass('in')) {
             return;
         }
 
@@ -159,16 +197,6 @@
         html: true
     });
 
-    $.each(flavorData, function(i, v) {
-           $('#flavor-carousel .scroll').append(
-               '<li class="flavor" data-id="' + v.id + '">' +
-                   (v.glutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
-                   '<img src="' + v.platedImage + '"/>' +
-                   '<div class="flavor-label">' + v.name + '</div>' +
-                '</li>'
-           );
-    });
-
     function getUniquePickedCheesecakes() {
         return $.grep(pickedCheesecakes, function(v, i) {
             if(!v || !i) {
@@ -184,30 +212,35 @@
         });
     }
 
-    // See http://darsa.in/sly/examples/horizontal.html
-    $('#flavor-carousel .well').sly({
-        horizontal: 1,
-        itemNav: 'forceCentered',
-        smart: 1,
-        activateMiddle: 1,
-        activateOn: 'click',
-        mouseDragging: 1,
-        touchDragging: 1,
-        releaseSwing: 1,
-        startAt: 0,
-        scrollBy: 1,
-        speed: 300,
-        elasticBounds: 1,
-        dragHandle: 1,
-        dynamicHandle: 1,
-        clickBar: 1,
+    function getFlavorById(id) {
+        var flavor;
+        $.each(flavorData, function(i, v) {
+            if (v.id == id) {
+                flavor = v;
+                return false;
+            }
+        });
+        return flavor;
+    }
 
-        // Buttons
-        prev: $('#flavor-carousel .arrow-left'),
-        next: $('#flavor-carousel .arrow-right')
+    function displayMoreInfo(flavor) {
+        var moreInfoWindow = $('#more-info').removeClass('show-nutrition-label').modal();
+        $('.btn-show-nutrition-label').show();
+        moreInfoWindow.find('h3').text(flavor.name);
+        moreInfoWindow.find('.description').text(flavor.description);
+        moreInfoWindow.find('.ingredients').text(flavor.ingredients);
+    }
+
+    $('.btn-show-nutrition-label').click(function() {
+        $(this).hide();
+        $('#more-info').addClass('show-nutrition-label')
     });
 
-    $('.btn-add').click(function() {
+    $('#selected-cheesecake-btns .btn-more-info').click(function() {
+        displayMoreInfo(getFlavorById($('.flavor.active').attr('data-id')));
+    });
+
+    $('#selected-cheesecake-btns .btn-add').click(function() {
         var flavor = getFlavorById($('.flavor.active').attr('data-id'));
         var openSlot = findOpenCheesecakeSlot();
         if (!openSlot) {
@@ -237,7 +270,7 @@
                         '<div class="btn-container btn-container' + openSlot + '">' +
                             '<div class="btn btn-more-info">More info</div>' +
                             '<div class="btn btn-remove btn-danger">Remove</div>' +
-                        '</div>');
+                        '</div>').data('flavor', flavor);
                 },
                 html: true,
                 trigger: 'manual'
@@ -256,7 +289,7 @@
             });
 
         cheesecake.parent().delegate('.btn-container' + openSlot + ' .btn-more-info', 'click', function() {
-            //console.log(flavor);
+            displayMoreInfo($(this).parent().data('flavor'));
         }).delegate('.btn-container' + openSlot + ' .btn-remove', 'click', function() {
             pickedCheesecakes[openSlot] = null;
             cheesecake.popover('hide').animate({top: '+=100'}, 500, function() {

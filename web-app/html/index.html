@@ -9,7 +9,6 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap-datepicker.js"></script>
     <script src="../js/sly.js"></script>
-    <script src="../js/flavorData.js"></script>
 </head>
 <body>
     <header>
@@ -76,7 +75,7 @@
             </div>
         </div>
         <div id="selected-cheesecake-btns" class="btn-container">
-            <div class="btn">More info</div>
+            <div class="btn btn-more-info">More info</div>
             <div class="btn btn-success btn-add">Add to Box</div>
         </div>
         <footer class="slide-down">
@@ -210,6 +209,24 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="more-info" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3></h3>
+        </div>
+        <div class="modal-body">
+            <img class="staged-image" src="../img/very-berry.png">
+            <div class="text">
+                <p class="description"></p>
+                <p class="ingredients"></p>
+            </div>
+            <img class="nutrition-label hide" src="../img/very-berry.png">
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-show-nutrition-label">Show Nutrition Label</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
         </div>
     </div>
     <script src="../js/site.js"></script>

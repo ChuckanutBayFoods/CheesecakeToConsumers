@@ -6699,6 +6699,27 @@ footer {
     #box-container .popover .btn-remove {
       margin-left: 4px; }
 
+#more-info {
+  width: 640px;
+  transition: all 0.5s; }
+  #more-info.show-nutrition-label {
+    width: 852px; }
+    #more-info.show-nutrition-label .nutrition-label {
+      display: inline-block !important; }
+  #more-info .modal-body {
+    overflow: hidden;
+    white-space: nowrap; }
+    #more-info .modal-body > * {
+      display: inline-block;
+      width: 200px;
+      white-space: normal;
+      margin-left: 12px;
+      vertical-align: middle; }
+      #more-info .modal-body > *.hide {
+        display: none; }
+    #more-info .modal-body .text {
+      width: 360px; }
+
 #styro-container {
   position: absolute;
   top: 162px;
@@ -7015,6 +7036,12 @@ section {
 
 .popover {
   z-index: 9500; }
+
+.modal {
+  z-index: 9800; }
+
+.modal-backdrop {
+  z-index: 9700; }
 
 .btn-container {
   text-align: center; }

@@ -115,6 +115,14 @@ section {
   z-index: 9500;
 }
 
+.modal {
+  z-index: 9800;
+}
+
+.modal-backdrop {
+  z-index: 9700;
+}
+
 .btn-container {
   text-align: center;
 }

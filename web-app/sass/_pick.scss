@@ -263,3 +263,38 @@ $boxTopBaseline: 375px;
     }
   }
 }
+
+$moreInfoWidth: 640px;
+#more-info {
+  width: $moreInfoWidth;
+  transition: all .5s;
+
+  &.show-nutrition-label {
+    width: $moreInfoWidth + 212;
+
+    .nutrition-label {
+      display: inline-block !important;
+    }
+  }
+
+  .modal-body {
+    overflow: hidden;
+    white-space: nowrap;
+
+    > * {
+      display: inline-block;
+      width: 200px;
+      white-space: normal;
+      margin-left: 12px;
+      vertical-align: middle;
+
+      &.hide {
+        display: none;
+      }
+    }
+
+    .text {
+      width: 360px;
+    }
+  }
+}
