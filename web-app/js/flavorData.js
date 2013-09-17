@@ -3,25 +3,33 @@ var flavorData = [
         id: 1,
         platedImage: '../img/very-berry.png',
         nonPlatedImage: '../img/very-berry-no-plate.png',
-        name: 'Very Berry'
+        name: 'Very Berry',
+        description: 'Fruit from the pacific northwest swirled into the batter on a chocolate crust.',
+        glutenFree: true
     },
     {
-        id: 1,
+        id: 2,
         platedImage: '../img/very-berry.png',
         nonPlatedImage: '../img/very-berry-no-plate.png',
-        name: 'Very Berry'
+        name: 'Chocolate Truffle',
+        description: 'Original New York style cheesecake with a cinnamon crust.',
+        glutenFree: false
     },
     {
-        id: 1,
+        id: 3,
         platedImage: '../img/very-berry.png',
         nonPlatedImage: '../img/very-berry-no-plate.png',
-        name: 'Very Berry'
+        name: 'New York',
+        description: 'Original New York style cheesecake with a cinnamon crust.',
+        glutenFree: false
     },
     {
-        id: 1,
+        id: 4,
         platedImage: '../img/very-berry.png',
         nonPlatedImage: '../img/very-berry-no-plate.png',
-        name: 'Very Berry'
+        name: 'White Chocolate Raspberry',
+        description: 'Original New York style cheesecake with a cinnamon crust.',
+        glutenFree: true
     }
 ]
 
@@ -34,5 +42,4 @@ function getFlavorById(id) {
         }
     });
     return flavor;
-
 }

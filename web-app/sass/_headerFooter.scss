@@ -3,6 +3,7 @@ $headerFooterHeight: 50px;
 .header-footer-base {
   background-color: $transparentLightGray;
   height: $headerFooterHeight;
+  position: fixed;
 
   .content {
     margin: auto;
@@ -11,9 +12,11 @@ $headerFooterHeight: 50px;
 }
 header {
   @extend .header-footer-base;
+
   border-bottom: 1px solid $transparentMediumGray;
-  position: relative;
   z-index: 8000;
+  top: 0;
+  width: 100%;
 
   .free-shipping {
     color: $mediumGray;
@@ -43,9 +46,8 @@ header {
 
 footer {
   @extend .header-footer-base;
-  border-top: 1px solid $transparentMediumGray;
 
-  position: absolute;
+  border-top: 1px solid $transparentMediumGray;
   bottom: 0;
   width: 100%;
   transition: all .25s ease;

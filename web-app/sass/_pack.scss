@@ -1,6 +1,6 @@
 #box {
   position: absolute;
-  top: -213px;
+  top: $boxTopBaseline - 213px;
   left: -56px;
   transition: all 2s ease;
 
@@ -49,7 +49,7 @@
   font-family: "Arial Narrow", Arial;
   font-weight: 600;
   position: absolute;
-  top: -200px;
+  top: $boxTopBaseline - 200;
   left: 500px;
   width: 400px;
   z-index: 8700;
@@ -63,7 +63,7 @@
   &.shrink {
     -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5);
     left: -50px;
-    top: -315px;
+    top: $boxTopBaseline - 315;
   }
 
   .return-address {
@@ -86,14 +86,14 @@
 
     .ship-to {
       margin: 0;
+      text-transform: uppercase;
     }
 
-    .form {
-      .name {
-        width: 250px;
-      }
-
-      .address {
+    form {
+      .name,
+      .address,
+      .address2,
+      .company {
         width: 250px;
       }
 

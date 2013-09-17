@@ -1,7 +1,8 @@
 $expodeDistance: 200px;
+$styroTopBaseline: $boxTopBaseline - 213;
 #styro-container {
   position: absolute;
-  top: -213px;
+  top: $styroTopBaseline;
   left: -56px;
 
   &.collapsed > * {
@@ -16,12 +17,12 @@ $expodeDistance: 200px;
 
     &.base {
       z-index: 100;
-      top: $expodeDistance;
+      top: $styroTopBaseline + $expodeDistance;
     }
 
     &.back {
       z-index: 200;
-      top: -.95 * $expodeDistance;
+      top: $styroTopBaseline -.95 * $expodeDistance;
       left: -.31 * $expodeDistance;
     }
 
@@ -37,13 +38,13 @@ $expodeDistance: 200px;
 
     &.front {
       z-index: 3200;
-      top: .95 * $expodeDistance;
+      top: $styroTopBaseline + .95 * $expodeDistance;
       left: .31 * $expodeDistance;
     }
 
     &.top {
       z-index: 3300;
-      top: -$expodeDistance;
+      top: $styroTopBaseline - $expodeDistance;
     }
 
     &.styro-label {
@@ -80,7 +81,7 @@ $expodeDistance: 200px;
   overflow: hidden;
 
   &.slide-up {
-    top: -300px;
+    top: $boxTopBaseline - 245;
   }
 
   &.fold {
@@ -105,7 +106,7 @@ $expodeDistance: 200px;
 
     &.shrink {
       transition: all 1s ease;
-      top: -400px;
+      top: $boxTopBaseline - 400;
       left: 60px;
       -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(.5) rotate(90deg);
     }
@@ -127,6 +128,16 @@ $expodeDistance: 200px;
       bottom: 10px;
       left: 0;
       width: 100%;
+    }
+
+    .flavor-info {
+      width: 50%;
+      display: inline-block;
+      padding-right: 12px;
+
+      h5 {
+        margin-bottom: 0;
+      }
     }
   }
 

@@ -38,23 +38,36 @@ $width: 1170px;
 @import "pack";
 
 html {
-  overflow: hidden;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 body {
   background-color: $white;
   font-weight: 300;
+  margin-top: 50px;
+  padding: 1px;
 }
 
 input {
   height: 30px !important;
 }
 
+input[type="checkbox"] {
+  height: 12px !important;
+}
+
 * {
   opacity: 1;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box
+  -webkit-box-sizing:border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 h1 {
@@ -78,6 +91,19 @@ h2, h4, h6 {
 
 pre {
   font-family: inherit;
+}
+
+section {
+  transition: all 1s;
+}
+
+#scroll-event-catcher {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .transparent {
@@ -114,3 +140,4 @@ pre {
 
   background-image: url('../img/arrow-left.png');
 }
+

@@ -9,6 +9,17 @@
 
     var pickedCheesecakes = [];
     var enabledSections = ['pick'];
+    var sectionChangeQueue = [];
+
+
+    var hashProgramaticallyChanged = true;
+    window.location.hash = 'pick';
+    $(window).on('hashchange', function() {
+        var hash = window.location.hash;
+        console.log("hash changed "+hashProgramaticallyChanged+"     hash " + hash);
+        !hashProgramaticallyChanged && hash && hash != '#' && gotoSection(hash.substring(1));
+        hashProgramaticallyChanged = false;
+    });
 
     var acceptScrolling = true;
     $('html').bind('mousewheel', function(e) {
@@ -16,49 +27,65 @@
             return;
         }
 
-        if (e.originalEvent.wheelDelta > 0) {
+        if (e.originalEvent.wheelDelta > 0 && $(window).scrollTop() < 10) {
             gotoSection('prev');
-        } else {
+        } else if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
             gotoSection('next');
         }
     });
 
     function gotoSection(section) {
+        if (!acceptScrolling) {
+            sectionChangeQueue.push(section);
+            return;
+        }
+
         var currentSection = getCurrentSection();
         if(section == 'next') {
             section = enabledSections[enabledSections.indexOf(currentSection) + 1];
         } else if (section == 'prev') {
             section = enabledSections[enabledSections.indexOf(currentSection) - 1];
         }
+
+        if ($.inArray(section, enabledSections) == -1) {
+            return;
+        }
+
+        hashProgramaticallyChanged = true;
+        window.location.hash = section;
+
         var gotoNavElement = getNavElement(section);
+        var currentSectionIndex = enabledSections.indexOf(currentSection);
+        var targetSectionIndex = enabledSections.indexOf(section);
 
-        if ($.inArray(section, enabledSections) != -1) {
-            var currentSectionIndex = enabledSections.indexOf(currentSection);
-            var targetSectionIndex = enabledSections.indexOf(section);
+        $('#side-nav > div').removeClass('selected');
+        gotoNavElement.addClass('selected');
+        advanceSection();
 
-            $('#side-nav > div').removeClass('selected');
-            gotoNavElement.addClass('selected');
-            advanceSection();
+        function advanceSection() {
+            acceptScrolling = false;
+            if (currentSectionIndex - targetSectionIndex > 0) {
+                sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex - 1])](function() {
+                    currentSectionIndex--;
+                    advanceSection();
+                    acceptScrolling = true;
+                    gotoNextSectionInQueue();
+                });
+            }
 
-            function advanceSection() {
-                acceptScrolling = false;
-                if (currentSectionIndex - targetSectionIndex > 0) {
-                    sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex - 1])](function() {
-                        currentSectionIndex--;
-                        advanceSection();
-                        acceptScrolling = true;
-                    });
-                }
-
-                if (currentSectionIndex - targetSectionIndex < 0) {
-                    sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex + 1])](function() {
-                        currentSectionIndex++;
-                        advanceSection();
-                        acceptScrolling = true;
-                    });
-                }
+            if (currentSectionIndex - targetSectionIndex < 0) {
+                sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex + 1])](function() {
+                    currentSectionIndex++;
+                    advanceSection();
+                    acceptScrolling = true;
+                    gotoNextSectionInQueue();
+                });
             }
         }
+    }
+
+    function gotoNextSectionInQueue() {
+        sectionChangeQueue && gotoSection(sectionChangeQueue.shift());
     }
 
     function capitalise(string)
@@ -107,11 +134,27 @@
     $.each(flavorData, function(i, v) {
            $('#flavor-carousel .scroll').append(
                '<li class="flavor" data-id="' + v.id + '">' +
-                    '<img src="' + v.platedImage + '"/>' +
-                    '<div class="flavor-label">' + v.name + '</div>' +
+                   (v.glutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
+                   '<img src="' + v.platedImage + '"/>' +
+                   '<div class="flavor-label">' + v.name + '</div>' +
                 '</li>'
            );
-    })
+    });
+
+    function getUniquePickedCheesecakes() {
+        return $.grep(pickedCheesecakes, function(v, i) {
+            if(!v || !i) {
+                return false;
+            }
+            if ($.inArray(v ,pickedCheesecakes) === i) {
+                v.quantity = 1;
+                return true;
+            } else {
+                v.quantity++;
+                return false;
+            }
+        });
+    }
 
     // See http://darsa.in/sly/examples/horizontal.html
     $('#flavor-carousel .well').sly({
@@ -146,9 +189,9 @@
 
         var parentContainer;
         if (openSlot <= 4) {
-            parentContainer = $('#box1');
+            parentContainer = $('#tray1');
         } else {
-            parentContainer = $('#box2');
+            parentContainer = $('#tray2');
         }
 
         var clickedAway = false;
@@ -161,7 +204,9 @@
             .popover({
                 placement: 'top',
                 content: function() {
-                    return $('<div class="btn-container btn-container' + openSlot + '">' +
+                    return $(
+                        '<div class="flavor-label">' + flavor.name + '</div>' +
+                        '<div class="btn-container btn-container' + openSlot + '">' +
                             '<div class="btn btn-more-info">More info</div>' +
                             '<div class="btn btn-remove btn-danger">Remove</div>' +
                         '</div>');
@@ -223,48 +268,69 @@
         gotoSection('pay');
     });
 
+    var performLabelValidation = false;
     $('#label input').keyup(function() {
         if ($('#label .zip').val().length == 5) {
-            labelTooltips.hideAll();
-
-            setTimeout(function() {
-                if (!validArrivalDate(new Date($('#datepicker').val()))) {
-                    labelTooltips.datePicker.show();
-                    return;
-                }
-
-                if (!$('#label .name').val()) {
-                    labelTooltips.name.show();
-                    return;
-                }
-
-                if (!$('#label .address').val()) {
-                    labelTooltips.address.show();
-                    return;
-                }
-
-                if (!$('#label .city').val()) {
-                    labelTooltips.city.show();
-                    return;
-                }
-
-                if ($('#label .state').val().length != 2) {
-                    labelTooltips.state.show();
-                    return;
-                }
-
-                if ($('#label .zip').val().length != 5 || !parseInt($('#label .zip').val())) {
-                    labelTooltips.zip.show();
-                    return;
-                }
-                enableSection('pay');
-                $('#pack footer').removeClass('slide-down');
-            }, 500);
-        } else {
-            disableSection('pay');
-            $('#pack footer').addClass('slide-down');
+            performLabelValidation = true;
+        }
+        if (performLabelValidation) {
+            validateLabel();
         }
     });
+
+    function validateLabel() {
+        labelTooltips.hideAll();
+
+        setTimeout(function() {
+            if (!validArrivalDate(new Date($('#datepicker').val()))) {
+                labelTooltips.datePicker.show();
+                disableNextSection();
+                return;
+            }
+
+            if (!$('#label .name').val()) {
+                labelTooltips.name.show();
+                disableNextSection();
+                return;
+            }
+
+            if (!$('#label .address').val()) {
+                labelTooltips.address.show();
+                disableNextSection();
+                return;
+            }
+
+            if (!$('#label .city').val()) {
+                labelTooltips.city.show();
+                disableNextSection();
+                return;
+            }
+
+            if ($('#label .state').val().length != 2) {
+                labelTooltips.state.show();
+                disableNextSection();
+                return;
+            }
+
+            if ($('#label .zip').val().length != 5 || !parseInt($('#label .zip').val())) {
+                labelTooltips.zip.show();
+                disableNextSection();
+                return;
+            }
+
+            enableNextSection();
+
+            function enableNextSection() {
+                enableSection('pay');
+                $('#pack footer').removeClass('slide-down');
+            }
+
+            function disableNextSection() {
+                disableSection('pay');
+                $('#pack footer').addClass('slide-down');
+            }
+        }, 500);
+    }
 
     function findOpenCheesecakeSlot() {
         for(var i = 1; i <= 8; i++) {
@@ -339,54 +405,73 @@
 
     var sectionTransitionFunctions = {
         fromPickToPersonalize: function(callback) {
-            $('#pick').animate({opacity: '0'}, 1000, function() {
+            console.log(getUniquePickedCheesecakes());
+            $.each(getUniquePickedCheesecakes(), function(i, v) {
+                $('#gift-message .flavor-info-container').append(
+                    '<div class="flavor-info">' +
+                        '<h5>' + v.name + '</h5>' +
+                        '<div class="blurb">' + v.description + '</h5>' +
+                    '</div>')
+            });
+            $('#pick').addClass('transparent').find('footer').addClass('slide-down');
+            setTimeout(function() {
                 $('#pick').hide();
                 $('.shield').hide();
-                $('#box1').animate({top:'-=200'}, 500, function() {
-                    $('#box2').animate({left:'0'}, 500, function() {
-                        $('#styro-container').removeClass('hide')
-                        $('#box1').animate({top:'+=50'}, 500, function() {
+                $('#tray1').addClass('slide-up');
+                setTimeout(function() {
+                    $('#tray2').addClass('slide-left')
+                    setTimeout(function() {
+                        $('#styro-container').removeClass('hide');
+                        $('#tray1').addClass('slide-down');
+                        setTimeout(function() {
                             $('#styro-container').addClass('collapsed');
                             $('#gift-message').show();
                             setTimeout(function() {
-                                $('.box').hide();
+                                $('.tray').hide();
                                 $('#gift-message').addClass('slide-up');
+                                $('#personalize').removeClass('transparent');
                                 setTimeout(function() {
                                     $('#personalize footer').removeClass('slide-down');
                                     enableSection('pack');
                                     callback();
-                                }, 2000)
+                                }, 2000);
                             }, 2000);
-                        });
-                    });
-                });
-            }).find('footer').addClass('slide-down');
+                        }, 500);
+                    }, 500);
+                }, 500);
+            }, 500);
         },
 
         fromPersonalizeToPick: function(callback) {
             $('#personalize footer').addClass('slide-down');
             setTimeout(function() {
                 $('#gift-message').removeClass('slide-up');
+                $('#personalize').addClass('transparent');
                 setTimeout(function() {
-                    $('.box').show();
+                    $('.tray').show();
                     $('#styro-container').removeClass('collapsed');
                     setTimeout(function() {
                         $('#gift-message').hide();
-                        $("#box1").animate({top:'-=50'}, 500, function() {
-                            $('#styro-container').addClass('hide')
-                            $("#box2").animate({left:'600'}, 500, function() {
-                                $("#box1").animate({top:'+=200'}, 500, function() {
+                        $("#tray1").removeClass('slide-down');
+                         setTimeout(function() {
+                            $('#styro-container').addClass('hide');
+                            $("#tray2").removeClass('slide-left');
+                            setTimeout(function() {
+                                $("#tray1").removeClass('slide-up');
+                                $("#pick").show();
+                                setTimeout(function() {
                                     $('.shield').show();
-                                    $("#pick").show().animate({opacity: '1'}, 1000, function() {
+                                    $("#pick").removeClass('transparent');
+                                    setTimeout(function() {
                                         $('#pick footer').removeClass('slide-down');
                                         callback();
-                                    });
-                                });
-                            });
-                        });
+                                    }, 500);
+                                }, 500);
+                            }, 500);
+                        }, 500);
                     }, 1000);
-                }, 1000);
-            }, 1000);
+                }, 500);
+            }, 100);
         },
 
         fromPersonalizeToPack: function(callback) {
@@ -396,68 +481,83 @@
                 $('#gift-message').addClass('shrink');
                 $('#box').show();
                 $('#label').show();
+                $('#personalize').addClass('transparent');
+                $('#pack').show();
                 setTimeout(function() {
                     $('#box').removeClass('slide-down');
                     $('#label').removeClass('slide-down');
+                    $('#personalize').hide();
+                    $('#pack').removeClass('transparent');
                     setTimeout(function() {
                         callback();
-                    }, 2000);
-                }, 1000);
-            }, 2000);
+                    }, 1500);
+                }, 500);
+            }, 1500);
         },
 
         fromPackToPersonalize: function(callback) {
             $('#pack footer').addClass('slide-down');
             $('#label').addClass('slide-down');
             $('#box').addClass('slide-down');
+            $('#personalize').show();
+            $('#pack').addClass('transparent');
             setTimeout(function() {
                 $('#label').hide();
                 $('#box').hide();
                 $('#gift-message').removeClass('shrink');
+                $('#personalize').removeClass('transparent');
+                $('#pack').hide();
                 setTimeout(function() {
                     $('#gift-message').removeClass('fold');
                     setTimeout(function() {
                         $('#personalize footer').removeClass('slide-down');
                         callback();
-                    }, 2000);
-                }, 1000);
+                    }, 1500);
+                }, 500);
             }, 1000);
         },
 
         fromPackToPay: function(callback) {
             $('#pack footer').addClass('slide-down');
             var addressString = $('#label .name').val() + '\n' +
+                ($('#label .company').val() ? $('#label .company').val() + '\n' : '') +
                 $('#label .address').val() + '\n' +
-                $('#label .city').val() + ' ' + $('#label .city').val() + ' ' + $('#label .zip').val();
+                ($('#label .address2').val() ? $('#label .address2').val() + '\n' : '') +
+                $('#label .city').val() + ' ' + $('#label .state').val() + ' ' + $('#label .zip').val();
 
             $('#label .deliver-date').text($('#datepicker').val()).show();
-            $('#label .ship-to').text(addressString.toUpperCase()).show();
-            $('#label input').hide();
+            $('#label .ship-to').text(addressString).show();
+            $('#label input, #label label').hide();
             $('#box .flaps').addClass('transparent');
             $('#box .top').removeClass('transparent');
             setTimeout(function() {
+                $('#pack').addClass('transparent');
                 $('#label').addClass('shrink');
                 $('#box .tape').removeClass('transparent');
                 setTimeout(function() {
+                    $('#pack').hide();
                     callback();
                 }, 1000);
-            }, 1000);
+            }, 500);
         },
 
         fromPayToPack: function(callback) {
             $('#pay footer').addClass('slide-down');
             $('#label').removeClass('shrink');
             $('#box .tape').addClass('transparent');
+            $('#pack').show();
             setTimeout(function() {
                 $('#box .flaps').removeClass('transparent');
                 $('#box .top').addClass('transparent');
+                $('#pack').removeClass('transparent');
                 setTimeout(function() {
+                    $('#pack footer').removeClass('slide-down');
                     $('#label .deliver-date').hide();
                     $('#label .ship-to').hide();
-                    $('#label input').show();
+                    $('#label input, #label label').show();
                     callback();
-                }, 1000);
-            }, 1000);
+                }, 500);
+            }, 500);
         }
     }
 

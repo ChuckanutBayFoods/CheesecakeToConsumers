@@ -3,7 +3,7 @@
 <head>
     <!-- Edit this later -->
     <title>Cheesecake to Consumers</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="shortcut icon" href="../img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.js"></script>
@@ -20,6 +20,9 @@
                 <span class="span4 questions">
                     <a href="#">Questions?</a>
                     <div class="hide questions-content">
+                        <div class="question">How big is each cheesecake?</div>
+                        <div class="answer">Each cheesecake is 3" (4oz). This is enough for a full dessert or enough for two people looking for a small treat to share. Each box comes with 8 cheesecakes.</div>
+
                         <div class="question">Do my cheesecakes have to be refrigerated?</div>
                         <div class="answer">Yes, the cheesecakes must be refrigerated. They will last 10 days in the fridge. They can last over a year in the freezer. Just make sure to thaw them before consuming them.</div>
 
@@ -51,6 +54,14 @@
     <section id="pick">
         <h1>Pick your Flavors</h1>
         <h2>Mix-and-Match from all 20 flavors</h2>
+        <div id="product-price">
+            <div class="price">
+                $49.99<span class="free-shipping-label"> + Free Shipping</span>
+            </div>
+            <div class="product">
+                8 Single-Serve 3" Handmade Cheesecakes
+            </div>
+        </div>
         <div id="flavor-carousel">
             <div class="arrow-left"></div>
             <div class="arrow-right"></div>
@@ -73,13 +84,15 @@
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
         </footer>
     </section>
-    <section id="personalize">
+    <section id="personalize" class="transparent">
+        <h1>Personalize Gift Message</h1>
         <footer class="slide-down">
             <div class="next-prompt">Proceed to Shipping and Packing</div>
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
         </footer>
     </section>
-    <section id="pack">
+    <section id="pack" class="transparent">
+        <h1>Set Shipping Address</h1>
         <footer class="slide-down">
             <div class="next-prompt">Proceed to Payment</div>
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
@@ -89,15 +102,15 @@
         <div id="box-container">
             <div id="shield1" class="shield"></div>
             <div id="shield2" class="shield"></div>
-            <div id='box1' class="box">
-                <img class="back box-part" src="../img/box-back.png">
-                <img class="mid box-part" src="../img/box-mid.png">
-                <img class="front box-part" src="../img/box-front.png">
+            <div id="tray1" class="tray">
+                <img class="back tray-part" src="../img/box-back.png">
+                <img class="mid tray-part" src="../img/box-mid.png">
+                <img class="front tray-part" src="../img/box-front.png">
             </div>
-            <div id='box2' class="box">
-                <img class="back box-part" src="../img/box-back.png">
-                <img class="mid box-part" src="../img/box-mid.png">
-                <img class="front box-part" src="../img/box-front.png">
+            <div id="tray2" class="tray">
+                <img class="back tray-part" src="../img/box-back.png">
+                <img class="mid tray-part" src="../img/box-mid.png">
+                <img class="front tray-part" src="../img/box-front.png">
             </div>
             <div id="styro-container" class="hide">
                 <img class="styro front" src="../img/styro/front.png">
@@ -156,13 +169,15 @@ Your secret admirer</pre>
                     <div class="ship-to-wrapper">
                         <div class="ship-to-label">SHIP TO:</div>
                         <pre class="ship-to hide"></pre>
-                        <div class="form">
-                            <input class="name" type="text" placeholder="Recipient Name"/><br>
-                            <input class="address" type="text" placeholder="Address"/><br>
-                            <input class="city" type="text" placeholder="City"/>
-                            <input class="state" type="text" placeholder="State" maxlength="2" />
-                            <input class="zip" type="text" placeholder="Zip" maxlength="5" />
-                        </div>
+                        <form autocomplete="on" method="POST">
+                            <input autocomplete="on" class="name" name="name" type="text" placeholder="Recipient Name"/><br>
+                            <input autocomplete="on" class="company" name="company" type="text" placeholder="Company (optional)"/><br>
+                            <input autocomplete="on" class="address" name="addressLine1" type="text" placeholder="Address"/><br>
+                            <input autocomplete="on" class="address2" name="addressLine2" type="text" placeholder="Address 2 (optional)"/><br>
+                            <input autocomplete="on" class="city" name="city"type="text" placeholder="City"/>
+                            <input autocomplete="on" class="state" name="state" type="text" placeholder="State" maxlength="2" />
+                            <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" />
+                        </form>
                     </div>
                     <div class="date-picker-wrapper">
                         <div class="date-picker-label">
