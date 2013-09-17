@@ -13,6 +13,8 @@ import net.sf.ehcache.transaction.TransactionID;
 
 import org.springframework.aop.TrueClassFilter;
 
+import cheesecaketoconsumers.command.Order;
+
 import com.amazonaws.cbui.AmazonFPSSingleUsePipeline;
 import com.amazonaws.fps.AmazonFPS;
 import com.amazonaws.fps.AmazonFPSClient;

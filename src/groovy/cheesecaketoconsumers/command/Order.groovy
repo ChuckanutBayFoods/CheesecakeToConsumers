@@ -1,4 +1,4 @@
-package cheesecaketoconsumers
+package cheesecaketoconsumers.command
 
 import grails.validation.Validateable;
 import groovy.transform.ToString;

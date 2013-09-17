@@ -48,6 +48,7 @@ grails.project.dependency.resolution = {
 		build ('org.apache.httpcomponents:httpclient:4.2.1')
 		runtime ('org.apache.httpcomponents:httpcore:4.2.1')
 		runtime ('org.apache.httpcomponents:httpclient:4.2.1')
+		runtime ('mysql:mysql-connector-java:5.1.26')
     }
 
     plugins {
