@@ -38,6 +38,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
 
+	// http://grails.org/doc/latest/guide/conf.html#configurationsAndDependencies
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
@@ -49,6 +50,9 @@ grails.project.dependency.resolution = {
 		runtime ('org.apache.httpcomponents:httpcore:4.2.1')
 		runtime ('org.apache.httpcomponents:httpclient:4.2.1')
 		runtime ('mysql:mysql-connector-java:5.1.26')
+		
+		// https://stripe.com/docs/libraries
+		compile 'com.stripe:stripe-java:1.4.0'
     }
 
     plugins {

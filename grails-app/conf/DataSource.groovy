@@ -23,6 +23,8 @@ environments {
 			url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
 	}
+	// Use development if want to hit the prod DB from your personal machine.
+	//development {
 	production {
 		// http://flnkr.com/2013/07/grails-on-aws/
 		dataSource {
