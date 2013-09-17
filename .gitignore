@@ -3,5 +3,6 @@ web-app/css/site.css
 *.min.css
 *.min.js
 /target
+/target-eclipse
 /.README.md.html
 /var
