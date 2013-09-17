@@ -16,7 +16,7 @@
     window.location.hash = 'pick';
     $(window).on('hashchange', function() {
         var hash = window.location.hash;
-        console.log("hash changed "+hashProgramaticallyChanged+"     hash " + hash);
+        //console.log("hash changed "+hashProgramaticallyChanged+"     hash " + hash);
         !hashProgramaticallyChanged && hash && hash != '#' && gotoSection(hash.substring(1));
         hashProgramaticallyChanged = false;
     });
@@ -35,8 +35,20 @@
     });
 
     function gotoSection(section) {
-        if (!acceptScrolling) {
+        if (sectionChangeQueue.length > 0) {//!acceptScrolling && $.inArray(section, enabledSections) != -1) {
+            var currentTargetSection = sectionChangeQueue[sectionChangeQueue.length - 1];
+            var currentTargetSectionIndex = enabledSections.indexOf[currentTargetSection];
+            var finalTargetSectionIndex = enabledSections.indexOf(section);
+            while (currentTargetSectionIndex - finalTargetSectionIndex > 0) {
+                currentTargetSectionIndex --;
+                sectionChangeQueue.push(enabledSections[currentTargetSectionIndex]);
+            }
+            while (currentTargetSectionIndex - finalTargetSectionIndex < 0) {
+                currentTargetSectionIndex ++;
+                sectionChangeQueue.push(enabledSections[currentTargetSectionIndex]);
+            }
             sectionChangeQueue.push(section);
+            //console.log(sectionChangeQueue);
             return;
         }
 
@@ -46,6 +58,7 @@
         } else if (section == 'prev') {
             section = enabledSections[enabledSections.indexOf(currentSection) - 1];
         }
+
 
         if ($.inArray(section, enabledSections) == -1) {
             return;
@@ -60,24 +73,29 @@
 
         $('#side-nav > div').removeClass('selected');
         gotoNavElement.addClass('selected');
+
         advanceSection();
 
         function advanceSection() {
             acceptScrolling = false;
             if (currentSectionIndex - targetSectionIndex > 0) {
+                sectionChangeQueue.push(enabledSections[currentSectionIndex - 1]);
                 sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex - 1])](function() {
                     currentSectionIndex--;
                     advanceSection();
                     acceptScrolling = true;
+                    sectionChangeQueue.shift();
                     gotoNextSectionInQueue();
                 });
             }
 
             if (currentSectionIndex - targetSectionIndex < 0) {
+                sectionChangeQueue.push(enabledSections[currentSectionIndex + 1]);
                 sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex + 1])](function() {
                     currentSectionIndex++;
                     advanceSection();
                     acceptScrolling = true;
+                    sectionChangeQueue.shift();
                     gotoNextSectionInQueue();
                 });
             }
@@ -85,7 +103,8 @@
     }
 
     function gotoNextSectionInQueue() {
-        sectionChangeQueue && gotoSection(sectionChangeQueue.shift());
+        //console.log(sectionChangeQueue.length > 0 ? sectionChangeQueue[0] : 'empty queue');
+        sectionChangeQueue.length > 0 && gotoSection(sectionChangeQueue.shift());
     }
 
     function capitalise(string)
@@ -228,7 +247,7 @@
             });
 
         cheesecake.parent().delegate('.btn-container' + openSlot + ' .btn-more-info', 'click', function() {
-            console.log(flavor);
+            //console.log(flavor);
         }).delegate('.btn-container' + openSlot + ' .btn-remove', 'click', function() {
             pickedCheesecakes[openSlot] = null;
             cheesecake.popover('hide').animate({top: '+=100'}, 500, function() {
@@ -405,7 +424,8 @@
 
     var sectionTransitionFunctions = {
         fromPickToPersonalize: function(callback) {
-            console.log(getUniquePickedCheesecakes());
+            //console.log(getUniquePickedCheesecakes());
+            $('#gift-message .flavor-info-container').empty();
             $.each(getUniquePickedCheesecakes(), function(i, v) {
                 $('#gift-message .flavor-info-container').append(
                     '<div class="flavor-info">' +
