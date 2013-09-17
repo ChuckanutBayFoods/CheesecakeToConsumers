@@ -26,6 +26,7 @@
 }
 
 $width: 1170px;
+$minHeight: 900px;
 
 @import "bootstrap";
 @import "bootstrap-datepicker";
@@ -111,7 +112,7 @@ section {
 }
 
 .popover {
-  z-index: 9000;
+  z-index: 9500;
 }
 
 .btn-container {

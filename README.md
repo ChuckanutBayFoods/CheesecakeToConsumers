@@ -1,6 +1,6 @@
 # Grails Setup
 
-* Download Groovy and Grails Tool Suite: http://www.springsource.org/downloads/sts-ggts
+* Download Groovy and Grails Tool Suite: https://sagan-production.cfapps.io/tools/ggts/
 * Set JAVA_HOME and GRAILS_HOME per http://grails.org/doc/latest/guide/gettingStarted.html#requirements
 
 ```bash

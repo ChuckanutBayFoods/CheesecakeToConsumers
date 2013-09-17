@@ -15,10 +15,14 @@
     var hashProgramaticallyChanged = true;
     window.location.hash = 'pick';
     $(window).on('hashchange', function() {
-        var hash = window.location.hash;
+        var hash = window.location.hash.substring(1);
+
         //console.log("hash changed "+hashProgramaticallyChanged+"     hash " + hash);
-        !hashProgramaticallyChanged && hash && hash != '#' && gotoSection(hash.substring(1));
+        !hashProgramaticallyChanged && hash && hash != '#' && gotoSection(hash);
         hashProgramaticallyChanged = false;
+
+        $('#side-nav > div').removeClass('selected');
+        getNavElement(hash).addClass('selected');
     });
 
     var acceptScrolling = true;
@@ -35,7 +39,7 @@
     });
 
     function gotoSection(section) {
-        if (sectionChangeQueue.length > 0) {//!acceptScrolling && $.inArray(section, enabledSections) != -1) {
+        if (sectionChangeQueue.length > 0) {
             var currentTargetSection = sectionChangeQueue[sectionChangeQueue.length - 1];
             var currentTargetSectionIndex = enabledSections.indexOf[currentTargetSection];
             var finalTargetSectionIndex = enabledSections.indexOf(section);
@@ -46,6 +50,9 @@
             while (currentTargetSectionIndex - finalTargetSectionIndex < 0) {
                 currentTargetSectionIndex ++;
                 sectionChangeQueue.push(enabledSections[currentTargetSectionIndex]);
+            }
+            if (currentTargetSection === section) {
+                return;
             }
             sectionChangeQueue.push(section);
             //console.log(sectionChangeQueue);
@@ -67,36 +74,38 @@
         hashProgramaticallyChanged = true;
         window.location.hash = section;
 
-        var gotoNavElement = getNavElement(section);
         var currentSectionIndex = enabledSections.indexOf(currentSection);
         var targetSectionIndex = enabledSections.indexOf(section);
 
-        $('#side-nav > div').removeClass('selected');
-        gotoNavElement.addClass('selected');
+        sectionChangeQueue.unshift(section);
 
         advanceSection();
 
         function advanceSection() {
             acceptScrolling = false;
             if (currentSectionIndex - targetSectionIndex > 0) {
-                sectionChangeQueue.push(enabledSections[currentSectionIndex - 1]);
+                console.log('from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex - 1]));
                 sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex - 1])](function() {
                     currentSectionIndex--;
                     advanceSection();
                     acceptScrolling = true;
-                    sectionChangeQueue.shift();
-                    gotoNextSectionInQueue();
+                    if (sectionChangeQueue[0] == section) {
+                        sectionChangeQueue.shift();
+                        gotoNextSectionInQueue();
+                    }
                 });
             }
 
             if (currentSectionIndex - targetSectionIndex < 0) {
-                sectionChangeQueue.push(enabledSections[currentSectionIndex + 1]);
+                console.log('from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex + 1]));
                 sectionTransitionFunctions['from' + capitalise(enabledSections[currentSectionIndex]) + 'To' + capitalise(enabledSections[currentSectionIndex + 1])](function() {
                     currentSectionIndex++;
                     advanceSection();
                     acceptScrolling = true;
-                    sectionChangeQueue.shift();
-                    gotoNextSectionInQueue();
+                    if (sectionChangeQueue[0] == section) {
+                        sectionChangeQueue.shift();
+                        gotoNextSectionInQueue();
+                    }
                 });
             }
         }
@@ -472,6 +481,7 @@
                     $('#styro-container').removeClass('collapsed');
                     setTimeout(function() {
                         $('#gift-message').hide();
+                        $('#personalize').hide();
                         $("#tray1").removeClass('slide-down');
                          setTimeout(function() {
                             $('#styro-container').addClass('hide');

@@ -6447,7 +6447,7 @@ button.close {
 
 header {
   border-bottom: 1px solid rgba(189, 189, 189, 0.85);
-  z-index: 8000;
+  z-index: 9000;
   top: 0;
   width: 100%; }
   header .free-shipping {
@@ -6473,7 +6473,7 @@ footer {
   transition: all 0.25s ease;
   text-align: center;
   cursor: pointer;
-  z-index: 8000; }
+  z-index: 9000; }
   footer .next-prompt {
     font-size: 18px;
     line-height: 30px; }
@@ -6603,12 +6603,21 @@ footer {
   clear: both;
   margin: -6px 0 6px 0; }
 
+#overflow-killer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  min-height: 900px;
+  pointer-events: none; }
+
 #box-container-wrapper {
   height: 100%;
   position: absolute;
   top: 0;
-  left: 50%;
-  pointer-events: none; }
+  left: 50%; }
 
 #box-container {
   width: 1170px;
@@ -7005,7 +7014,7 @@ section {
   opacity: 0; }
 
 .popover {
-  z-index: 9000; }
+  z-index: 9500; }
 
 .btn-container {
   text-align: center; }
