@@ -3,3 +3,5 @@ web-app/css/site.css
 *.min.css
 *.min.js
 /target
+/.README.md.html
+/var
