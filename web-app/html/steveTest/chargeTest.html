@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Edit this later -->
+    <title>Cheesecake to Consumers Payment Test</title>
+    <script src="../../js/jquery.js"></script>
+    <script>
+        $().ready(function() {
+            $.ajax({
+                type : 'POST',
+                url : '/CheesecakeToConsumers/stripe/charge', 
+                data : JSON.stringify({
+                    stripeToken : 'foo',
+                    sale : {
+                        giver : {
+                            name : 'Generous Goe',
+                            emailAddress : 'giver@emailaddress.com'
+                        },
+                        recipient : {
+                            name : 'JavaScript Person',
+                            companyName : 'Billy',
+                            addressLine1 : '711 Briar Rd.',
+                            addressLine2 : 'Appartment D',
+                            city : 'CitySteveMadeUp',
+                            state : 'WA',
+                            zipCode : '98229',
+                            phoneNumber : '360-123-1234'
+                        },
+                        saleItems : [
+                            {
+                                quantity : 4,
+                                product : {
+                                    id : '2201-1'
+                                }
+                            }, {
+                                quantity : 4,
+                                product : {
+                                    id : '2202-1'
+                                }
+                            }
+                        ],
+                        arrivalDate : '20131025',
+                        giftMessage : 'Dear Mom,  I hope you have a wonderful birthday.  We love you!'
+                    }
+                }),
+                contentType: "application/json",
+                processData : false
+            })
+            .always(function(response) {
+                    console.log(response);
+                })
+        });
+    </script>
+</head>
+<body>
+    <a id="launchPopUp">Launch Pop Up</a>
+    <br/>
+    <br/>
+    <a id="simulatePopUpComplete">Simulate Pop Up Complete</a>
+</body>
+</html>

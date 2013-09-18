@@ -10,7 +10,7 @@ class Recipient {
 		city maxSize : 128, blank:false
 		state size: 2..2
 		zipCode size: 5..5
-		city maxSize : 10
+		phoneNumber maxSize : 10
     }
 	
 	Sale sale;
