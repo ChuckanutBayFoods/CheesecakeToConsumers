@@ -1,0 +1,90 @@
+#pay {
+}
+
+#checkout-window {
+  @include box-shadow(0 5px 10px $shadowColor);
+
+  border: 1px solid $mediumGray;
+  position: absolute;
+  top: 140px;
+  padding: 12px;
+  width: 80%;
+  right: 0;
+  z-index: 8800;
+  background-color: $white;
+  transition: all 1s ease;
+
+  > * {
+    display: inline-block;
+    width: 50%;
+    min-height: 310px;
+    vertical-align: top;
+  }
+
+  .confirm {
+    border-right: 1px solid $lightGray;
+    padding-right: 12px;
+
+    p {
+      font-size: $large;
+    }
+
+    ul {
+      li {
+        list-style: none;
+      }
+    }
+
+    .grand-total {
+      font-weight: 100;
+      font-size: $huge;
+      border-top: 1px solid $lightGray;
+      padding-top: 12px;
+
+      .total-label {
+        font-size: $small;
+        color: $mediumGray;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .pay {
+    padding-left: 12px;
+    margin-left: -5px;
+
+    form {
+      margin: none;
+
+      label.error {
+        color: $red;
+        margin: -4px 0 4px 0;
+        font-size: $tiny;
+        position: absolute;
+      }
+
+      .card-cvc {
+        width: 50px;
+      }
+
+      select {
+        width: 66px;
+      }
+
+      .form-row {
+        display: inline-block;
+        margin-right: 6px;
+        height: 84px;
+      }
+
+      .btn-order {
+        width: 100%;
+        margin-bottom: 12px;
+      }
+    }
+
+    .alert {
+      margin-bottom: 0;
+    }
+  }
+}

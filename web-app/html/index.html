@@ -6,9 +6,12 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="../css/site.css">
     <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-validate.js"></script>
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap-datepicker.js"></script>
     <script src="../js/sly.js"></script>
+    <script src="../js/stripe.js"></script>
+    <script>var serverRoot="/CheesecakeToConsumers/";</script>
 </head>
 <body>
     <header>
@@ -83,18 +86,25 @@
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
         </footer>
     </section>
-    <section id="personalize" class="transparent">
+    <section id="personalize" class="transparent hide">
         <h1>Personalize Gift Message</h1>
         <footer class="slide-down">
             <div class="next-prompt">Proceed to Shipping and Packing</div>
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
         </footer>
     </section>
-    <section id="pack" class="transparent">
+    <section id="pack" class="transparent hide">
         <h1>Set Shipping Address</h1>
         <footer class="slide-down">
             <div class="next-prompt">Proceed to Payment</div>
             <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
+        </footer>
+    </section>
+    <section id="pay" class="transparent hide">
+        <h1>Checkout and Pay</h1>
+        <footer class="slide-down">
+            <div class="next-prompt">Give more Cheesecakes</div>
+            <div class="continue-prompt">Click/tap here or scroll/swipe to start another order.</div>
         </footer>
     </section>
     <div id="overflow-killer">
@@ -207,6 +217,53 @@
                             <img class="box-part back" src="../img/label/barcode.png">
                         </div>
                     </div>
+                    <div id="checkout-window" class="transparent hide">
+                        <div class="confirm">
+                            <h3>Your Order</h3>
+                            <p>8 Handmade Cheesecakes:</p>
+                            <ul class="flavor-quantities"></ul>
+                            <div class="grand-total">$49.99<span class="total-label"> includes tax and shipping</span></div>
+                            <div class="ship-to"></div>
+                        </div>
+                        <div class="pay">
+                            <h3>Billing Info</h3>
+                            <form action="/" method="post" id="example-form">
+
+                                <div class="form-row">
+                                    <label for="name" class="stripeLabel">Your Name</label>
+                                    <input type="text" autocomplete="on" placeholder="Your Name" name="name" class="name required" />
+                                </div>
+
+                                <div class="form-row">
+                                    <label for="email">E-mail Address</label>
+                                    <input type="text" autocomplete="on" placeholder="Your Email" name="email" class="email required" />
+                                </div>
+
+                                <div class="form-row">
+                                    <label>Card Number</label>
+                                    <input type="text" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" maxlength="20" autocomplete="off" class="card-number stripe-sensitive required" />
+                                </div>
+
+                                <div class="form-row">
+                                    <label>CVC</label>
+                                    <input type="text" maxlength="4" autocomplete="off" class="card-cvc stripe-sensitive required" />
+                                </div>
+
+                                <div class="form-row">
+                                    <label>Expiration</label>
+                                    <div class="expiry-wrapper">
+                                        <select class="card-expiry-month stripe-sensitive required">
+                                        </select>
+                                        <span> / </span>
+                                        <select class="card-expiry-year stripe-sensitive required"></select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-order" name="submit-button">Place Order</button>
+                                <div class="payment-errors alert alert-error hide"></div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -217,12 +274,13 @@
             <h3></h3>
         </div>
         <div class="modal-body">
-            <img class="staged-image" src="../img/very-berry.png">
+            <img class="staged-image" />
             <div class="text">
                 <p class="description"></p>
                 <p class="ingredients"></p>
+                <p class="allergens"></p>
             </div>
-            <img class="nutrition-label hide" src="../img/very-berry.png">
+            <img class="nutrition-label hide" />
         </div>
         <div class="modal-footer">
             <a href="#" class="btn btn-show-nutrition-label">Show Nutrition Label</a>

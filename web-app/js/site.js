@@ -8,14 +8,14 @@
 (function() {
 
     var flavorData;
-    $.get('../product/getDump').done(function (result) {
+    $.get(serverRoot + 'product/getDump').done(function (result) {
         console.log(result);
         flavorData = result;
         $.each(flavorData, function(i, v) {
             $('#flavor-carousel .scroll').append(
                 '<li class="flavor" data-id="' + v.id + '">' +
                     (v.isGlutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
-                    '<img src="../img/very-berry.png">' + //' + v.platedImage + '"/>' +
+                    '<img src="' + v.stageImageUrl + '"/>' +
                     '<div class="flavor-label">' + v.name + '</div>' +
                     '</li>'
             );
@@ -227,8 +227,11 @@
         var moreInfoWindow = $('#more-info').removeClass('show-nutrition-label').modal();
         $('.btn-show-nutrition-label').show();
         moreInfoWindow.find('h3').text(flavor.name);
+        moreInfoWindow.find('.staged-image').attr('src', flavor.stageImageUrl);
         moreInfoWindow.find('.description').text(flavor.description);
         moreInfoWindow.find('.ingredients').text(flavor.ingredients);
+        moreInfoWindow.find('.allergens').text(flavor.allergens);
+        moreInfoWindow.find('.nutrition-label').attr('src', flavor.nutritionLabelImageUrl);
     }
 
     $('.btn-show-nutrition-label').click(function() {
@@ -258,8 +261,8 @@
         var clickedAway = false;
         var isVisible = false;
 
-        var cheesecake = $('<img class="cheesecake cheesecake' + openSlot + '" src="' + flavor.nonPlatedImage + '">' +
-            '<a href="#" class="cheesecake-event-catcher cheesecake cheesecake' + openSlot + '"><img src="' + flavor.nonPlatedImage + '" /></a>')
+        var cheesecake = $('<img class="cheesecake cheesecake' + openSlot + '" src="' + flavor.bareImageUrl + '">' +
+            '<a href="#" class="cheesecake-event-catcher cheesecake cheesecake' + openSlot + '"><img src="' + flavor.bareImageUrl + '" /></a>')
             .appendTo(parentContainer)
             .animate({top: '-=100'}, 500)
             .popover({
@@ -588,39 +591,61 @@
                 ($('#label .address2').val() ? $('#label .address2').val() + '\n' : '') +
                 $('#label .city').val() + ' ' + $('#label .state').val() + ' ' + $('#label .zip').val();
 
+            $('#checkout-window ul').empty();
+            $.each(getUniquePickedCheesecakes(), function(i, v) {
+                $('#checkout-window ul').append(
+                    '<li>' + v.quantity + 'x ' + v.name + '</li>'
+                );
+            });
+
             $('#label .deliver-date').text($('#datepicker').val()).show();
             $('#label .ship-to').text(addressString).show();
             $('#label input, #label label').hide();
             $('#box .flaps').addClass('transparent');
             $('#box .top').removeClass('transparent');
+
             setTimeout(function() {
                 $('#pack').addClass('transparent');
                 $('#label').addClass('shrink');
                 $('#box .tape').removeClass('transparent');
+                $('#pay').show();
                 setTimeout(function() {
                     $('#pack').hide();
-                    callback();
+                    $('#checkout-window').show();
+                    $('#pay').removeClass('transparent');
+                    setTimeout(function() {
+                        $('#checkout-window').removeClass('transparent');
+                        setTimeout(function() {
+                            callback();
+                        }, 100);
+                    }, 500);
                 }, 1000);
             }, 500);
         },
 
         fromPayToPack: function(callback) {
+            $('#checkout-window').addClass('transparent');
+            $('#pay').addClass('transparent');
             $('#pay footer').addClass('slide-down');
-            $('#label').removeClass('shrink');
-            $('#box .tape').addClass('transparent');
-            $('#pack').show();
             setTimeout(function() {
-                $('#box .flaps').removeClass('transparent');
-                $('#box .top').addClass('transparent');
-                $('#pack').removeClass('transparent');
+                $('#label').removeClass('shrink');
+                $('#box .tape').addClass('transparent');
+                $('#pack').show();
                 setTimeout(function() {
-                    $('#pack footer').removeClass('slide-down');
-                    $('#label .deliver-date').hide();
-                    $('#label .ship-to').hide();
-                    $('#label input, #label label').show();
-                    callback();
+                    $('#pay').hide();
+                    $('#checkout-window').hide();
+                    $('#box .flaps').removeClass('transparent');
+                    $('#box .top').addClass('transparent');
+                    $('#pack').removeClass('transparent');
+                    setTimeout(function() {
+                        $('#pack footer').removeClass('slide-down');
+                        $('#label .deliver-date').hide();
+                        $('#label .ship-to').hide();
+                        $('#label input, #label label').show();
+                        callback();
+                    }, 500);
                 }, 500);
-            }, 500);
+            }, 1000);
         }
     }
 
@@ -653,4 +678,140 @@
             return !validArrivalDate(date) ? 'disabled' : '';
         }
     }).data('datepicker').setValue(startDate);
-})();
+
+    Stripe.setPublishableKey('pk_test_J460WxCY0NPbCGolQQDc19gx');
+    $(document).ready(function() {
+        function addInputNames() {
+            // Not ideal, but jQuery's validate plugin requires fields to have names
+            // so we add them at the last possible minute, in case any javascript
+            // exceptions have caused other parts of the script to fail.
+            $(".card-number").attr("name", "card-number")
+            $(".card-cvc").attr("name", "card-cvc")
+            $(".card-expiry-year").attr("name", "card-expiry-year")
+        }
+
+        function removeInputNames() {
+            $(".card-number").removeAttr("name")
+            $(".card-cvc").removeAttr("name")
+            $(".card-expiry-year").removeAttr("name")
+        }
+
+        function submit(form) {
+            // remove the input field names for security
+            // we do this *before* anything else which might throw an exception
+            removeInputNames(); // THIS IS IMPORTANT!
+
+            // given a valid form, submit the payment details to stripe
+            $(form['submit-button']).attr("disabled", "disabled")
+
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+            }, function(status, response) {
+                if (response.error) {
+                    // re-enable the submit button
+                    $(form['submit-button']).removeAttr("disabled")
+
+                    // show the error
+                    $(".payment-errors").show().html(response.error.message);
+
+                    // we add these names back in so we can revalidate properly
+                    addInputNames();
+                } else {
+                    $(".payment-errors").hide();
+                    var sale = {
+                        stripeToken: response['id'],
+                        sale: {
+                            recipient: {
+                                name: $('#label input.name').val(),
+                                companyName: $('#label input.company').val(),
+                                addressLine1: $('#label input.address').val(),
+                                addressLine2: $('#label input.address2').val(),
+                                city: $('#label input.city').val(),
+                                state: $('#label input.state').val(),
+                                zipCode: $('#label input.zip').val(),
+                                phoneNumber: 'Not Given'
+                            },
+                            saleItems: (function() {
+                                var saleItems = [];
+                                $.each(getUniquePickedCheesecakes(), function(i, v) {
+                                    saleItems.push({
+                                        quantity: v.quantity,
+                                        product: {
+                                            id: v.id
+                                        }
+                                    });
+                                });
+                                return saleItems;
+                            })(),
+                            arrivalDate: '',
+                            giftMessage: $('#gift-message textarea').val(),
+                            giver: {
+                                emailAddress: $('#checkout-window .email').val(),
+                                name: $('#checkout-window .name').val()
+                            }
+                        }
+                    }
+                    $.axaj({
+                        url: serverRoot + 'swipe/charge',
+                        method: 'post',
+                        contentType: 'application/json',
+                        processData: false,
+                        data: JSON.stringify(sale)
+                    }).done(function(response) {
+                        if (response.paid) {
+                            return;
+                        } else if (response.backendFailure) {
+                            $(".payment-errors").show().html("There was an error processing your order. Please try again.");
+                        } else {
+                            $(".payment-errors").show().html(response.failureMessage);
+                        }
+                    }).fail(function() {
+                        $(".payment-errors").show().html("There was an error processing your order. Please try again.");
+                    }).always(function() {
+                        $(form['submit-button']).removeAttr("disabled");
+                    });
+                }
+            });
+
+            return false;
+        }
+
+        // add custom rules for credit card validating
+        jQuery.validator.addMethod("cardNumber", Stripe.validateCardNumber, "Please enter a valid card number");
+        jQuery.validator.addMethod("cardCVC", Stripe.validateCVC, "Please enter a valid security code");
+        jQuery.validator.addMethod("cardExpiry", function() {
+            return Stripe.validateExpiry($(".card-expiry-month").val(),
+                $(".card-expiry-year").val())
+        }, "Please enter a valid expiration");
+
+        // We use the jQuery validate plugin to validate required params on submit
+        $("#example-form").validate({
+            submitHandler: submit,
+            rules: {
+                "card-cvc" : {
+                    cardCVC: true,
+                    required: true
+                },
+                "card-number" : {
+                    cardNumber: true,
+                    required: true
+                },
+                "card-expiry-year" : "cardExpiry" // we don't validate month separately
+            }
+        });
+
+        // adding the input field names is the last step, in case an earlier step errors
+        addInputNames();
+    });
+
+    var year = new Date().getFullYear();
+    var month = new Date().getMonth() + 1;
+
+    for (var i = 0; i < 12; i++) {
+        $(".card-expiry-year").append($("<option value='"+(i + year)+"' "+(i === 0 ? "selected" : "")+">"+(i + year)+"</option>"));
+        $(".card-expiry-month").append($("<option value='"+i+"' "+(month === i ? "selected" : "")+">"+i+"</option>"));
+    }
+})()

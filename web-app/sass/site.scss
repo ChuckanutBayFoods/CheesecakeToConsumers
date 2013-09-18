@@ -37,6 +37,7 @@ $minHeight: 900px;
 @import "pick";
 @import "personalize";
 @import "pack";
+@import "pay";
 
 html {
   overflow-y: scroll;
@@ -46,8 +47,8 @@ html {
 body {
   background-color: $white;
   font-weight: 300;
-  margin-top: 50px;
   padding: 1px;
+  padding-top: 50px;
 }
 
 input {
