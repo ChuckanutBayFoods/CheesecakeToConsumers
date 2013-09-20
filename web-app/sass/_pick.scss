@@ -220,12 +220,12 @@ $boxTopBaseline: 375px;
     z-index: 5000;
   }
 
-  $backRowTop: 144px;
-  $frontRowTop: 258px;
+  $backRowTop: 134px;
+  $frontRowTop: 248px;
   .cheesecake1,
   .cheesecake5 {
     top: $backRowTop;
-    left: 86px;
+    left: 84px;
     z-index: 1100;
   }
 
@@ -239,14 +239,14 @@ $boxTopBaseline: 375px;
   .cheesecake3,
   .cheesecake7 {
     top: $frontRowTop;
-    left: 122px;
+    left: 120px;
     z-index: 2300;
   }
 
   .cheesecake4,
   .cheesecake8 {
     top: $frontRowTop;
-    left: 336px;
+    left: 334px;
     z-index: 2400;
   }
 

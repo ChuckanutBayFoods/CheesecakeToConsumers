@@ -703,6 +703,7 @@
 
             // given a valid form, submit the payment details to stripe
             $(form['submit-button']).attr("disabled", "disabled")
+            $('#checkout-window .loading > *').addClass('active');
 
             Stripe.createToken({
                 number: $('.card-number').val(),
@@ -712,7 +713,8 @@
             }, function(status, response) {
                 if (response.error) {
                     // re-enable the submit button
-                    $(form['submit-button']).removeAttr("disabled")
+                    $(form['submit-button']).removeAttr("disabled");
+                    $('#checkout-window .loading > *').removeClass('active');
 
                     // show the error
                     $(".payment-errors").show().html(response.error.message);
@@ -746,16 +748,16 @@
                                 });
                                 return saleItems;
                             })(),
-                            arrivalDate: '',
-                            giftMessage: $('#gift-message textarea').val(),
+                            arrivalDate: $('#label #datepicker').val(),
+                            giftMessage: $('#gift-message .non-edit pre').text(),
                             giver: {
                                 emailAddress: $('#checkout-window .email').val(),
                                 name: $('#checkout-window .name').val()
                             }
                         }
                     }
-                    $.axaj({
-                        url: serverRoot + 'swipe/charge',
+                    $.ajax({
+                        url: serverRoot + 'stripe/charge',
                         method: 'post',
                         contentType: 'application/json',
                         processData: false,
@@ -772,6 +774,7 @@
                         $(".payment-errors").show().html("There was an error processing your order. Please try again.");
                     }).always(function() {
                         $(form['submit-button']).removeAttr("disabled");
+                        $('#checkout-window .loading > *').removeClass('active');
                     });
                 }
             });
