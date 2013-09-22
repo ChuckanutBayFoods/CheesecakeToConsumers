@@ -887,6 +887,18 @@ footer {
     opacity: 0;
     -webkit-transform: translateX(0); } }
 
+#truck {
+  position: absolute;
+  right: 0px;
+  top: 124px;
+  transition: all 1s; }
+  #truck.slide-right {
+    right: -204px; }
+
+#complete-package.enter-truck {
+  -webkit-transform: translateY(400px) translateX(500px) scale3d(0.2, 0.2, 0.2);
+  transition: all 1s ease-in; }
+
 html {
   overflow-y: scroll;
   height: 100%; }
@@ -931,7 +943,11 @@ h2, h4, h6 {
   font-weight: 100; }
 
 pre {
-  font-family: inherit; }
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none; }
 
 section {
   transition: all 1s; }

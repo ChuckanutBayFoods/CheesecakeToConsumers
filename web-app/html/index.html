@@ -103,6 +103,9 @@
     </section>
     <section id="pay" class="transparent hide">
         <h1>Checkout and Pay</h1>
+    </section>
+    <section id="order-complete" class="transparent hide">
+        <h1>Thank you for your order!</h1>
         <footer class="slide-down">
             <div class="next-prompt">Give more Cheesecakes</div>
             <div class="continue-prompt">Click/tap here or scroll/swipe to start another order.</div>
@@ -133,92 +136,94 @@
                     <img class="styro base" src="../img/styro/base.png">
                 </div>
                 <div id="gift-message" class="hide">
-                        <div class="info">
-                            <h3>All Natural Ingredients</h3>
-                            <p>These cheesecakes were handmade in the beautiful pacific northwest by Chuckanut Bay Foods.</p>
-                            <p>Here is more info about the cheesecakes you have been given:</p>
-                            <div class="flavor-info-container"></div>
-                            <div class="logo-container"><img src="../img/logos/chuckanutbaylogo-medium.png"/></div>
-                        </div><div class="message">
-                            <h1>A Gift for You!</h1>
-                            <div class="non-edit">
-                                <pre>
-    My dearest,
+                    <div class="info">
+                        <h3>All Natural Ingredients</h3>
+                        <p>These cheesecakes were handmade in the beautiful pacific northwest by Chuckanut Bay Foods.</p>
+                        <p>Here is more info about the cheesecakes you have been given:</p>
+                        <div class="flavor-info-container"></div>
+                        <div class="logo-container"><img src="../img/logos/chuckanutbaylogo-medium.png"/></div>
+                    </div><div class="message">
+                        <h1>A Gift for You!</h1>
+                        <div class="non-edit">
+                            <pre>
+My dearest,
 
-    I hope you enjoy this all natural delicious dessert.
+I hope you enjoy this all natural delicious dessert.
 
-    Love,
-    Your secret admirer</pre>
-                                <a href="#" class="edit-message-label right-aligned">Edit Message</a>
-                            </div>
-                            <div class="edit hide">
-                                <textarea maxlength="350" rows="10"></textarea>
-                                <span class='btn btn-success btn-save right-aligned'>Save</span>
-                                <span class="max-characters-label right-aligned">350 characters max</span>
-                            </div>
-                            <img class="ingredients" src="../img/ingredients.png"/>
-                            <span class="refrigerate-label">Refrigerate Immediately</span>
-                        </div><div class="cover">
-                            <p class="handmade-cheesecakes">8 Handmade Cheesecakes</p>
-                            <img class="cheesecake-plated" src="../img/cheesecake-plated.png"/>
-                            <img class="logo-cover" src="../img/logos/chuckanutbaylogo-narrow-medium.png"/>
+Love,
+Your secret admirer</pre>
+                            <a href="#" class="edit-message-label right-aligned">Edit Message</a>
                         </div>
+                        <div class="edit hide">
+                            <textarea maxlength="350" rows="10"></textarea>
+                            <span class='btn btn-success btn-save right-aligned'>Save</span>
+                            <span class="max-characters-label right-aligned">350 characters max</span>
+                        </div>
+                        <img class="ingredients" src="../img/ingredients.png"/>
+                        <span class="refrigerate-label">Refrigerate Immediately</span>
+                    </div><div class="cover">
+                        <p class="handmade-cheesecakes">8 Handmade Cheesecakes</p>
+                        <img class="cheesecake-plated" src="../img/cheesecake-plated.png"/>
+                        <img class="logo-cover" src="../img/logos/chuckanutbaylogo-narrow-medium.png"/>
                     </div>
+                </div>
+                <div id="complete-package">
                     <div id="box" class="slide-down hide">
-                        <img class="box-part back" src="../img/box/back.png">
-                        <img class="box-part front" src="../img/box/front.png">
-                        <img class="box-part flaps" src="../img/box/flaps.png">
-                        <img class="box-part top transparent" src="../img/box/top.png">
-                        <img class="box-part tape transparent" src="../img/box/tape.png">
-                    </div>
+                    <img class="box-part back" src="../img/box/back.png">
+                    <img class="box-part front" src="../img/box/front.png">
+                    <img class="box-part flaps" src="../img/box/flaps.png">
+                    <img class="box-part top transparent" src="../img/box/top.png">
+                    <img class="box-part tape transparent" src="../img/box/tape.png">
+                </div>
                     <div id="label" class="slide-down hide">
-                        <div class="return-address">
-                            Chuckanut Bay Foods<br>
-                            5501 Hovander Rd #1<br>
-                            Ferndale, WA 98248
+                    <div class="return-address">
+                        Chuckanut Bay Foods<br>
+                        5501 Hovander Rd #1<br>
+                        Ferndale, WA 98248
+                    </div>
+                    <div class="ship-to-wrapper">
+                        <div class="ship-to-label">SHIP TO:</div>
+                        <pre class="ship-to hide"></pre>
+                        <form autocomplete="on" method="POST">
+                            <input autocomplete="on" class="name" name="name" type="text" placeholder="Recipient Name"/><br>
+                            <input autocomplete="on" class="company" name="company" type="text" placeholder="Company (optional)"/><br>
+                            <input autocomplete="on" class="address" name="addressLine1" type="text" placeholder="Address"/><br>
+                            <input autocomplete="on" class="address2" name="addressLine2" type="text" placeholder="Address 2 (optional)"/><br>
+                            <input autocomplete="on" class="city" name="city"type="text" placeholder="City"/>
+                            <input autocomplete="on" class="state" name="state" type="text" placeholder="State" maxlength="2" />
+                            <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" />
+                        </form>
+                    </div>
+                    <div class="date-picker-wrapper">
+                        <div class="date-picker-label">
+                            Deliver on:
                         </div>
-                        <div class="ship-to-wrapper">
-                            <div class="ship-to-label">SHIP TO:</div>
-                            <pre class="ship-to hide"></pre>
-                            <form autocomplete="on" method="POST">
-                                <input autocomplete="on" class="name" name="name" type="text" placeholder="Recipient Name"/><br>
-                                <input autocomplete="on" class="company" name="company" type="text" placeholder="Company (optional)"/><br>
-                                <input autocomplete="on" class="address" name="addressLine1" type="text" placeholder="Address"/><br>
-                                <input autocomplete="on" class="address2" name="addressLine2" type="text" placeholder="Address 2 (optional)"/><br>
-                                <input autocomplete="on" class="city" name="city"type="text" placeholder="City"/>
-                                <input autocomplete="on" class="state" name="state" type="text" placeholder="State" maxlength="2" />
-                                <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" />
-                            </form>
+                        <input type="text" id="datepicker" />
+                        <div class="deliver-date hide"></div>
+                    </div>
+                    <div class="shipping-constraints">
+                        Orders placed after 1:00PM PST cannot be shipped until next day.<br>
+                        Orders can only be scheduled for arrival on a Tue, Wed, Thur, or Fri.
+                    </div>
+                    <div class="next-day-wrapper">
+                        <div class="two-d-barcode-wrapper">
+                            <img class="box-part back" src="../img/label/2dbarcode.png">
                         </div>
-                        <div class="date-picker-wrapper">
-                            <div class="date-picker-label">
-                                Deliver on:
+                        <div class="next-day-label-wrapper">
+                            <div class="next-day-label">
+                                UPS Next-Day Air
                             </div>
-                            <input type="text" id="datepicker" />
-                            <div class="deliver-date hide"></div>
-                        </div>
-                        <div class="shipping-constraints">
-                            Orders placed after 1:00PM PST cannot be shipped until next day.<br>
-                            Orders can only be scheduled for arrival on a Tue, Wed, Thur, or Fri.
-                        </div>
-                        <div class="next-day-wrapper">
-                            <div class="two-d-barcode-wrapper">
-                                <img class="box-part back" src="../img/label/2dbarcode.png">
+                            <div class="freshness-label">
+                                For maximum freshness
                             </div>
-                            <div class="next-day-label-wrapper">
-                                <div class="next-day-label">
-                                    UPS Next-Day Air
-                                </div>
-                                <div class="freshness-label">
-                                    For maximum freshness
-                                </div>
-                            </div>
-                        </div>
-                        <div class="barcode-wrapper">
-                            <img class="box-part back" src="../img/label/barcode.png">
                         </div>
                     </div>
-                    <div id="checkout-window" class="transparent hide">
+                    <div class="barcode-wrapper">
+                        <img class="box-part back" src="../img/label/barcode.png">
+                    </div>
+                </div>
+                </div>
+                <div id="checkout-window" class="transparent hide">
                         <div class="confirm">
                             <h3>Your Order</h3>
                             <p>8 Handmade Cheesecakes:</p>
@@ -273,7 +278,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -295,6 +299,9 @@
             <a href="#" class="btn btn-show-nutrition-label">Show Nutrition Label</a>
             <a href="#" class="btn" data-dismiss="modal">Close</a>
         </div>
+    </div>
+    <div id="truck" class="slide-right hide">
+        <img src="../img/truck.png" />
     </div>
     <script src="../js/site.min.js"></script>
 </body>

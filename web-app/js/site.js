@@ -64,19 +64,45 @@
     });
 
     var acceptScrolling = true;
+    var preventScrolling = false;
+    var consecutiveUpScrolls = 0;
+    var consecutiveDownScrolls = 0;
+    var isOrderComplete = false;
     $('html').bind('mousewheel', function(e) {
-        if (!acceptScrolling || $('.modal').hasClass('in')) {
+        if (!acceptScrolling || preventScrolling || $('.modal').hasClass('in')) {
+            e.preventDefault();
             return;
         }
 
         if (e.originalEvent.wheelDelta > 0 && $(window).scrollTop() < 10) {
-            gotoSection('prev');
+            consecutiveUpScrolls++;
+            consecutiveDownScrolls = 0;
+            if (consecutiveUpScrolls >= 3) {
+                consecutiveUpScrolls = 0;
+                gotoSection('prev');
+            }
         } else if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
-            gotoSection('next');
+            consecutiveDownScrolls++;
+            consecutiveUpScrolls = 0;
+            if (consecutiveDownScrolls >= 3) {
+                consecutiveDownScrolls = 0;
+                gotoSection('next');
+            }
         }
     });
 
+    function scrollToTop() {
+        acceptScrolling = false;
+        $('html, body').animate({ scrollTop: 0 }, "slow", function() {
+            acceptScrolling = true;
+        });
+    }
+
     function gotoSection(section) {
+        if (isOrderComplete) {
+            location.reload();
+        }
+
         if (sectionChangeQueue.length > 0) {
             var currentTargetSection = sectionChangeQueue[sectionChangeQueue.length - 1];
             var currentTargetSectionIndex = enabledSections.indexOf[currentTargetSection];
@@ -154,8 +180,7 @@
         sectionChangeQueue.length > 0 && gotoSection(sectionChangeQueue.shift());
     }
 
-    function capitalise(string)
-    {
+    function capitalise(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
@@ -332,6 +357,10 @@
         gotoSection('pay');
     });
 
+    $("#order-complete footer").click(function() {
+        location.reload();
+    });
+
     var performLabelValidation = false;
     $('#label input').keyup(function() {
         if ($('#label .zip').val().length == 5) {
@@ -469,6 +498,7 @@
 
     var sectionTransitionFunctions = {
         fromPickToPersonalize: function(callback) {
+            scrollToTop();
             //console.log(getUniquePickedCheesecakes());
             $('#gift-message .flavor-info-container').empty();
             $.each(getUniquePickedCheesecakes(), function(i, v) {
@@ -491,6 +521,7 @@
                         setTimeout(function() {
                             $('#styro-container').addClass('collapsed');
                             $('#gift-message').show();
+                            $('#personalize').show();
                             setTimeout(function() {
                                 $('.tray').hide();
                                 $('#gift-message').addClass('slide-up');
@@ -498,7 +529,7 @@
                                 setTimeout(function() {
                                     $('#personalize footer').removeClass('slide-down');
                                     enableSection('pack');
-                                    callback();
+                                    callback && callback();
                                 }, 2000);
                             }, 2000);
                         }, 500);
@@ -508,6 +539,7 @@
         },
 
         fromPersonalizeToPick: function(callback) {
+            scrollToTop();
             $('#personalize footer').addClass('slide-down');
             setTimeout(function() {
                 $('#gift-message').removeClass('slide-up');
@@ -530,7 +562,7 @@
                                     $("#pick").removeClass('transparent');
                                     setTimeout(function() {
                                         $('#pick footer').removeClass('slide-down');
-                                        callback();
+                                        callback && callback();
                                     }, 500);
                                 }, 500);
                             }, 500);
@@ -541,6 +573,7 @@
         },
 
         fromPersonalizeToPack: function(callback) {
+            scrollToTop();
             $('#personalize footer').addClass('slide-down');
             $('#gift-message').addClass('fold');
             setTimeout(function() {
@@ -555,13 +588,14 @@
                     $('#personalize').hide();
                     $('#pack').removeClass('transparent');
                     setTimeout(function() {
-                        callback();
+                        callback && callback();
                     }, 1500);
                 }, 500);
             }, 1500);
         },
 
         fromPackToPersonalize: function(callback) {
+            scrollToTop();
             $('#pack footer').addClass('slide-down');
             $('#label').addClass('slide-down');
             $('#box').addClass('slide-down');
@@ -577,13 +611,14 @@
                     $('#gift-message').removeClass('fold');
                     setTimeout(function() {
                         $('#personalize footer').removeClass('slide-down');
-                        callback();
+                        callback && callback();
                     }, 1500);
                 }, 500);
             }, 1000);
         },
 
         fromPackToPay: function(callback) {
+            scrollToTop();
             $('#pack footer').addClass('slide-down');
             var addressString = $('#label .name').val() + '\n' +
                 ($('#label .company').val() ? $('#label .company').val() + '\n' : '') +
@@ -605,6 +640,7 @@
             $('#box .top').removeClass('transparent');
 
             setTimeout(function() {
+                scrollToTop();
                 $('#pack').addClass('transparent');
                 $('#label').addClass('shrink');
                 $('#box .tape').removeClass('transparent');
@@ -614,9 +650,11 @@
                     $('#checkout-window').show();
                     $('#pay').removeClass('transparent');
                     setTimeout(function() {
+                        $('#styro-container').hide();
+                        $('#gift-message').hide();
                         $('#checkout-window').removeClass('transparent');
                         setTimeout(function() {
-                            callback();
+                            callback && callback();
                         }, 100);
                     }, 500);
                 }, 1000);
@@ -624,13 +662,15 @@
         },
 
         fromPayToPack: function(callback) {
+            scrollToTop();
             $('#checkout-window').addClass('transparent');
             $('#pay').addClass('transparent');
-            $('#pay footer').addClass('slide-down');
             setTimeout(function() {
                 $('#label').removeClass('shrink');
                 $('#box .tape').addClass('transparent');
                 $('#pack').show();
+                $('#styro-container').show();
+                $('#gift-message').show();
                 setTimeout(function() {
                     $('#pay').hide();
                     $('#checkout-window').hide();
@@ -642,10 +682,35 @@
                         $('#label .deliver-date').hide();
                         $('#label .ship-to').hide();
                         $('#label input, #label label').show();
-                        callback();
+                        callback && callback();
                     }, 500);
                 }, 500);
             }, 1000);
+        },
+
+        fromPayToOrderComplete: function(callback) {
+            scrollToTop();
+            $('#checkout-window').addClass('transparent');
+            $('#pay').addClass('transparent');
+            $('#pay footer').addClass('slide-down');
+            $('#truck').show();
+            setTimeout(function() {
+                $('#truck').removeClass('slide-right');
+                $('#order-complete').show();
+                setTimeout(function() {
+                    $('#pay').hide();
+                    $('#checkout-window').hide();
+                    $('#complete-package').addClass('enter-truck');
+                    setTimeout(function() {
+                        $('#order-complete').removeClass('transparent');
+                        setTimeout(function() {
+                            $('#order-complete footer').removeClass('slide-down');
+                            callback && callback();
+                        }, 500);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+
         }
     }
 
@@ -764,7 +829,8 @@
                         data: JSON.stringify(sale)
                     }).done(function(response) {
                         if (response.paid) {
-                            return;
+                            sectionTransitionFunctions.fromPayToOrderComplete();
+                            isOrderComplete = true;
                         } else if (response.backendFailure) {
                             $(".payment-errors").show().html("There was an error processing your order. Please try again.");
                         } else {
@@ -817,4 +883,6 @@
         $(".card-expiry-year").append($("<option value='"+(i + year)+"' "+(i === 0 ? "selected" : "")+">"+(i + year)+"</option>"));
         $(".card-expiry-month").append($("<option value='"+i+"' "+(month === i ? "selected" : "")+">"+i+"</option>"));
     }
+
+    scrollToTop();
 })()

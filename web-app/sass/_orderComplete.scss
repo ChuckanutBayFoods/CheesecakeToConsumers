@@ -1,0 +1,16 @@
+#truck {
+  position: absolute;
+  right: 0px;
+  top: 124px;
+  transition: all 1s;
+
+  &.slide-right {
+    right: -204px;
+  }
+}
+
+#complete-package.enter-truck {
+  -webkit-transform: translateY(400px) translateX(500px) scale3d(.2, .2, .2);
+  transition: all 1s ease-in;
+
+}
