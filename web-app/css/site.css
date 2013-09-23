@@ -388,6 +388,7 @@ footer {
   #box-container .tray {
     position: absolute;
     top: 375px;
+    width: 100%;
     /* Safari, iOS */
     -webkit-transition: all 1s ease;
     /* IE, Chrome, Firefox, Opera, Android */

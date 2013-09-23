@@ -737,7 +737,7 @@
         }
     }).data('datepicker').setValue(startDate);
 
-    $.get('/swipe/getPublishableKey').done(function(result) {
+    $.get('/stripe/getPublishableKey').done(function(result) {
         Stripe.setPublishableKey(result);
     });
 

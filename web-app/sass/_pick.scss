@@ -151,6 +151,7 @@ $boxTopBaseline: 375px;
   .tray {
     position: absolute;
     top: $boxTopBaseline;
+    width: 100%;
     @include transition(all 1s ease);
 
     .tray-part {
