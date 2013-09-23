@@ -3,14 +3,31 @@
   right: 0px;
   top: 124px;
   transition: all 1s;
+  z-index: 8800;
 
   &.slide-right {
     right: -204px;
   }
 }
 
-#complete-package.enter-truck {
-  -webkit-transform: translateY(400px) translateX(500px) scale3d(.2, .2, .2);
+#complete-package {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
   transition: all 1s ease-in;
 
+  &.enter-truck {
+    -webkit-transform: scale3d(.2, .2, .2); //translateY(400px) translateX(500px)
+  }
+}
+
+#order-complete {
+  h1 {
+    margin-top: 100px;
+  }
+
+  .summary {
+    text-align: center;
+  }
 }

@@ -891,13 +891,24 @@ footer {
   position: absolute;
   right: 0px;
   top: 124px;
-  transition: all 1s; }
+  transition: all 1s;
+  z-index: 8800; }
   #truck.slide-right {
     right: -204px; }
 
-#complete-package.enter-truck {
-  -webkit-transform: translateY(400px) translateX(500px) scale3d(0.2, 0.2, 0.2);
+#complete-package {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
   transition: all 1s ease-in; }
+  #complete-package.enter-truck {
+    -webkit-transform: scale3d(0.2, 0.2, 0.2); }
+
+#order-complete h1 {
+  margin-top: 100px; }
+#order-complete .summary {
+  text-align: center; }
 
 html {
   overflow-y: scroll;

@@ -700,7 +700,7 @@
                 setTimeout(function() {
                     $('#pay').hide();
                     $('#checkout-window').hide();
-                    $('#complete-package').addClass('enter-truck');
+                    $('#complete-package').addClass('enter-truck').css({left: $(window).width()});
                     setTimeout(function() {
                         $('#order-complete').removeClass('transparent');
                         setTimeout(function() {
@@ -738,7 +738,7 @@
 
     var startDate = getStartDate();
     $('#datepicker').datepicker({
-        format: 'mm-dd-yyyy',
+        format: 'mm/dd/yyyy',
         onRender: function(date) {
             return !validArrivalDate(date) ? 'disabled' : '';
         }
@@ -789,8 +789,8 @@
                 } else {
                     $(".payment-errors").hide();
                     var sale = {
-                        stripeToken: response['id'],
                         sale: {
+                            stripeToken: response['id'],
                             recipient: {
                                 name: $('#label input.name').val(),
                                 companyName: $('#label input.company').val(),
@@ -829,8 +829,7 @@
                         data: JSON.stringify(sale)
                     }).done(function(response) {
                         if (response.paid) {
-                            sectionTransitionFunctions.fromPayToOrderComplete();
-                            isOrderComplete = true;
+                            paymentComplete();
                         } else if (response.backendFailure) {
                             $(".payment-errors").show().html("There was an error processing your order. Please try again.");
                         } else {
@@ -875,6 +874,14 @@
         // adding the input field names is the last step, in case an earlier step errors
         addInputNames();
     });
+
+    function paymentComplete() {
+        sectionTransitionFunctions.fromPayToOrderComplete();
+        isOrderComplete = true;
+        $('#order-complete .email').text($('#checkout-window .email').val());
+        $('#order-complete .recipient').text($('#label input.name').val());
+        $('#order-complete .delivery-date').text(moment($('#label #datepicker').val()).format('MMMM Do YYYY'));
+    }
 
     var year = new Date().getFullYear();
     var month = new Date().getMonth() + 1;
