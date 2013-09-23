@@ -24,6 +24,11 @@ environments {
 		}
 	}
 	// Use development if want to hit the prod DB from your personal machine.
+	// If you use development, you'll have to provide these VM arguments in your run configuration:
+	// -DJDBC_CONNECTION_STRING=jdbc:foo -DJDBC_USERNAME=foo -DJDBC_PASSWORD=foo
+	// (replacing "foo" with the proper value)
+	// http://grails.org/doc/latest/ref/Command%20Line/run-app.html
+	// http://stackoverflow.com/questions/862391/how-to-pass-the-d-sytem-properties-while-testing-on-eclipse
 	//development {
 	production {
 		// http://flnkr.com/2013/07/grails-on-aws/
