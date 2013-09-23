@@ -1,4 +1,3 @@
-import java.io.ObjectOutputStream.DebugTraceInfoStack;
 import org.apache.log4j.ConsoleAppender
 import org.apache.log4j.DailyRollingFileAppender
 import org.apache.log4j.PatternLayout
@@ -123,4 +122,19 @@ log4j = {
 		   
 	debug	'grails.app.controllers',
 			'cheesecaketoconsumers'
+}
+
+grails {
+	mail {
+		host = "smtp.gmail.com"
+		port = 465
+		username = System.getProperty("MAIL_USERNAME", "mailUsernamNotSet")
+		password = System.getProperty("MAIL_PASSWORD", "mailPasswordNotSet")
+		props = [
+			"mail.smtp.auth":"true",
+			"mail.smtp.socketFactory.port":"465",
+			"mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+			"mail.smtp.socketFactory.fallback":"false"
+		]
+	}
 }

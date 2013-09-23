@@ -1,7 +1,5 @@
 package cheesecaketoconsumers
 
-import grails.util.Environment
-
 import com.stripe.Stripe
 import com.stripe.exception.APIConnectionException
 import com.stripe.exception.APIException
@@ -16,16 +14,19 @@ import com.stripe.model.Charge
  */
 class StripeController {
 
+	private static final PUBLISHABLE_KEY;
 	static {
 		// https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/configuration?applicationName=givecheesecakes.com&environmentId=e-s6cnnk2wah&edit=container
 		// https://manage.stripe.com/account
 		// Defaults to our test secret key
-		Stripe.apiKey = System.getProperty("STRIPE_LIVE_SECRET_KEY", "sk_test_Y0jk7VaFIDLqxXdOvf3gLLLa");
+		Stripe.apiKey = System.getProperty("STRIPE_USE_LIVE") == "true" ? System.getProperty("STRIPE_LIVE_SECRET_KEY") : "sk_test_Y0jk7VaFIDLqxXdOvf3gLLLa";
 		Stripe.apiVersion = "2013-08-13"
+		
+		PUBLISHABLE_KEY = System.getProperty("STRIPE_USE_LIVE") == "true" ? "pk_live_h0i3a6TYJx4iK0zE6CyAITLh" : "pk_test_J460WxCY0NPbCGolQQDc19gx";
 	}
 	
 	def getPublishableKey() {
-		render Environment.current == Environment.PRODUCTION ? "pk_live_h0i3a6TYJx4iK0zE6CyAITLh" : "pk_test_J460WxCY0NPbCGolQQDc19gx"
+		render PUBLISHABLE_KEY
 	}
 	
 	def charge() {
@@ -111,7 +112,14 @@ class StripeController {
 			log.error("Very generic error", e)
 		}
 		
-		if (!result.paid) {
+		if (result.paid) {
+//			sendMail {
+//				to "stevenl@chuckanutbay.com"
+//				from "test@chuckanutbay.com"
+//				subject "Test"
+//				html '<b>Hello</b> World'
+//			}
+		} else {
 			log.warn("Attempting to delete <${sale}> since it wasn't successfully paid.")
 			sale.delete()
 		}
