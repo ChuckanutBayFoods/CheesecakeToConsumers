@@ -3,12 +3,12 @@
 <head>
     <!-- Edit this later -->
     <title>Cheesecake to Consumers Payment Test</title>
-    <script src="../../js/jquery.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
         $().ready(function() {
             $.ajax({
                 type : 'POST',
-                url : '/CheesecakeToConsumers/stripe/charge', 
+                url : '/stripe/charge', 
                 data : JSON.stringify({
                     
                     sale : {
@@ -41,7 +41,7 @@
                         ],
                         arrivalDate : '20131025',
                         giftMessage : 'Dear Mom,  I hope you have a wonderful birthday.  We love you!',
-                        stripeToken : 'foo'
+                        stripeToken : 'test'
                     }
                 }),
                 contentType: "application/json",

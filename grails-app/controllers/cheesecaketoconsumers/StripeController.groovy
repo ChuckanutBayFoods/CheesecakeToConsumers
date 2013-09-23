@@ -19,6 +19,7 @@ class StripeController {
 	static {
 		// https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/configuration?applicationName=givecheesecakes.com&environmentId=e-s6cnnk2wah&edit=container
 		// https://manage.stripe.com/account
+		// Defaults to our test secret key
 		Stripe.apiKey = System.getProperty("STRIPE_LIVE_SECRET_KEY", "sk_test_Y0jk7VaFIDLqxXdOvf3gLLLa");
 		Stripe.apiVersion = "2013-08-13"
 	}
@@ -62,19 +63,22 @@ class StripeController {
 		}
 		
 		try {
+			String description = "Giver: ${sale.giver.name}/${sale.giver.emailAddress}; Recipient: ${sale.recipient.name}; Items: "
+			description += request.JSON.sale.saleItems.collect{
+				"${it.quantity} x ${it.product.id}"
+			}.join(", ")
+			// https://stripe.com/docs/testing
+			def card = sale.stripeToken != "test" ? sale.stripeToken : [
+				number : "4242424242424242", // success
+				//number : "4000000000000002", // card_declined
+				exp_month : 12,
+				exp_year: 2020
+			]
 			charge = Charge.create([
 				amount : 50 * 100,
 				currency : "usd",
-				// request.JSON.stripeToken
-				// https://stripe.com/docs/testing
-				card : [
-					//number : "4242424242424242", // success
-					number : "4000000000000002", // card_declined
-					exp_month : 12,
-					exp_year: 2020
-				],
-				// FIXME
-				description : "email@address.com order for recipient"
+				card : card,
+				description : description
 			])
 			sale.wasChargeConfirmed = true
 			if (!sale.save(flush : true)) {
