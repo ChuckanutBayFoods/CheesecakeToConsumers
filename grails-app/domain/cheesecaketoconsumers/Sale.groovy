@@ -6,17 +6,16 @@ import groovy.transform.ToString
 class Sale {
 
     static constraints = {
-		giver unique : true
-		recipient unique : true
 		giftMessage maxSize : 350
-		arrivalDate maxSize : 10
+		arrivalDate maxSize : 10, blank : false
+		stripeToken maxSize : 128, blank : false
     }
 	Date dateCreated
-	static hasOne = [
-		giver : Giver,
-		recipient : Recipient
-	]
+	Giver giver
+	Recipient recipient
 	static hasMany = [saleItems : SaleItem]
 	String giftMessage
 	String arrivalDate
+	String stripeToken
+	boolean wasChargeConfirmed = false
 }

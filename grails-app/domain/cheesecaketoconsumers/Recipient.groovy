@@ -13,8 +13,6 @@ class Recipient {
 		phoneNumber maxSize : 10
     }
 	
-	Sale sale;
-	
 	String name
 	String companyName
 	String addressLine1

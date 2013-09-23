@@ -7,8 +7,6 @@ class Giver {
 		emailAddress maxSize : 256, email : true
     }
 	
-	Sale sale;
-	
 	String name;
 	String emailAddress;
 }
