@@ -27,13 +27,14 @@ environments {
 	//development {
 	production {
 		// http://flnkr.com/2013/07/grails-on-aws/
+		// https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/configuration?applicationName=givecheesecakes.com&environmentId=e-s6cnnk2wah&edit=container
 		dataSource {
-			username = "masterchuck"
-			password = "chuck1mysql"
+			username = System.getProperty("JDBC_USERNAME", "jdbcUsernameNotSet")
+			password = System.getProperty("JDBC_PASSWORD", "jdbcPasswordNotSet")
 			pooled = true
 			dbCreate = "update"
 			driverClassName = "com.mysql.jdbc.Driver"
-			url = "jdbc:mysql://aa19q4s9c37s6ze.cfs7tnw9etj0.us-east-1.rds.amazonaws.com:3306/ebdb?user=masterchuck&password=chuck1mysql"
+			url = System.getProperty("JDBC_CONNECTION_STRING", "jdbcConntectionStringNotSet")
 			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 			properties {
 				validationQuery = "SELECT 1"

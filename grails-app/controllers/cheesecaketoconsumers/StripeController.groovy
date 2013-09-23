@@ -1,5 +1,7 @@
 package cheesecaketoconsumers
 
+import grails.util.Environment
+
 import com.stripe.Stripe
 import com.stripe.exception.APIConnectionException
 import com.stripe.exception.APIException
@@ -14,11 +16,18 @@ import com.stripe.model.Charge
  */
 class StripeController {
 
-	def charge() {
-		// FIXME
-		Stripe.apiKey = "sk_test_mkGsLqEW6SLnZa487HYfJVLf";
+	static {
+		// https://console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/configuration?applicationName=givecheesecakes.com&environmentId=e-s6cnnk2wah&edit=container
+		// https://manage.stripe.com/account
+		Stripe.apiKey = System.getProperty("STRIPE_LIVE_SECRET_KEY", "sk_test_Y0jk7VaFIDLqxXdOvf3gLLLa");
 		Stripe.apiVersion = "2013-08-13"
-		
+	}
+	
+	def getPublishableKey() {
+		render Environment.current == Environment.PRODUCTION ? "pk_live_h0i3a6TYJx4iK0zE6CyAITLh" : "pk_test_J460WxCY0NPbCGolQQDc19gx"
+	}
+	
+	def charge() {
 		log.debug("Received sale ${request.JSON.sale}")
 		Charge charge
 		def result = [
