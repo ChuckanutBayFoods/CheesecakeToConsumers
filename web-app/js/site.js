@@ -744,7 +744,12 @@
         }
     }).data('datepicker').setValue(startDate);
 
-    Stripe.setPublishableKey('pk_test_J460WxCY0NPbCGolQQDc19gx');
+    if (window.location.indexOf('givecheesecakes.com') != -1) {
+        Stripe.setPublishableKey('pk_test_J460WxCY0NPbCGolQQDc19gx');
+    } else {
+        Stripe.setPublishableKey('pk_live_h0i3a6TYJx4iK0zE6CyAITLh');
+    }
+
     $(document).ready(function() {
         function addInputNames() {
             // Not ideal, but jQuery's validate plugin requires fields to have names
