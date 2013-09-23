@@ -2,7 +2,7 @@
   position: absolute;
   right: 0px;
   top: 124px;
-  transition: all 1s;
+  @include transition(all 1s);
   z-index: 8800;
 
   &.slide-right {
@@ -15,10 +15,10 @@
   top: 0;
   left: 0;
   height: 100%;
-  transition: all 1s ease-in;
+  @include transition(all 1s ease-in);
 
   &.enter-truck {
-    -webkit-transform: scale3d(.2, .2, .2); //translateY(400px) translateX(500px)
+    @include transform(scale3d(.2, .2, .2)); //translateY(400px) translateX(500px)
   }
 }
 

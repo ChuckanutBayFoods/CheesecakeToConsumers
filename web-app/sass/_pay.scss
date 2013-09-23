@@ -12,7 +12,7 @@
   right: 0;
   z-index: 8800;
   background-color: $white;
-  transition: all 1s ease;
+  @include transition(all 1s ease);
 
   > * {
     display: inline-block;
@@ -151,12 +151,12 @@ $loadingDelayPerBall: $loadingCycleTime / 14;
 @-webkit-keyframes loading {
   0% {
     opacity: 1;
-    -webkit-transform: translateX(0);
+    @include transform(translateX(0));
   }
 
   50% {
     opacity: 1;
-    -webkit-transform: translateX($loadingWidth - $loadingBallSize);
+    @include transform(translateX($loadingWidth - $loadingBallSize));
   }
 
   51% {

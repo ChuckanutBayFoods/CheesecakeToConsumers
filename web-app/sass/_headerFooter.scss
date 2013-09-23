@@ -29,7 +29,7 @@ header {
     .popover {
       line-height: initial;
       max-width: 500px;
-      -webkit-transform: translateX(0px) translateX(0px);
+      @include transform(translateX(0px) translateX(0px));
 
       .question {
         font-weight: 700;
@@ -50,7 +50,7 @@ footer {
   border-top: 1px solid $transparentMediumGray;
   bottom: 0;
   width: 100%;
-  transition: all .25s ease;
+  @include transition(all .25s ease);
   text-align: center;
   cursor: pointer;
   z-index: 9000;

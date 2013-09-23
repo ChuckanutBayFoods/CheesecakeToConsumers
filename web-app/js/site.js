@@ -1,14 +1,7 @@
-/**
- * Created with JetBrains WebStorm.
- * User: mitchellloeppky
- * Date: 9/14/13
- * Time: 1:02 PM
- * To change this template use File | Settings | File Templates.
- */
 (function() {
 
     var flavorData;
-    $.get(serverRoot + 'product/getDump').done(function (result) {
+    $.get('/product/getDump').done(function (result) {
         console.log(result);
         flavorData = result;
         $.each(flavorData, function(i, v) {
@@ -744,11 +737,9 @@
         }
     }).data('datepicker').setValue(startDate);
 
-    if (window.location.indexOf('givecheesecakes.com') != -1) {
-        Stripe.setPublishableKey('pk_test_J460WxCY0NPbCGolQQDc19gx');
-    } else {
-        Stripe.setPublishableKey('pk_live_h0i3a6TYJx4iK0zE6CyAITLh');
-    }
+    $.get('/swipe/getPublishableKey').done(function(result) {
+        Stripe.setPublishableKey(result);
+    });
 
     $(document).ready(function() {
         function addInputNames() {
@@ -827,7 +818,7 @@
                         }
                     }
                     $.ajax({
-                        url: serverRoot + 'stripe/charge',
+                        url: '/stripe/charge',
                         method: 'post',
                         contentType: 'application/json',
                         processData: false,

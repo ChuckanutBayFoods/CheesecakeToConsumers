@@ -10,7 +10,7 @@ $dotSize: 8px;
   color: $mediumGray;
 
   * {
-    -webkit-transition: all .1s;
+    @include transition(all .1s);
   }
 
   > div {

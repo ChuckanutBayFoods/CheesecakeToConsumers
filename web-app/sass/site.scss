@@ -20,6 +20,24 @@
   box-shadow: $params;
 }
 
+@mixin transform($params...) {
+/* Safari and Chrome */
+  -webkit-transform: $params;
+
+/* IE 9 */
+  -ms-transform: $params;
+
+  transform: $params;
+}
+
+@mixin transition($params...) {
+/* Safari, iOS */
+  -webkit-transition: $params;
+
+/* IE, Chrome, Firefox, Opera, Android */
+  transition: $params;
+}
+
 @mixin square($size) {
   width: $size;
   height: $size;
@@ -100,7 +118,7 @@ pre {
 }
 
 section {
-  transition: all 1s;
+  @include transition(all 1s);
 }
 
 #scroll-event-catcher {
