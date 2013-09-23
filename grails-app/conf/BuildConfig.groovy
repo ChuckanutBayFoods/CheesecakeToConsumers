@@ -42,13 +42,6 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
-        // runtime 'mysql:mysql-connector-java:5.1.22'
-		
-		// http://stackoverflow.com/questions/12332155/grails-unresolved-dependency-error
-		build ('org.apache.httpcomponents:httpcore:4.2.1')
-		build ('org.apache.httpcomponents:httpclient:4.2.1')
-		runtime ('org.apache.httpcomponents:httpcore:4.2.1')
-		runtime ('org.apache.httpcomponents:httpclient:4.2.1')
 		runtime ('mysql:mysql-connector-java:5.1.26')
 		
 		// https://stripe.com/docs/libraries
