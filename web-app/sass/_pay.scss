@@ -12,6 +12,7 @@
   right: 0;
   z-index: 8800;
   background-color: $white;
+  pointer-events: auto;
   @include transition(all 1s ease);
 
   > * {

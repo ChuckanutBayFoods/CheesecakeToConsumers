@@ -4,6 +4,7 @@ $styroTopBaseline: $boxTopBaseline - 213;
   position: absolute;
   top: $styroTopBaseline;
   left: -56px;
+  width: 100%;
 
   &.collapsed > * {
     opacity: 1 !important;
@@ -77,8 +78,9 @@ $styroTopBaseline: $boxTopBaseline - 213;
   height: 700px;
   z-index: 5000;
   background-color: $white;
-  @include transition(all 2s ease);
   overflow: hidden;
+  pointer-events: auto;
+  @include transition(all 2s ease);
 
   &.slide-up {
     top: $boxTopBaseline - 245;

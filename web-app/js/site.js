@@ -1,4 +1,7 @@
 (function() {
+    function isMobile() {
+        return (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+    }
 
     var flavorData;
     $.get('/product/getDump').done(function (result) {
@@ -10,7 +13,7 @@
                     (v.isGlutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
                     '<img src="' + v.stageImageUrl + '"/>' +
                     '<div class="flavor-label">' + v.name + '</div>' +
-                    '</li>'
+                '</li>'
             );
         });
 
@@ -61,20 +64,34 @@
     var consecutiveUpScrolls = 0;
     var consecutiveDownScrolls = 0;
     var isOrderComplete = false;
-    $('html').bind('mousewheel', function(e) {
+    var lastScrollTop = 0;
+    $(document).bind('scroll', function(e) {
+        console.log(e);
+        var thisScrollTop = $(this).scrollTop();
+
         if (!acceptScrolling || preventScrolling || $('.modal').hasClass('in')) {
             e.preventDefault();
+            lastScrollTop = thisScrollTop;
             return;
         }
 
-        if (e.originalEvent.wheelDelta > 0 && $(window).scrollTop() < 10) {
+        if (isMobile()) {
+            if (thisScrollTop == 0) {
+                gotoSection('prev');
+            } else if (thisScrollTop == $(document).height() - $(window).height()) {
+                gotoSection('next');
+
+            }
+        }
+
+        if (lastScrollTop > thisScrollTop && $(window).scrollTop() < 10) {
             consecutiveUpScrolls++;
             consecutiveDownScrolls = 0;
             if (consecutiveUpScrolls >= 3) {
                 consecutiveUpScrolls = 0;
                 gotoSection('prev');
             }
-        } else if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
+        } else if (lastScrollTop < thisScrollTop && $(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
             consecutiveDownScrolls++;
             consecutiveUpScrolls = 0;
             if (consecutiveDownScrolls >= 3) {
@@ -82,6 +99,7 @@
                 gotoSection('next');
             }
         }
+        lastScrollTop = thisScrollTop;
     });
 
     function scrollToTop() {
@@ -94,6 +112,13 @@
     function gotoSection(section) {
         if (isOrderComplete) {
             location.reload();
+        }
+
+        var currentSection = getCurrentSection();
+        if(section == 'next') {
+            section = enabledSections[enabledSections.indexOf(currentSection) + 1];
+        } else if (section == 'prev') {
+            section = enabledSections[enabledSections.indexOf(currentSection) - 1];
         }
 
         if (sectionChangeQueue.length > 0) {
@@ -114,13 +139,6 @@
             sectionChangeQueue.push(section);
             //console.log(sectionChangeQueue);
             return;
-        }
-
-        var currentSection = getCurrentSection();
-        if(section == 'next') {
-            section = enabledSections[enabledSections.indexOf(currentSection) + 1];
-        } else if (section == 'prev') {
-            section = enabledSections[enabledSections.indexOf(currentSection) - 1];
         }
 
 
