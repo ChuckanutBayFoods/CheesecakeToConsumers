@@ -91,25 +91,23 @@
       text-transform: uppercase;
     }
 
-    form {
-      .name,
-      .address,
-      .address2,
-      .company {
-        width: 250px;
-      }
+    .name,
+    .address,
+    .address2,
+    .company {
+      width: 250px;
+    }
 
-      .city {
-        width: 124px;
-      }
+    .city {
+      width: 124px;
+    }
 
-      .state {
-        width: 50px;
-      }
+    .state {
+      width: 50px;
+    }
 
-      .zip {
-        width: 70px;
-      }
+    .zip {
+      width: 70px;
     }
   }
 

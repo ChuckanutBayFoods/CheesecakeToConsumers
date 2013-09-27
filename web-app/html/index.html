@@ -77,6 +77,7 @@
                 <div class="outer-carrot"></div>
                 <div class="inner-carrot"></div>
             </div>
+            <div id="hidden-image-loading-container" style="display: none;"></div>
         </div>
         <div id="selected-cheesecake-btns" class="btn-container">
             <div class="btn btn-more-info">More info</div>
@@ -174,115 +175,117 @@ Your secret admirer</pre>
                 </div>
                 <div id="complete-package">
                     <div id="box" class="slide-down hide">
-                    <img class="box-part back" src="../img/box/back.png">
-                    <img class="box-part front" src="../img/box/front.png">
-                    <img class="box-part flaps" src="../img/box/flaps.png">
-                    <img class="box-part top transparent" src="../img/box/top.png">
-                    <img class="box-part tape transparent" src="../img/box/tape.png">
-                </div>
+                        <img class="box-part back" src="../img/box/back.png">
+                        <img class="box-part front" src="../img/box/front.png">
+                        <img class="box-part flaps" src="../img/box/flaps.png">
+                        <img class="box-part top transparent" src="../img/box/top.png">
+                        <img class="box-part tape transparent" src="../img/box/tape.png">
+                    </div>
                     <div id="label" class="slide-down hide">
-                    <div class="return-address">
-                        Chuckanut Bay Foods<br>
-                        5501 Hovander Rd #1<br>
-                        Ferndale, WA 98248
-                    </div>
-                    <div class="ship-to-wrapper">
-                        <div class="ship-to-label">SHIP TO:</div>
-                        <pre class="ship-to hide"></pre>
-                        <form autocomplete="on" method="POST">
-                            <input autocomplete="on" class="name" name="name" type="text" placeholder="Recipient Name"/><br>
-                            <input autocomplete="on" class="company" name="company" type="text" placeholder="Company (optional)"/><br>
-                            <input autocomplete="on" class="address" name="addressLine1" type="text" placeholder="Address"/><br>
-                            <input autocomplete="on" class="address2" name="addressLine2" type="text" placeholder="Address 2 (optional)"/><br>
-                            <input autocomplete="on" class="city" name="city"type="text" placeholder="City"/>
-                            <input autocomplete="on" class="state" name="state" type="text" placeholder="State" maxlength="2" />
-                            <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" />
-                        </form>
-                    </div>
-                    <div class="date-picker-wrapper">
-                        <div class="date-picker-label">
-                            Deliver on:
-                        </div>
-                        <input type="text" id="datepicker" />
-                        <div class="deliver-date hide"></div>
-                    </div>
-                    <div class="shipping-constraints">
-                        Orders placed after 1:00PM PST cannot be shipped until next day.<br>
-                        Orders can only be scheduled for arrival on a Tue, Wed, Thur, or Fri.
-                    </div>
-                    <div class="next-day-wrapper">
-                        <div class="two-d-barcode-wrapper">
-                            <img class="box-part back" src="../img/label/2dbarcode.png">
-                        </div>
-                        <div class="next-day-label-wrapper">
-                            <div class="next-day-label">
-                                UPS Next-Day Air
+                        <form action="/" method="post" autocomplete="on" id="pack-form">
+                            <div class="return-address">
+                                Chuckanut Bay Foods<br>
+                                5501 Hovander Rd #1<br>
+                                Ferndale, WA 98248
                             </div>
-                            <div class="freshness-label">
-                                For maximum freshness
+                            <div class="ship-to-wrapper">
+                                <div class="ship-to-label">SHIP TO:</div>
+                                <pre class="ship-to hide"></pre>
+                                <div>
+                                    <input autocomplete="on" class="name" name="name" type="text" placeholder="Recipient Name"/><br>
+                                    <input autocomplete="on" class="company" name="company" type="text" placeholder="Company (optional)"/><br>
+                                    <input autocomplete="on" class="address" name="addressLine1" type="text" placeholder="Address"/><br>
+                                    <input autocomplete="on" class="address2" name="addressLine2" type="text" placeholder="Address 2 (optional)"/><br>
+                                    <input autocomplete="on" class="city" name="city"type="text" placeholder="City"/>
+                                    <input autocomplete="on" class="state" name="state" type="text" placeholder="State" maxlength="2" />
+                                    <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" />
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="barcode-wrapper">
-                        <img class="box-part back" src="../img/label/barcode.png">
-                    </div>
-                </div>
-                </div>
-                <div id="checkout-window" class="transparent hide">
-                        <div class="confirm">
-                            <h3>Your Order</h3>
-                            <p>8 Handmade Cheesecakes:</p>
-                            <ul class="flavor-quantities"></ul>
-                            <div class="grand-total">$49.99<span class="total-label"> includes tax and shipping</span></div>
-                            <div class="ship-to"></div>
-                        </div>
-                        <div class="pay">
-                            <h3>Billing Info</h3>
-                            <form action="/" method="post" id="example-form">
-
-                                <div class="form-row">
-                                    <label for="name" class="stripeLabel">Your Name</label>
-                                    <input type="text" autocomplete="on" placeholder="Your Name" name="name" class="name required" />
+                            <div class="date-picker-wrapper">
+                                <div class="date-picker-label">
+                                    Deliver on:
                                 </div>
-
-                                <div class="form-row">
-                                    <label for="email">E-mail Address</label>
-                                    <input type="text" autocomplete="on" placeholder="Your Email" name="email" class="email required" />
+                                <input type="text" name="arrival-date" id="datepicker" />
+                                <div class="deliver-date hide"></div>
+                            </div>
+                            <div class="shipping-constraints">
+                                Orders placed after 1:00PM PST cannot be shipped until next day.<br>
+                                Orders can only be scheduled for arrival on a Tue, Wed, Thur, or Fri.
+                            </div>
+                            <div class="next-day-wrapper">
+                                <div class="two-d-barcode-wrapper">
+                                    <img class="box-part back" src="../img/label/2dbarcode.png">
                                 </div>
-
-                                <div class="form-row">
-                                    <label>Card Number</label>
-                                    <input type="text" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" maxlength="20" autocomplete="off" class="card-number stripe-sensitive required" />
-                                </div>
-
-                                <div class="form-row">
-                                    <label>CVC</label>
-                                    <input type="text" maxlength="4" autocomplete="off" class="card-cvc stripe-sensitive required" />
-                                </div>
-
-                                <div class="form-row">
-                                    <label>Expiration</label>
-                                    <div class="expiry-wrapper">
-                                        <select class="card-expiry-month stripe-sensitive required">
-                                        </select>
-                                        <span> / </span>
-                                        <select class="card-expiry-year stripe-sensitive required"></select>
+                                <div class="next-day-label-wrapper">
+                                    <div class="next-day-label">
+                                        UPS Next-Day Air
+                                    </div>
+                                    <div class="freshness-label">
+                                        For maximum freshness
                                     </div>
                                 </div>
-
-                                <button type="submit" class="btn btn-success btn-order" name="submit-button">Place Order</button>
-                                <div class="loading">
-                                    <div class="loading-ball-1"></div>
-                                    <div class="loading-ball-2"></div>
-                                    <div class="loading-ball-3"></div>
-                                    <div class="loading-ball-4"></div>
-                                    <div class="loading-ball-5"></div>
-                                    <div class="gradient-overlay"></div>
-                                </div>
-                                <div class="payment-errors alert alert-error hide"></div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="barcode-wrapper">
+                                <img class="box-part back" src="../img/label/barcode.png">
+                            </div>
+                        </form>
                     </div>
+                </div>
+                <div id="checkout-window" class="transparent hide">
+                    <div class="confirm">
+                        <h3>Your Order</h3>
+                        <p>8 Handmade Cheesecakes:</p>
+                        <ul class="flavor-quantities"></ul>
+                        <div class="grand-total">$49.99<span class="total-label"> includes tax and shipping</span></div>
+                        <div class="ship-to"></div>
+                    </div>
+                    <div class="pay">
+                        <h3>Billing Info</h3>
+                        <form action="/" method="post" id="pay-form">
+
+                            <div class="form-row">
+                                <label for="name" class="stripeLabel">Your Name</label>
+                                <input type="text" autocomplete="on" placeholder="Your Name" name="name" class="name required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="email">E-mail Address</label>
+                                <input type="text" autocomplete="on" placeholder="Your Email" name="email" class="email required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label>Card Number</label>
+                                <input type="text" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" maxlength="20" autocomplete="off" class="card-number stripe-sensitive required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label>CVC</label>
+                                <input type="text" maxlength="4" autocomplete="off" class="card-cvc stripe-sensitive required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label>Expiration</label>
+                                <div class="expiry-wrapper">
+                                    <select class="card-expiry-month stripe-sensitive required">
+                                    </select>
+                                    <span> / </span>
+                                    <select class="card-expiry-year stripe-sensitive required"></select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-order" name="submit-button">Place Order</button>
+                            <div class="loading">
+                                <div class="loading-ball-1"></div>
+                                <div class="loading-ball-2"></div>
+                                <div class="loading-ball-3"></div>
+                                <div class="loading-ball-4"></div>
+                                <div class="loading-ball-5"></div>
+                                <div class="gradient-overlay"></div>
+                            </div>
+                            <div class="payment-errors alert alert-error hide"></div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -739,16 +739,16 @@ footer {
     #label .ship-to-wrapper .ship-to {
       margin: 0;
       text-transform: uppercase; }
-    #label .ship-to-wrapper form .name,
-    #label .ship-to-wrapper form .address,
-    #label .ship-to-wrapper form .address2,
-    #label .ship-to-wrapper form .company {
+    #label .ship-to-wrapper .name,
+    #label .ship-to-wrapper .address,
+    #label .ship-to-wrapper .address2,
+    #label .ship-to-wrapper .company {
       width: 250px; }
-    #label .ship-to-wrapper form .city {
+    #label .ship-to-wrapper .city {
       width: 124px; }
-    #label .ship-to-wrapper form .state {
+    #label .ship-to-wrapper .state {
       width: 50px; }
-    #label .ship-to-wrapper form .zip {
+    #label .ship-to-wrapper .zip {
       width: 70px; }
   #label .date-picker-wrapper {
     position: absolute;
