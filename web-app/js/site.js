@@ -41,7 +41,7 @@ var Pay = {
 
         // We use the jQuery validate plugin to validate required params on submit
         $("#pay-form").validate({
-            submitHandler: submit,
+            submitHandler: Pay.submit,
             rules: {
                 "card-cvc" : {
                     cardCVC: true,
@@ -55,7 +55,7 @@ var Pay = {
             }
         });
 
-        $("#order-complete footer").click(function() {
+        $("footer.order-complete").click(function() {
             location.reload();
         });
 
@@ -199,10 +199,11 @@ var Flavors = {
 
     init: function() {
         $.get('/product/getDump').done(function (result) {
-            this._flavorData = result;
-            $.each(this._flavorData, function(i, v) {
+            Flavors._flavorData = result;
+            $.each(Flavors._flavorData, function(i, v) {
                 Pick.flavorCarousel.addFlavor(v);
             });
+            Pick.flavorCarousel.init();
         });
     },
 
@@ -240,9 +241,13 @@ var Flavors = {
         return openSlot;
     },
 
+    removeCheesecake: function(slot) {
+        this._pickedCheesecakes[slot] = null;
+    },
+
     findOpenCheesecakeSlot: function() {
         for(var i = 1; i <= 8; i++) {
-            if (!pickedCheesecakes[i]) {
+            if (!this._pickedCheesecakes[i]) {
                 return i;
             }
         }
@@ -259,14 +264,14 @@ var Pick = {
         });
 
         $('#selected-cheesecake-btns .btn-more-info').click(function() {
-            this.displayMoreInfo(this.flavorCarousel.getSelectedFlavor());
+            Pick.displayMoreInfo(Pick.flavorCarousel.getSelectedFlavor());
         });
 
         $('#selected-cheesecake-btns .btn-add').click(function() {
-            this.pickCheesecake(this.flavorCarousel.getSelectedFlavor());
+            Pick.pickCheesecake(Pick.flavorCarousel.getSelectedFlavor());
         });
 
-        $("#pick footer").click(function() {
+        $("footer.pick").click(function() {
             NavigationManager.gotoSection('personalize');
         });
     },
@@ -283,12 +288,17 @@ var Pick = {
     },
 
     pickCheesecake: function(flavor) {
-        var flavor = getFlavorById($('.flavor.active').attr('data-id'));
+        var flavor = Flavors.getFlavorById($('.flavor.active').attr('data-id'));
         var slot = Flavors.pickCheesecake(flavor);
+
         if (!slot) {
-            $(this).addClass('disabled');
-            $("#pick footer").removeClass('slide-down');
-            enableSection('personalize');
+            return;
+        }
+
+        if (slot == 8) {
+            $('#selected-cheesecake-btns .btn-add').addClass('disabled');
+            $("footer.pick").removeClass('slide-down');
+            NavigationManager.enableSection('personalize');
         }
 
         var parentContainer;
@@ -320,7 +330,7 @@ var Pick = {
                 trigger: 'manual'
             })
             .click(function(e) {
-                if (getCurrentSection() != 'pick') {
+                if (NavigationManager._currentSection != 'pick') {
                     return;
                 }
                 $(this).popover('show');
@@ -335,12 +345,12 @@ var Pick = {
         cheesecake.parent().delegate('.btn-container' + slot + ' .btn-more-info', 'click', function() {
             displayMoreInfo($(this).parent().data('flavor'));
         }).delegate('.btn-container' + slot + ' .btn-remove', 'click', function() {
-                pickedCheesecakes[slot] = null;
+                Flavors.removeCheesecake(slot);
                 cheesecake.popover('hide').animate({top: '+=100'}, 500, function() {
                     cheesecake.remove();
                 });
                 $('.btn-success').removeClass('disabled');
-                $("#pick footer").addClass('slide-down');
+                $("footer.pick").addClass('slide-down');
                 disableSection('personalize');
             });
 
@@ -377,13 +387,10 @@ var Pick = {
 
                 // Buttons
                 prev: this._element.find('.arrow-left'),
-                next: this._element.find('.arrow-right')
-            }).on('change', function() {
-                var flavor = this.getSelectedFlavor();
-                $('#hidden-image-loading-container').append(
-                    '<img src="' + flavor.bareImageUrl + '" />'
-                );
-            });
+                next: this._element.find('.arrow-right'),
+
+                change: function() {}
+            }).sly('on', 'change', this.preloadSelectedBareImage);
         },
 
         addFlavor: function(flavor) {
@@ -393,6 +400,13 @@ var Pick = {
                     '<img src="' + flavor.stageImageUrl + '"/>' +
                     '<div class="flavor-label">' + flavor.name + '</div>' +
                 '</li>'
+            );
+        },
+
+        preloadSelectedBareImage: function() {
+            var flavor = Pick.flavorCarousel.getSelectedFlavor();
+            $('#hidden-image-loading-container').append(
+                '<img src="' + flavor.bareImageUrl + '" />'
             );
         },
 
@@ -407,7 +421,7 @@ var Personalize = {
         $('#gift-message').find('pre, .edit-message-label').click(this.makeEditable(true));
         $('#gift-message .btn-save').click(this.makeEditable(false));
 
-        $("#personalize footer").click(function() {
+        $("footer.personalize").click(function() {
             NavigationManager.gotoSection('pack');
         });
     },
@@ -486,13 +500,13 @@ var Pack = {
 
         $('#label .zip').keyup(function() {
             if ($('#label .zip').val().length == 5) {
-                $('#pack footer').removeClass('slide-down');
+                $('footer.pack').removeClass('slide-down');
             } else {
-                $('#pack footer').addClass('slide-down');
+                $('footer.pack').addClass('slide-down');
             }
         });
 
-        $('#pack footer').click(function() {
+        $('footer.pack').click(function() {
             $("#pack-form").submit();
         })
 
@@ -504,6 +518,10 @@ var Pack = {
     },
 
     validName: function(name) {
+        return name;
+    },
+
+    validAddress: function(name) {
         return name;
     },
 
@@ -542,7 +560,7 @@ var Pack = {
             $('#datepicker').datepicker({
                 format: 'mm/dd/yyyy',
                 onRender: function(date) {
-                    return !this.validArrivalDate(date) ? '' : 'disabled';
+                    return !Pack.datePicker.validArrivalDate(date) ? '' : 'disabled';
                 }
             }).data('datepicker').setValue(this.getFirstArrivalDate());
         },
@@ -589,7 +607,7 @@ var NavigationManager = {
         // Add navigation click handlers
         $.each(['pick', 'personalize', 'pack', 'pay'], function(i, v) {
             NavigationManager._getNavElement(v).click(function() {
-                gotoSection(v);
+                NavigationManager.gotoSection(v);
             });
         });
     },
@@ -618,7 +636,7 @@ var NavigationManager = {
 
     _selectNavElement: function(section) {
         $('#side-nav > div').removeClass('selected');
-        getNavElement(section).addClass('selected');
+        this._getNavElement(section).addClass('selected');
     },
 
     _isEnabled: function(section) {
@@ -665,21 +683,32 @@ var NavigationManager = {
         pick: {
             // From everything else
             default: function() {
-                $('#personalize, #pack, #pay, #order-complete, #box-container > *')
-                    .removeClass('opaque')
-                    .addClass('transparent')
-                    .one('animationend animationend webkitAnimationEnd oanimationend MSAnimationEnd', function() {
-                        if (NavigationManager._currentSection == 'pick') {
-                            $('#pick').removeClass('transparent').addClass('opaque');
-                        }
-                    });
+                $('.from-pick-to-personalize').removeClass('from-pick-to-personalize');
+                $('#tray1, #tray2, #pick, footer.pick').show().addClass('fade-in');
+
             }
         },
 
         // To Personalize
         personalize: {
+            // From Pick
             pick: function() {
+                $('.fade-in').removeClass('fade-in');
+                $('#tray1, #tray2, #pick, footer.pick, .shield, #styro-container, #gift-message, #pack').show().addClass('from-pick-to-personalize');
+                $('#styro-container').afterAnimation(function() {
+                    if (NavigationManager._currentSection == 'personalize') {
+                        $('#tray1, #tray2, #pick, .shield').hide();
+                    }
+                });
+            }
+        },
 
+        // To Pack
+        pack: {
+            // From Personalize
+            personalize: function() {
+                $('.fade-in').removeClass('fade-in');
+                $('#personalize, footer.personalize, #box, #pay').show().addClass('from-personalize-to-pack');
             }
         }
     }
@@ -687,6 +716,16 @@ var NavigationManager = {
 };
 
 (function() {
+    NavigationManager.init();
+    Flavors.init();
+    Pick.init();
+    Personalize.init();
+    Pack.init();
+    Pay.init();
+
+    $.fn.afterAnimation = function(afterAnimation) {
+        return this.one('animationend animationend webkitAnimationEnd oanimationend MSAnimationEnd', afterAnimation);
+    }
 
     var acceptScrolling = true;
     var preventScrolling = false;
@@ -713,14 +752,16 @@ var NavigationManager = {
             }
         }
 
-        if (lastScrollTop > thisScrollTop && $(window).scrollTop() < 10) {
+        if (lastScrollTop > thisScrollTop && $(window).scrollTop() <= 0) {
+            e.preventDefault();
             consecutiveUpScrolls++;
             consecutiveDownScrolls = 0;
             if (consecutiveUpScrolls >= 3) {
                 consecutiveUpScrolls = 0;
                 gotoSection('prev');
             }
-        } else if (lastScrollTop < thisScrollTop && $(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
+        } else if (lastScrollTop < thisScrollTop && $(window).scrollTop() + $(window).height() >= $(document).height()) {
+            e.preventDefault();
             consecutiveDownScrolls++;
             consecutiveUpScrolls = 0;
             if (consecutiveDownScrolls >= 3) {
@@ -757,7 +798,7 @@ var NavigationManager = {
                                 $('#gift-message').addClass('slide-up');
                                 $('#personalize').removeClass('transparent');
                                 setTimeout(function() {
-                                    $('#personalize footer').removeClass('slide-down');
+                                    $('footer.personalize ').removeClass('slide-down');
                                     enableSection('pack');
                                     callback && callback();
                                 }, 2000);
@@ -770,7 +811,7 @@ var NavigationManager = {
 
         fromPersonalizeToPick: function(callback) {
             scrollToTop();
-            $('#personalize footer').addClass('slide-down');
+            $('footer.personalize').addClass('slide-down');
             setTimeout(function() {
                 $('#gift-message').removeClass('slide-up');
                 $('#personalize').addClass('transparent');
@@ -791,7 +832,7 @@ var NavigationManager = {
                                     $('.shield').show();
                                     $("#pick").removeClass('transparent');
                                     setTimeout(function() {
-                                        $('#pick footer').removeClass('slide-down');
+                                        $('footer.pick').removeClass('slide-down');
                                         callback && callback();
                                     }, 500);
                                 }, 500);

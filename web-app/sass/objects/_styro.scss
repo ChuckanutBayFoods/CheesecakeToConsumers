@@ -1,0 +1,47 @@
+$expodeDistance: 200px;
+$styroTopBaseline: $boxTopBaseline - 213;
+#styro-container {
+  position: absolute;
+  top: $styroTopBaseline;
+  left: -56px;
+  width: 100%;
+
+  .styro {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    top: 0;
+    left: 0;
+
+    &.base {
+      z-index: 100;
+    }
+
+    &.back {
+      z-index: 200;
+    }
+
+    &.right {
+      z-index: 300;
+    }
+
+    &.left {
+      z-index: 3100;
+    }
+
+    &.front {
+      z-index: 3200;
+    }
+
+    &.top {
+      z-index: 3300;
+    }
+
+    &.styro-label {
+      color: $mediumGray;
+      margin: 440px 0 0 280px;
+      width: 300px;
+      font-size: $huge;
+    }
+  }
+}

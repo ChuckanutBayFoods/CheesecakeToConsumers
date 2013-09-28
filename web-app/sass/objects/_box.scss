@@ -1,0 +1,33 @@
+$boxTop: $boxTopBaseline - 213px;
+$boxLeft: -56px;
+#box {
+  position: absolute;
+  top: $boxTop;
+  left: $boxLeft;
+  width: 100%;
+
+  .box-part {
+    position: absolute;
+    @include transition(all 1s);
+
+    &.back {
+      z-index: 500;
+    }
+
+    &.front {
+      z-index: 7000;
+    }
+
+    &.flaps {
+      z-index: 7500;
+    }
+
+    &.top {
+      z-index: 7600;
+    }
+
+    &.tape {
+      z-index: 7700;
+    }
+  }
+}

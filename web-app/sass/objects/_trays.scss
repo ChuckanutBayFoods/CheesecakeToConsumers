@@ -1,0 +1,88 @@
+$tray1Left: 0px;
+$tray2Left: 600px;
+.tray {
+  position: absolute;
+  top: $boxTopBaseline;
+  width: 100%;
+
+  .tray-part {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 550px;
+  }
+  .back {
+    z-index: 1000;
+  }
+
+  .mid {
+    z-index: 2000;
+  }
+
+  .front {
+    z-index: 3000;
+  }
+
+  .cheesecake {
+    position: absolute;
+    width: 135px;
+    cursor: pointer;
+  }
+
+  a.cheesecake-event-catcher {
+    opacity: 0;
+    z-index: 5000;
+    pointer-events: auto;
+  }
+
+  $backRowTop: 134px;
+  $frontRowTop: 248px;
+  .cheesecake1,
+  .cheesecake5 {
+    top: $backRowTop;
+    left: 84px;
+    z-index: 1100;
+  }
+
+  .cheesecake2,
+  .cheesecake6 {
+    top: $backRowTop;
+    left: 300px;
+    z-index: 1200;
+  }
+
+  .cheesecake3,
+  .cheesecake7 {
+    top: $frontRowTop;
+    left: 120px;
+    z-index: 2300;
+  }
+
+  .cheesecake4,
+  .cheesecake8 {
+    top: $frontRowTop;
+    left: 334px;
+    z-index: 2400;
+  }
+
+  .popover {
+    width: 200px;
+
+    .flavor-label {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .btn-remove {
+      margin-left: 4px;
+    }
+  }
+}
+
+#tray1 {
+  left: $tray1Left;
+}
+
+#tray2 {
+  left: $tray2Left;
+}

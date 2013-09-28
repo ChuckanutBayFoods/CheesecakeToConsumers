@@ -1,0 +1,132 @@
+$giftMessageWidth: 900px;
+$giftMessageWidthFolded: $giftMessageWidth/2;
+$giftMessageTop: $boxTopBaseline - 245;
+$giftMessageLeft: 270px;
+$giftTransform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(0) translateY(0);
+$giftTransformFolded: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(-170px) translateY(0);
+$giftTransformShrunk: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(.5) rotate(90deg) translateX(-210px) translateY(45px);
+#gift-message {
+  @include box-shadow(0 5px 10px $shadowColor);
+
+  border: 1px solid $mediumGray;
+  position: absolute;
+  left: $giftMessageLeft;
+  top: $giftMessageTop;
+  width: $giftMessageWidth;
+  height: 700px;
+  z-index: 5000;
+  background-color: $white;
+  overflow: hidden;
+  pointer-events: auto;
+  @include transform($giftTransform);
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $chuckanutRed;
+  }
+
+  .info {
+    @extend .gift-message-page-base;
+    border-right: 1px solid $lightGray;
+    position: absolute;
+    left: 0;
+
+    .logo-container {
+      text-align: center;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+    }
+
+    .flavor-info {
+      width: 50%;
+      display: inline-block;
+      padding-right: 12px;
+
+      h5 {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .gift-message-page-base {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    position: relative;
+    vertical-align: top;
+    padding: 12px;
+    @include transition(all 2s ease);
+  }
+
+  .message {
+    @extend .gift-message-page-base;
+    position: absolute;
+    left: $giftMessageWidthFolded;
+
+    h1 {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      resize: none;
+    }
+
+    .right-aligned {
+      float: right;
+      margin-left: 12px;
+    }
+
+    .max-characters-label {
+      color: $mediumGray;
+    }
+
+    .ingredients {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 350px;
+    }
+
+    .refrigerate-label {
+      position: absolute;
+      bottom: 12px;
+      width: 30px;
+    }
+  }
+
+  .cover {
+    @extend .gift-message-page-base;
+    position: absolute;
+    left: -$giftMessageWidthFolded;
+    background-color: $white;
+    border-right: 1px solid $mediumGray;
+
+    > * {
+      @include transform(rotate(270deg));
+      position: absolute;
+    }
+
+    .handmade-cheesecakes {
+      font-size: $giant;
+      font-weight: 100;
+      top: 80px;
+      left: 250px;
+      line-height: initial;
+      text-align: center;
+    }
+
+    .cheesecake-plated {
+      top: 330px;
+      left: 110px;
+    }
+
+    .logo-cover {
+      top: 280px;
+      left: -70px;
+    }
+  }
+
+}

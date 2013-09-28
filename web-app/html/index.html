@@ -5,7 +5,7 @@
     <title>Cheesecake to Consumers</title>
     <link rel="shortcut icon" href="../img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/site.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/site.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js" type="text/javascript"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js" type="text/javascript"></script>
@@ -83,24 +83,12 @@
             <div class="btn btn-more-info">More info</div>
             <div class="btn btn-success btn-add">Add to Box</div>
         </div>
-        <footer class="slide-down">
-            <div class="next-prompt">Personalize gift message</div>
-            <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
-        </footer>
     </section>
     <section id="personalize" class="transparent hide">
         <h1>Personalize Gift Message</h1>
-        <footer class="slide-down">
-            <div class="next-prompt">Proceed to Shipping and Packing</div>
-            <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
-        </footer>
     </section>
     <section id="pack" class="transparent hide">
         <h1>Set Shipping Address</h1>
-        <footer class="slide-down">
-            <div class="next-prompt">Proceed to Payment</div>
-            <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
-        </footer>
     </section>
     <section id="pay" class="transparent hide">
         <h1>Checkout and Pay</h1>
@@ -112,10 +100,6 @@
             <span class="recipient"></span> will receive the handmade cheesecakes on
             <span class="delivery-date"></span>.
         </div>
-        <footer class="slide-down">
-            <div class="next-prompt">Give more Cheesecakes</div>
-            <div class="continue-prompt">Click/tap here or scroll/swipe to start another order.</div>
-        </footer>
     </section>
     <div id="overflow-killer">
         <div id="box-container-wrapper">
@@ -311,6 +295,22 @@ Your secret admirer</pre>
     <div id="truck" class="slide-right hide">
         <img src="../img/truck.png" />
     </div>
-    <script src="../js/site.min.js"></script>
+    <footer class="pick slide-down">
+        <div class="next-prompt">Personalize gift message</div>
+        <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
+    </footer>
+    <footer class="personalize slide-down">
+        <div class="next-prompt">Proceed to Shipping and Packing</div>
+        <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
+    </footer>
+    <footer class="pack slide-down">
+        <div class="next-prompt">Proceed to Payment</div>
+        <div class="continue-prompt">Click/tap here or scroll/swipe to continue.</div>
+    </footer>
+    <footer class="order-complete slide-down">
+        <div class="next-prompt">Give more Cheesecakes</div>
+        <div class="continue-prompt">Click/tap here or scroll/swipe to start another order.</div>
+    </footer>
+    <script src="../js/site.js"></script>
 </body>
 </html>

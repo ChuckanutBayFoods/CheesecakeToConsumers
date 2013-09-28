@@ -1,0 +1,232 @@
+.shield.from-pick-to-personalize {
+  @include animation(shield-from-pick-to-personalize 1s 2s);
+}
+
+@include keyframes(shield-from-pick-to-personalize) {
+  0% {
+    display: block;
+  }
+  100% {
+    display: none;
+  }
+}
+
+.shield.from-pick-to-personalize {
+  display: none;
+}
+
+#pick.from-pick-to-personalize {
+  @include animation(pick-from-pick-to-personalize 1s);
+}
+
+@include keyframes(pick-from-pick-to-personalize) {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+footer.pick.from-pick-to-personalize {
+  @include animation(pick-footer-from-pick-to-personalize 1s);
+}
+
+@include keyframes(pick-footer-from-pick-to-personalize) {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 0;
+    bottom: -$headerFooterHeight;
+  }
+}
+
+#tray1.from-pick-to-personalize {
+  @include animation(tray1-from-pick-to-personalize 1s .75s);
+}
+
+@include keyframes(tray1-from-pick-to-personalize) {
+  0% {
+    top: $boxTopBaseline;
+  }
+
+  50% {
+    top: $boxTopBaseline - 200;
+  }
+
+  100% {
+    top: $boxTopBaseline - 150;
+  }
+}
+
+#tray2.from-pick-to-personalize {
+  @include animation(tray2-from-pick-to-personalize 1s .75s);
+}
+
+@include keyframes(tray2-from-pick-to-personalize) {
+  0% {
+    left: $tray2Left;
+  }
+
+  100% {
+    left: $tray1Left;
+  }
+}
+
+#styro-container.from-pick-to-personalize {
+  .styro {
+    &.top {
+      @include animation(top-styro-from-pick-to-personalize 2s 1.5s);
+    }
+
+    &.base {
+      @include animation(base-styro-from-pick-to-personalize 2s 1.5s);
+    }
+
+    &.back {
+      @include animation(back-styro-from-pick-to-personalize 2s 1.5s);
+    }
+
+    &.front {
+      @include animation(front-styro-from-pick-to-personalize 2s 1.5s);
+    }
+
+    &.left {
+      @include animation(left-styro-from-pick-to-personalize 2s 1.5s);
+    }
+
+    &.right {
+      @include animation(right-styro-from-pick-to-personalize 2s 1.5s);
+    }
+  }
+}
+
+@include keyframes(top-styro-from-pick-to-personalize) {
+  0% {
+    top: $styroTopBaseline - $expodeDistance;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@include keyframes(base-styro-from-pick-to-personalize) {
+  0% {
+    top: $styroTopBaseline + $expodeDistance;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@include keyframes(back-styro-from-pick-to-personalize) {
+  0% {
+    top: $styroTopBaseline -.95 * $expodeDistance;
+    left: -.31 * $expodeDistance;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@include keyframes(front-styro-from-pick-to-personalize) {
+  0% {
+    top: $styroTopBaseline + .95 * $expodeDistance;
+    left: .31 * $expodeDistance;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@include keyframes(left-styro-from-pick-to-personalize) {
+  0% {
+    left: -$expodeDistance;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@include keyframes(right-styro-from-pick-to-personalize) {
+  0% {
+    left: $expodeDistance;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+#gift-message.from-pick-to-personalize {
+  @include animation(gift-message-from-pick-to-personalize 1s 4s);
+}
+
+@include keyframes(gift-message-from-pick-to-personalize) {
+  0% {
+    top: 100%;
+  }
+
+  100% {
+    top: $boxTopBaseline - 245;
+  }
+}
+
+#pack.from-pick-to-personalize {
+  @include animation(pack-from-pick-to-personalize 1s 4.5s);
+}
+
+@include keyframes(pack-from-pick-to-personalize) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

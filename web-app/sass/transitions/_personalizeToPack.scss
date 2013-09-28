@@ -1,0 +1,83 @@
+#gift-message.from-personalize-to-pack {
+  @include animation(gift-message-from-personalize-to-pack 2s);
+
+  .info {
+    @include animation(info-gift-message-from-personalize-to-pack 1s);
+  }
+
+  .message {
+    @include animation(message-gift-message-from-personalize-to-pack 1s);
+  }
+
+  .cover {
+    @include animation(cover-gift-message-from-personalize-to-pack 1s);
+  }
+}
+
+@include keyframes(gift-message-from-personalize-to-pack) {
+  0% {
+    width: $giftMessageWidth;
+    @include transform($giftTransform);
+  }
+  50% { // Folded
+    width: $giftMessageWidthFolded;
+    @include transform($giftTransformFolded);
+  }
+  100% {  // Shrunk
+    width: $giftMessageWidthFolded;
+    @include transform($giftTransformShrunk);
+  }
+}
+
+@include keyframes(info-gift-message-from-personalize-to-pack) {
+  0% {
+    left: 0;
+  }
+  100% {  // Folded
+    left: -$giftMessageWidthFolded;
+  }
+}
+
+@include keyframes(message-gift-message-from-personalize-to-pack) {
+  0% {
+    left: $giftMessageWidthFolded;
+  }
+  100% {  // Folded
+    left: 0;
+  }
+}
+
+@include keyframes(cover-gift-message-from-personalize-to-pack) {
+  0% {
+    left: -$giftMessageWidthFolded;
+  }
+  100% {  // Folded
+    left: 0;
+  }
+}
+
+#box.from-personalize-to-pack {
+  @include animation(box-from-personalize-to-pack 1s 1.5s);
+}
+
+@include keyframes(box-from-personalize-to-pack) {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: $boxTop;
+  }
+}
+
+#box.from-personalize-to-pack {
+  @include animation(box-from-personalize-to-pack 1s 1.5s);
+}
+
+@include keyframes(box-from-personalize-to-pack) {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: $boxTop;
+  }
+}

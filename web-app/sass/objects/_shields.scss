@@ -1,0 +1,16 @@
+.shield {
+  position: absolute;
+  width: 100%;
+  height: 300px;
+  background-color: $white;
+}
+
+#shield1 {
+  z-index: 1999;
+  top: $boxTopBaseline + 130px;
+}
+
+#shield2 {
+  z-index: 2999;
+  top: $boxTopBaseline + 230px;
+}

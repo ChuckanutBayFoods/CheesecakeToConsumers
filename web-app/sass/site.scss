@@ -38,6 +38,43 @@
   transition: $params;
 }
 
+@mixin animation($params...) {
+/* Safari 4+, Chrome */
+  -webkit-animation: $params;
+  -webkit-animation-fill-mode: both;
+
+/* Fx 5+ */
+  -moz-animation: $params;
+  -moz-animation-fill-mode: both;
+
+/* IE 9+ */
+  -ms-animation: $params;
+  -ms-animation-fill-mode: both;
+
+/* Opera 12+ */
+  -o-animation: $params;
+  -o-animation-fill-mode: both;
+
+  animation: $params;
+  animation-fill-mode: both;
+}
+
+@mixin keyframes($name) {
+/* Safari 4+, Chrome */
+  @-webkit-keyframes #{$name} { @content; }
+
+/* Fx 5+ */
+  @-moz-keyframes #{$name} { @content; }
+
+/* IE 9+ */
+  @-ms-keyframes #{$name} { @content; }
+
+/* Opera 12+ */
+  @-o-keyframes #{$name} { @content; }
+
+  @keyframes #{$name} { @content; }
+}
+
 @mixin square($size) {
   width: $size;
   height: $size;
@@ -51,11 +88,23 @@ $minHeight: 900px;
 @import "fontSizes";
 @import "headerFooter";
 @import "sideNav";
-@import "pick";
-@import "personalize";
-@import "pack";
-@import "pay";
-@import "orderComplete";
+@import "loading";
+@import "objectsContainer";
+@import "sections/pick";
+@import "sections/personalize";
+@import "sections/pack";
+@import "sections/pay";
+@import "objects/trays";
+@import "objects/shields";
+@import "objects/styro";
+@import "objects/giftMessage";
+@import "objects/box";
+@import "objects/label";
+@import "objects/checkoutWindow";
+@import "objects/truck";
+@import "sections/orderComplete";
+@import "transitions/pickToPersonalize";
+@import "transitions/personalizeToPack";
 
 html {
   overflow-y: scroll;
@@ -173,3 +222,15 @@ section {
   background-image: url('../img/arrow-left.png');
 }
 
+.fade-in {
+  @include animation(fade-in 1s);
+}
+
+@include keyframes(fade-in) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
