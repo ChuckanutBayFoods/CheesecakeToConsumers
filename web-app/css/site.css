@@ -876,20 +876,11 @@ footer {
   z-index: 8700;
   background-color: white;
   pointer-events: auto;
-  /* Safari, iOS */
-  -webkit-transition: all 2s ease;
-  /* IE, Chrome, Firefox, Opera, Android */
-  transition: all 2s ease; }
-  #label.slide-down {
-    top: 100%; }
-  #label.shrink {
-    /* Safari and Chrome */
-    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5);
-    /* IE 9 */
-    -ms-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5);
-    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5);
-    left: -50px;
-    top: 60px; }
+  /* Safari and Chrome */
+  -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+  /* IE 9 */
+  -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
   #label .return-address {
     line-height: 16px; }
   #label .ship-to-wrapper {
@@ -1044,65 +1035,9 @@ footer {
 #order-complete .summary {
   text-align: center; }
 
-.shield.from-pick-to-personalize {
-  /* Safari 4+, Chrome */
-  -webkit-animation: shield-from-pick-to-personalize 1s 2s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: shield-from-pick-to-personalize 1s 2s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: shield-from-pick-to-personalize 1s 2s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: shield-from-pick-to-personalize 1s 2s;
-  -o-animation-fill-mode: both;
-  animation: shield-from-pick-to-personalize 1s 2s;
-  animation-fill-mode: both; }
-
-/* Safari 4+, Chrome */
-@-webkit-keyframes shield-from-pick-to-personalize {
-  0% {
-    display: block; }
-
-  100% {
-    display: none; } }
-
-/* Fx 5+ */
-@-moz-keyframes shield-from-pick-to-personalize {
-  0% {
-    display: block; }
-
-  100% {
-    display: none; } }
-
-/* IE 9+ */
-@-ms-keyframes shield-from-pick-to-personalize {
-  0% {
-    display: block; }
-
-  100% {
-    display: none; } }
-
-/* Opera 12+ */
-@-o-keyframes shield-from-pick-to-personalize {
-  0% {
-    display: block; }
-
-  100% {
-    display: none; } }
-
-@keyframes shield-from-pick-to-personalize {
-  0% {
-    display: block; }
-
-  100% {
-    display: none; } }
-
-.shield.from-pick-to-personalize {
+.from-pick-to-personalize .shield {
   display: none; }
-
-#pick.from-pick-to-personalize {
+.from-pick-to-personalize #pick {
   /* Safari 4+, Chrome */
   -webkit-animation: pick-from-pick-to-personalize 1s;
   -webkit-animation-fill-mode: both;
@@ -1116,6 +1051,171 @@ footer {
   -o-animation: pick-from-pick-to-personalize 1s;
   -o-animation-fill-mode: both;
   animation: pick-from-pick-to-personalize 1s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize footer {
+  /* Safari 4+, Chrome */
+  -webkit-animation: pick-footer-from-pick-to-personalize 1s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: pick-footer-from-pick-to-personalize 1s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: pick-footer-from-pick-to-personalize 1s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: pick-footer-from-pick-to-personalize 1s;
+  -o-animation-fill-mode: both;
+  animation: pick-footer-from-pick-to-personalize 1s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #tray1 {
+  /* Safari 4+, Chrome */
+  -webkit-animation: tray1-from-pick-to-personalize 1s 0.75s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: tray1-from-pick-to-personalize 1s 0.75s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: tray1-from-pick-to-personalize 1s 0.75s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: tray1-from-pick-to-personalize 1s 0.75s;
+  -o-animation-fill-mode: both;
+  animation: tray1-from-pick-to-personalize 1s 0.75s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #tray2 {
+  /* Safari 4+, Chrome */
+  -webkit-animation: tray2-from-pick-to-personalize 1s 0.75s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: tray2-from-pick-to-personalize 1s 0.75s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: tray2-from-pick-to-personalize 1s 0.75s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: tray2-from-pick-to-personalize 1s 0.75s;
+  -o-animation-fill-mode: both;
+  animation: tray2-from-pick-to-personalize 1s 0.75s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #styro-container .styro.top {
+  /* Safari 4+, Chrome */
+  -webkit-animation: top-styro-from-pick-to-personalize 2s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: top-styro-from-pick-to-personalize 2s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: top-styro-from-pick-to-personalize 2s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: top-styro-from-pick-to-personalize 2s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: top-styro-from-pick-to-personalize 2s 1.5s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #styro-container .styro.base {
+  /* Safari 4+, Chrome */
+  -webkit-animation: base-styro-from-pick-to-personalize 2s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: base-styro-from-pick-to-personalize 2s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: base-styro-from-pick-to-personalize 2s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: base-styro-from-pick-to-personalize 2s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: base-styro-from-pick-to-personalize 2s 1.5s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #styro-container .styro.back {
+  /* Safari 4+, Chrome */
+  -webkit-animation: back-styro-from-pick-to-personalize 2s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: back-styro-from-pick-to-personalize 2s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: back-styro-from-pick-to-personalize 2s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: back-styro-from-pick-to-personalize 2s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: back-styro-from-pick-to-personalize 2s 1.5s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #styro-container .styro.front {
+  /* Safari 4+, Chrome */
+  -webkit-animation: front-styro-from-pick-to-personalize 2s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: front-styro-from-pick-to-personalize 2s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: front-styro-from-pick-to-personalize 2s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: front-styro-from-pick-to-personalize 2s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: front-styro-from-pick-to-personalize 2s 1.5s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #styro-container .styro.left {
+  /* Safari 4+, Chrome */
+  -webkit-animation: left-styro-from-pick-to-personalize 2s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: left-styro-from-pick-to-personalize 2s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: left-styro-from-pick-to-personalize 2s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: left-styro-from-pick-to-personalize 2s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: left-styro-from-pick-to-personalize 2s 1.5s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #styro-container .styro.right {
+  /* Safari 4+, Chrome */
+  -webkit-animation: right-styro-from-pick-to-personalize 2s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: right-styro-from-pick-to-personalize 2s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: right-styro-from-pick-to-personalize 2s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: right-styro-from-pick-to-personalize 2s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: right-styro-from-pick-to-personalize 2s 1.5s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #gift-message {
+  /* Safari 4+, Chrome */
+  -webkit-animation: gift-message-from-pick-to-personalize 1s 4s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: gift-message-from-pick-to-personalize 1s 4s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: gift-message-from-pick-to-personalize 1s 4s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: gift-message-from-pick-to-personalize 1s 4s;
+  -o-animation-fill-mode: both;
+  animation: gift-message-from-pick-to-personalize 1s 4s;
+  animation-fill-mode: both; }
+.from-pick-to-personalize #pack {
+  /* Safari 4+, Chrome */
+  -webkit-animation: pack-from-pick-to-personalize 1s 4.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: pack-from-pick-to-personalize 1s 4.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: pack-from-pick-to-personalize 1s 4.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: pack-from-pick-to-personalize 1s 4.5s;
+  -o-animation-fill-mode: both;
+  animation: pack-from-pick-to-personalize 1s 4.5s;
   animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
@@ -1156,22 +1256,6 @@ footer {
 
   100% {
     opacity: 0; } }
-
-footer.pick.from-pick-to-personalize {
-  /* Safari 4+, Chrome */
-  -webkit-animation: pick-footer-from-pick-to-personalize 1s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: pick-footer-from-pick-to-personalize 1s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: pick-footer-from-pick-to-personalize 1s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: pick-footer-from-pick-to-personalize 1s;
-  -o-animation-fill-mode: both;
-  animation: pick-footer-from-pick-to-personalize 1s;
-  animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
 @-webkit-keyframes pick-footer-from-pick-to-personalize {
@@ -1221,22 +1305,6 @@ footer.pick.from-pick-to-personalize {
   100% {
     opacity: 0;
     bottom: -50px; } }
-
-#tray1.from-pick-to-personalize {
-  /* Safari 4+, Chrome */
-  -webkit-animation: tray1-from-pick-to-personalize 1s 0.75s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: tray1-from-pick-to-personalize 1s 0.75s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: tray1-from-pick-to-personalize 1s 0.75s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: tray1-from-pick-to-personalize 1s 0.75s;
-  -o-animation-fill-mode: both;
-  animation: tray1-from-pick-to-personalize 1s 0.75s;
-  animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
 @-webkit-keyframes tray1-from-pick-to-personalize {
@@ -1292,22 +1360,6 @@ footer.pick.from-pick-to-personalize {
   100% {
     top: 225px; } }
 
-#tray2.from-pick-to-personalize {
-  /* Safari 4+, Chrome */
-  -webkit-animation: tray2-from-pick-to-personalize 1s 0.75s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: tray2-from-pick-to-personalize 1s 0.75s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: tray2-from-pick-to-personalize 1s 0.75s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: tray2-from-pick-to-personalize 1s 0.75s;
-  -o-animation-fill-mode: both;
-  animation: tray2-from-pick-to-personalize 1s 0.75s;
-  animation-fill-mode: both; }
-
 /* Safari 4+, Chrome */
 @-webkit-keyframes tray2-from-pick-to-personalize {
   0% {
@@ -1346,97 +1398,6 @@ footer.pick.from-pick-to-personalize {
 
   100% {
     left: 0px; } }
-
-#styro-container.from-pick-to-personalize .styro.top {
-  /* Safari 4+, Chrome */
-  -webkit-animation: top-styro-from-pick-to-personalize 2s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: top-styro-from-pick-to-personalize 2s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: top-styro-from-pick-to-personalize 2s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: top-styro-from-pick-to-personalize 2s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: top-styro-from-pick-to-personalize 2s 1.5s;
-  animation-fill-mode: both; }
-#styro-container.from-pick-to-personalize .styro.base {
-  /* Safari 4+, Chrome */
-  -webkit-animation: base-styro-from-pick-to-personalize 2s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: base-styro-from-pick-to-personalize 2s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: base-styro-from-pick-to-personalize 2s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: base-styro-from-pick-to-personalize 2s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: base-styro-from-pick-to-personalize 2s 1.5s;
-  animation-fill-mode: both; }
-#styro-container.from-pick-to-personalize .styro.back {
-  /* Safari 4+, Chrome */
-  -webkit-animation: back-styro-from-pick-to-personalize 2s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: back-styro-from-pick-to-personalize 2s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: back-styro-from-pick-to-personalize 2s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: back-styro-from-pick-to-personalize 2s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: back-styro-from-pick-to-personalize 2s 1.5s;
-  animation-fill-mode: both; }
-#styro-container.from-pick-to-personalize .styro.front {
-  /* Safari 4+, Chrome */
-  -webkit-animation: front-styro-from-pick-to-personalize 2s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: front-styro-from-pick-to-personalize 2s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: front-styro-from-pick-to-personalize 2s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: front-styro-from-pick-to-personalize 2s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: front-styro-from-pick-to-personalize 2s 1.5s;
-  animation-fill-mode: both; }
-#styro-container.from-pick-to-personalize .styro.left {
-  /* Safari 4+, Chrome */
-  -webkit-animation: left-styro-from-pick-to-personalize 2s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: left-styro-from-pick-to-personalize 2s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: left-styro-from-pick-to-personalize 2s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: left-styro-from-pick-to-personalize 2s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: left-styro-from-pick-to-personalize 2s 1.5s;
-  animation-fill-mode: both; }
-#styro-container.from-pick-to-personalize .styro.right {
-  /* Safari 4+, Chrome */
-  -webkit-animation: right-styro-from-pick-to-personalize 2s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: right-styro-from-pick-to-personalize 2s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: right-styro-from-pick-to-personalize 2s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: right-styro-from-pick-to-personalize 2s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: right-styro-from-pick-to-personalize 2s 1.5s;
-  animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
 @-webkit-keyframes top-styro-from-pick-to-personalize {
@@ -1842,22 +1803,6 @@ footer.pick.from-pick-to-personalize {
     left: 0;
     opacity: 1; } }
 
-#gift-message.from-pick-to-personalize {
-  /* Safari 4+, Chrome */
-  -webkit-animation: gift-message-from-pick-to-personalize 1s 4s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: gift-message-from-pick-to-personalize 1s 4s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: gift-message-from-pick-to-personalize 1s 4s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: gift-message-from-pick-to-personalize 1s 4s;
-  -o-animation-fill-mode: both;
-  animation: gift-message-from-pick-to-personalize 1s 4s;
-  animation-fill-mode: both; }
-
 /* Safari 4+, Chrome */
 @-webkit-keyframes gift-message-from-pick-to-personalize {
   0% {
@@ -1896,22 +1841,6 @@ footer.pick.from-pick-to-personalize {
 
   100% {
     top: 130px; } }
-
-#pack.from-pick-to-personalize {
-  /* Safari 4+, Chrome */
-  -webkit-animation: pack-from-pick-to-personalize 1s 4.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: pack-from-pick-to-personalize 1s 4.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: pack-from-pick-to-personalize 1s 4.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: pack-from-pick-to-personalize 1s 4.5s;
-  -o-animation-fill-mode: both;
-  animation: pack-from-pick-to-personalize 1s 4.5s;
-  animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
 @-webkit-keyframes pack-from-pick-to-personalize {
@@ -1952,7 +1881,7 @@ footer.pick.from-pick-to-personalize {
   100% {
     opacity: 1; } }
 
-#gift-message.from-personalize-to-pack {
+.from-personalize-to-pack #gift-message {
   /* Safari 4+, Chrome */
   -webkit-animation: gift-message-from-personalize-to-pack 2s;
   -webkit-animation-fill-mode: both;
@@ -1967,7 +1896,7 @@ footer.pick.from-pick-to-personalize {
   -o-animation-fill-mode: both;
   animation: gift-message-from-personalize-to-pack 2s;
   animation-fill-mode: both; }
-  #gift-message.from-personalize-to-pack .info {
+  .from-personalize-to-pack #gift-message .info {
     /* Safari 4+, Chrome */
     -webkit-animation: info-gift-message-from-personalize-to-pack 1s;
     -webkit-animation-fill-mode: both;
@@ -1982,7 +1911,7 @@ footer.pick.from-pick-to-personalize {
     -o-animation-fill-mode: both;
     animation: info-gift-message-from-personalize-to-pack 1s;
     animation-fill-mode: both; }
-  #gift-message.from-personalize-to-pack .message {
+  .from-personalize-to-pack #gift-message .message {
     /* Safari 4+, Chrome */
     -webkit-animation: message-gift-message-from-personalize-to-pack 1s;
     -webkit-animation-fill-mode: both;
@@ -1997,7 +1926,7 @@ footer.pick.from-pick-to-personalize {
     -o-animation-fill-mode: both;
     animation: message-gift-message-from-personalize-to-pack 1s;
     animation-fill-mode: both; }
-  #gift-message.from-personalize-to-pack .cover {
+  .from-personalize-to-pack #gift-message .cover {
     /* Safari 4+, Chrome */
     -webkit-animation: cover-gift-message-from-personalize-to-pack 1s;
     -webkit-animation-fill-mode: both;
@@ -2012,6 +1941,36 @@ footer.pick.from-pick-to-personalize {
     -o-animation-fill-mode: both;
     animation: cover-gift-message-from-personalize-to-pack 1s;
     animation-fill-mode: both; }
+.from-personalize-to-pack #box {
+  /* Safari 4+, Chrome */
+  -webkit-animation: box-from-personalize-to-pack 1s 1.5s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: box-from-personalize-to-pack 1s 1.5s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: box-from-personalize-to-pack 1s 1.5s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: box-from-personalize-to-pack 1s 1.5s;
+  -o-animation-fill-mode: both;
+  animation: box-from-personalize-to-pack 1s 1.5s;
+  animation-fill-mode: both; }
+.from-personalize-to-pack #label {
+  /* Safari 4+, Chrome */
+  -webkit-animation: label-from-personalize-to-pack 1s 2s;
+  -webkit-animation-fill-mode: both;
+  /* Fx 5+ */
+  -moz-animation: label-from-personalize-to-pack 1s 2s;
+  -moz-animation-fill-mode: both;
+  /* IE 9+ */
+  -ms-animation: label-from-personalize-to-pack 1s 2s;
+  -ms-animation-fill-mode: both;
+  /* Opera 12+ */
+  -o-animation: label-from-personalize-to-pack 1s 2s;
+  -o-animation-fill-mode: both;
+  animation: label-from-personalize-to-pack 1s 2s;
+  animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
 @-webkit-keyframes gift-message-from-personalize-to-pack {
@@ -2259,22 +2218,6 @@ footer.pick.from-pick-to-personalize {
   100% {
     left: 0; } }
 
-#box.from-personalize-to-pack {
-  /* Safari 4+, Chrome */
-  -webkit-animation: box-from-personalize-to-pack 1s 1.5s;
-  -webkit-animation-fill-mode: both;
-  /* Fx 5+ */
-  -moz-animation: box-from-personalize-to-pack 1s 1.5s;
-  -moz-animation-fill-mode: both;
-  /* IE 9+ */
-  -ms-animation: box-from-personalize-to-pack 1s 1.5s;
-  -ms-animation-fill-mode: both;
-  /* Opera 12+ */
-  -o-animation: box-from-personalize-to-pack 1s 1.5s;
-  -o-animation-fill-mode: both;
-  animation: box-from-personalize-to-pack 1s 1.5s;
-  animation-fill-mode: both; }
-
 /* Safari 4+, Chrome */
 @-webkit-keyframes box-from-personalize-to-pack {
   0% {
@@ -2314,60 +2257,139 @@ footer.pick.from-pick-to-personalize {
   100% {
     top: 162px; } }
 
-#box.from-personalize-to-pack {
+/* Safari 4+, Chrome */
+@-webkit-keyframes label-from-personalize-to-pack {
+  0% {
+    top: 100%; }
+
+  100% {
+    top: 175px; } }
+
+/* Fx 5+ */
+@-moz-keyframes label-from-personalize-to-pack {
+  0% {
+    top: 100%; }
+
+  100% {
+    top: 175px; } }
+
+/* IE 9+ */
+@-ms-keyframes label-from-personalize-to-pack {
+  0% {
+    top: 100%; }
+
+  100% {
+    top: 175px; } }
+
+/* Opera 12+ */
+@-o-keyframes label-from-personalize-to-pack {
+  0% {
+    top: 100%; }
+
+  100% {
+    top: 175px; } }
+
+@keyframes label-from-personalize-to-pack {
+  0% {
+    top: 100%; }
+
+  100% {
+    top: 175px; } }
+
+.from-pack-to-pay #label {
   /* Safari 4+, Chrome */
-  -webkit-animation: box-from-personalize-to-pack 1s 1.5s;
+  -webkit-animation: label-from-pack-to-pay 2s;
   -webkit-animation-fill-mode: both;
   /* Fx 5+ */
-  -moz-animation: box-from-personalize-to-pack 1s 1.5s;
+  -moz-animation: label-from-pack-to-pay 2s;
   -moz-animation-fill-mode: both;
   /* IE 9+ */
-  -ms-animation: box-from-personalize-to-pack 1s 1.5s;
+  -ms-animation: label-from-pack-to-pay 2s;
   -ms-animation-fill-mode: both;
   /* Opera 12+ */
-  -o-animation: box-from-personalize-to-pack 1s 1.5s;
+  -o-animation: label-from-pack-to-pay 2s;
   -o-animation-fill-mode: both;
-  animation: box-from-personalize-to-pack 1s 1.5s;
+  animation: label-from-pack-to-pay 2s;
   animation-fill-mode: both; }
 
 /* Safari 4+, Chrome */
-@-webkit-keyframes box-from-personalize-to-pack {
+@-webkit-keyframes label-from-pack-to-pay {
   0% {
-    top: 100%; }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    /* IE 9 */
+    -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
 
   100% {
-    top: 162px; } }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    /* IE 9 */
+    -ms-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px); } }
 
 /* Fx 5+ */
-@-moz-keyframes box-from-personalize-to-pack {
+@-moz-keyframes label-from-pack-to-pay {
   0% {
-    top: 100%; }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    /* IE 9 */
+    -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
 
   100% {
-    top: 162px; } }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    /* IE 9 */
+    -ms-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px); } }
 
 /* IE 9+ */
-@-ms-keyframes box-from-personalize-to-pack {
+@-ms-keyframes label-from-pack-to-pay {
   0% {
-    top: 100%; }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    /* IE 9 */
+    -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
 
   100% {
-    top: 162px; } }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    /* IE 9 */
+    -ms-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px); } }
 
 /* Opera 12+ */
-@-o-keyframes box-from-personalize-to-pack {
+@-o-keyframes label-from-pack-to-pay {
   0% {
-    top: 100%; }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    /* IE 9 */
+    -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
 
   100% {
-    top: 162px; } }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    /* IE 9 */
+    -ms-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px); } }
 
-@keyframes box-from-personalize-to-pack {
+@keyframes label-from-pack-to-pay {
   0% {
-    top: 100%; }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    /* IE 9 */
+    -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
 
   100% {
-    top: 162px; } }
+    /* Safari and Chrome */
+    -webkit-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    /* IE 9 */
+    -ms-transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px); } }
 
 html {
   overflow-y: scroll;
@@ -2463,6 +2485,7 @@ section {
   background-image: url("../img/arrow-left.png"); }
 
 .fade-in {
+  display: block;
   /* Safari 4+, Chrome */
   -webkit-animation: fade-in 1s;
   -webkit-animation-fill-mode: both;

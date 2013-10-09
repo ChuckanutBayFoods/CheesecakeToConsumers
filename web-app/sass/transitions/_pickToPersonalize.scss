@@ -1,22 +1,59 @@
-.shield.from-pick-to-personalize {
-  @include animation(shield-from-pick-to-personalize 1s 2s);
-}
-
-@include keyframes(shield-from-pick-to-personalize) {
-  0% {
-    display: block;
-  }
-  100% {
+.from-pick-to-personalize {
+  .shield {
     display: none;
   }
-}
 
-.shield.from-pick-to-personalize {
-  display: none;
-}
+  #pick {
+    @include animation(pick-from-pick-to-personalize 1s);
+  }
 
-#pick.from-pick-to-personalize {
-  @include animation(pick-from-pick-to-personalize 1s);
+  footer {
+    @include animation(pick-footer-from-pick-to-personalize 1s);
+  }
+
+  #tray1 {
+    @include animation(tray1-from-pick-to-personalize 1s .75s);
+  }
+
+  #tray2 {
+    @include animation(tray2-from-pick-to-personalize 1s .75s);
+  }
+
+  #styro-container {
+    .styro {
+      &.top {
+        @include animation(top-styro-from-pick-to-personalize 2s 1.5s);
+      }
+
+      &.base {
+        @include animation(base-styro-from-pick-to-personalize 2s 1.5s);
+      }
+
+      &.back {
+        @include animation(back-styro-from-pick-to-personalize 2s 1.5s);
+      }
+
+      &.front {
+        @include animation(front-styro-from-pick-to-personalize 2s 1.5s);
+      }
+
+      &.left {
+        @include animation(left-styro-from-pick-to-personalize 2s 1.5s);
+      }
+
+      &.right {
+        @include animation(right-styro-from-pick-to-personalize 2s 1.5s);
+      }
+    }
+  }
+
+  #gift-message {
+    @include animation(gift-message-from-pick-to-personalize 1s 4s);
+  }
+
+  #pack {
+    @include animation(pack-from-pick-to-personalize 1s 4.5s);
+  }
 }
 
 @include keyframes(pick-from-pick-to-personalize) {
@@ -28,10 +65,6 @@
   }
 }
 
-footer.pick.from-pick-to-personalize {
-  @include animation(pick-footer-from-pick-to-personalize 1s);
-}
-
 @include keyframes(pick-footer-from-pick-to-personalize) {
   0% {
     opacity: 1;
@@ -41,10 +74,6 @@ footer.pick.from-pick-to-personalize {
     opacity: 0;
     bottom: -$headerFooterHeight;
   }
-}
-
-#tray1.from-pick-to-personalize {
-  @include animation(tray1-from-pick-to-personalize 1s .75s);
 }
 
 @include keyframes(tray1-from-pick-to-personalize) {
@@ -61,10 +90,6 @@ footer.pick.from-pick-to-personalize {
   }
 }
 
-#tray2.from-pick-to-personalize {
-  @include animation(tray2-from-pick-to-personalize 1s .75s);
-}
-
 @include keyframes(tray2-from-pick-to-personalize) {
   0% {
     left: $tray2Left;
@@ -72,34 +97,6 @@ footer.pick.from-pick-to-personalize {
 
   100% {
     left: $tray1Left;
-  }
-}
-
-#styro-container.from-pick-to-personalize {
-  .styro {
-    &.top {
-      @include animation(top-styro-from-pick-to-personalize 2s 1.5s);
-    }
-
-    &.base {
-      @include animation(base-styro-from-pick-to-personalize 2s 1.5s);
-    }
-
-    &.back {
-      @include animation(back-styro-from-pick-to-personalize 2s 1.5s);
-    }
-
-    &.front {
-      @include animation(front-styro-from-pick-to-personalize 2s 1.5s);
-    }
-
-    &.left {
-      @include animation(left-styro-from-pick-to-personalize 2s 1.5s);
-    }
-
-    &.right {
-      @include animation(right-styro-from-pick-to-personalize 2s 1.5s);
-    }
   }
 }
 
@@ -203,10 +200,6 @@ footer.pick.from-pick-to-personalize {
   }
 }
 
-#gift-message.from-pick-to-personalize {
-  @include animation(gift-message-from-pick-to-personalize 1s 4s);
-}
-
 @include keyframes(gift-message-from-pick-to-personalize) {
   0% {
     top: 100%;
@@ -215,10 +208,6 @@ footer.pick.from-pick-to-personalize {
   100% {
     top: $boxTopBaseline - 245;
   }
-}
-
-#pack.from-pick-to-personalize {
-  @include animation(pack-from-pick-to-personalize 1s 4.5s);
 }
 
 @include keyframes(pack-from-pick-to-personalize) {

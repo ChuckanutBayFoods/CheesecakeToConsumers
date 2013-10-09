@@ -1,16 +1,26 @@
-#gift-message.from-personalize-to-pack {
-  @include animation(gift-message-from-personalize-to-pack 2s);
+.from-personalize-to-pack {
+  #gift-message {
+    @include animation(gift-message-from-personalize-to-pack 2s);
 
-  .info {
-    @include animation(info-gift-message-from-personalize-to-pack 1s);
+    .info {
+      @include animation(info-gift-message-from-personalize-to-pack 1s);
+    }
+
+    .message {
+      @include animation(message-gift-message-from-personalize-to-pack 1s);
+    }
+
+    .cover {
+      @include animation(cover-gift-message-from-personalize-to-pack 1s);
+    }
   }
 
-  .message {
-    @include animation(message-gift-message-from-personalize-to-pack 1s);
+  #box {
+    @include animation(box-from-personalize-to-pack 1s 1.5s);
   }
 
-  .cover {
-    @include animation(cover-gift-message-from-personalize-to-pack 1s);
+  #label {
+    @include animation(label-from-personalize-to-pack 1s 2s);
   }
 }
 
@@ -56,10 +66,6 @@
   }
 }
 
-#box.from-personalize-to-pack {
-  @include animation(box-from-personalize-to-pack 1s 1.5s);
-}
-
 @include keyframes(box-from-personalize-to-pack) {
   0% {
     top: 100%;
@@ -69,15 +75,12 @@
   }
 }
 
-#box.from-personalize-to-pack {
-  @include animation(box-from-personalize-to-pack 1s 1.5s);
-}
-
-@include keyframes(box-from-personalize-to-pack) {
+@include keyframes(label-from-personalize-to-pack) {
   0% {
     top: 100%;
   }
   100% {
-    top: $boxTop;
+    top: $labelTop;
   }
 }
+

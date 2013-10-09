@@ -1,0 +1,14 @@
+.from-pack-to-pay {
+  #label {
+    @include animation(label-from-pack-to-pay 2s);
+  }
+}
+
+@include keyframes(label-from-pack-to-pay) {
+  0% {
+    @include transform($labelTransform);
+  }
+  100% {
+    @include transform($labelTransformShrink);
+  }
+}

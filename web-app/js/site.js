@@ -14,6 +14,10 @@ var Utils = {
     // Capitalizes the first letter of the given string
     capitalise: function(string) {
         return !string || string.charAt(0).toUpperCase() + string.slice(1);
+    },
+
+    removeClassFromAll: function(className) {
+        return $('.' + className).removeClass(className);
     }
 };
 
@@ -683,7 +687,7 @@ var NavigationManager = {
         pick: {
             // From everything else
             default: function() {
-                $('.from-pick-to-personalize').removeClass('from-pick-to-personalize');
+                $('body').removeClass('from-pick-to-personalize');
                 $('#tray1, #tray2, #pick, footer.pick').show().addClass('fade-in');
 
             }
@@ -693,8 +697,9 @@ var NavigationManager = {
         personalize: {
             // From Pick
             pick: function() {
-                $('.fade-in').removeClass('fade-in');
-                $('#tray1, #tray2, #pick, footer.pick, .shield, #styro-container, #gift-message, #pack').show().addClass('from-pick-to-personalize');
+                Utils.removeClassFromAll('fade-in');
+                $('#tray1, #tray2, #pick, footer.pick, .shield, #styro-container, #gift-message, #pack').show();
+                $('body').addClass('from-pick-to-personalize');
                 $('#styro-container').afterAnimation(function() {
                     if (NavigationManager._currentSection == 'personalize') {
                         $('#tray1, #tray2, #pick, .shield').hide();
@@ -708,7 +713,8 @@ var NavigationManager = {
             // From Personalize
             personalize: function() {
                 $('.fade-in').removeClass('fade-in');
-                $('#personalize, footer.personalize, #box, #pay').show().addClass('from-personalize-to-pack');
+                $('#personalize, footer.personalize, #box, #pay').show();
+                $('body').addClass('from-personalize-to-pack');
             }
         }
     }

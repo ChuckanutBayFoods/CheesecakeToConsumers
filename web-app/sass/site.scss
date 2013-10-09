@@ -105,6 +105,7 @@ $minHeight: 900px;
 @import "sections/orderComplete";
 @import "transitions/pickToPersonalize";
 @import "transitions/personalizeToPack";
+@import "transitions/packToPay";
 
 html {
   overflow-y: scroll;
@@ -223,6 +224,7 @@ section {
 }
 
 .fade-in {
+  display: block;
   @include animation(fade-in 1s);
 }
 
