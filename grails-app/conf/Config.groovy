@@ -80,6 +80,10 @@ environments {
     }
 }
 
+// http://grails.org/doc/latest/guide/theWebLayer.html#controllersAndScopes
+// Not going to enable until ready to profile/test.
+// grails.controllers.defaultScope = "singleton"
+
 // log4j configuration
 log4j = {
 	println "Log4j consoleLevel: ${log4jConsoleLogLevel} appFile Level: ${log4jAppFileLogLevel}"

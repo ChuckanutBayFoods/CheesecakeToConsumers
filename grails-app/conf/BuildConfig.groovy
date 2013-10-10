@@ -46,6 +46,7 @@ grails.project.dependency.resolution = {
 		
 		// https://stripe.com/docs/libraries
 		compile 'com.stripe:stripe-java:1.4.0'
+		
     }
 
     plugins {
@@ -68,6 +69,10 @@ grails.project.dependency.resolution = {
 
         compile ":cache:1.0.1"
 		
+		// http://grails.org/plugin/mail
 		compile ":mail:1.0.1"
+		
+		// http://grails.org/plugin/quartz
+		compile ":quartz:1.0-RC13"
     }
 }

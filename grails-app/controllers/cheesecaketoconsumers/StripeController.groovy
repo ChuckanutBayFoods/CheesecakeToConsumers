@@ -34,7 +34,8 @@ class StripeController {
 		Charge charge
 		def result = [
 			paid : false,
-			backendFailure : true
+			backendFailure : true,
+			wasConfirmationEmailSent : false
 		]
 		
 		// Ensure the DB entities are able to persist before engaging Stripe
@@ -113,12 +114,18 @@ class StripeController {
 		}
 		
 		if (result.paid) {
-//			sendMail {
-//				to "stevenl@chuckanutbay.com"
-//				from "test@chuckanutbay.com"
-//				subject "Test"
-//				html '<b>Hello</b> World'
-//			}
+			try {
+				sendMail {
+					to "${sale.giver.emailAddress}"
+					from "givecheesecakes.com <customerservice@givecheesecakes.com>"
+					subject "Thanks for your order!"
+					text view: "/emails/thankYouForYourOrderText", model: [sale : sale, price : "\$50.00", customerServiceEmailAddress : "customerservice@givecheesecakes.com"]
+				}
+				sale.wasConfirmationEmailSent = true
+				result.wasConfirmationEmailSent = true
+			} catch (Exception e) {
+				log.error("Unable to send email to ${sale.giver.emailAddress} for ${sale}", e)
+			}
 		} else {
 			log.warn("Attempting to delete <${sale}> since it wasn't successfully paid.")
 			sale.delete()
