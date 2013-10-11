@@ -1,0 +1,114 @@
+html {
+    height: 400%;
+    min-height: 3200px;
+}
+
+body {
+    height: 100%;
+    min-height: 800px
+}
+
+#section-container > section {
+    min-height: 800px;
+    min-width: 1200px;
+    height: 100%;
+    position: fixed;
+    left: 50%;
+    margin-left: -600px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue";
+    font-weight: 100;
+}
+
+#section-container {
+    left: 50%;
+    margin: -600px;
+    width: 1200px;
+}
+
+#section1 {
+    background-color: lightblue;
+}
+
+#section2 {
+    background-color: lightcoral;
+}
+
+#section3 {
+    background-color: lightgreen;
+}
+
+#section4 {
+    background-color: lightyellow;
+}
+
+#component-container-part1, #component-container-part2 {
+    height: 100%;
+    pointer-events: none;
+}
+
+#component-container-part1 {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 50%;
+}
+
+#component-container-part2 {
+    position: absolute;
+    left: -600px;
+    width: 1200px;
+}
+
+#component-container-part2 > * {
+    position: absolute;
+}
+
+#component1 {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    background-color: greenyellow;
+    top: 20px;
+    left: 300px;
+}
+
+#component2 {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-color: purple;
+    top: 500px;
+    left: 300px;
+}
+
+#component3 {
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    background-color: orangered;
+    top: 400px;
+    left: 800px;
+}
+
+#entered-exited-section4 {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+}
+
+#permission-to-enter-section3 {
+    padding: 6px 12px;
+    font-size: 20px;
+    color: white;
+    background-color: lightseagreen;
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    cursor: pointer;
+}

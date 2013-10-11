@@ -1,0 +1,55 @@
+#section1 {
+     -skrollr-animation-name: section1Animation;
+ }
+
+@-skrollr-keyframes section1Animation {
+    -100p {
+        top: 100%;
+    }
+
+    100p {
+        top: -100%;
+    }
+}
+
+#section2 {
+    -skrollr-animation-name: section2Animation;
+}
+
+@-skrollr-keyframes section2Animation {
+    0p {
+        top: 100%;
+    }
+
+    200p {
+        top: -100%;
+    }
+}
+
+#section3 {
+    -skrollr-animation-name: section3Animation;
+}
+
+@-skrollr-keyframes section3Animation {
+    100p {
+        top: 100%;
+    }
+
+    300p {
+        top: -100%;
+    }
+}
+
+#section4 {
+    -skrollr-animation-name: section4Animation;
+}
+
+@-skrollr-keyframes section4Animation {
+    200p {
+        top: 100%;
+    }
+
+    400p {
+        top: -100%;
+    }
+}
