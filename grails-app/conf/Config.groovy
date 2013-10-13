@@ -125,7 +125,9 @@ log4j = {
            'net.sf.ehcache.hibernate'
 		   
 	debug	'grails.app.controllers',
-			'cheesecaketoconsumers'
+			'cheesecaketoconsumers',
+			// http://grails-plugins.github.io/grails-quartz/guide/configuration.html
+			'grails.app.jobs'
 }
 
 grails {

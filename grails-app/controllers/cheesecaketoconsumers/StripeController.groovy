@@ -114,16 +114,8 @@ class StripeController {
 		}
 		
 		if (result.paid) {
-			try {
-				sendMail {
-					to "${sale.giver.emailAddress}"
-					from "givecheesecakes.com <customerservice@givecheesecakes.com>"
-					subject "Thanks for your order!"
-					text view: "/emails/thankYouForYourOrderText", model: [sale : sale, price : "\$50.00", customerServiceEmailAddress : "customerservice@givecheesecakes.com"]
-				}
-				sale.wasConfirmationEmailSent = true
-				result.wasConfirmationEmailSent = true
-			} catch (Exception e) {
+			sale.wasConfirmationEmailSent = result.wasConfirmationEmailSent = EmailController.sendThankYouForYourOrderEmail(sale);
+			if (!sale.wasConfirmationEmailSent) {
 				log.error("Unable to send email to ${sale.giver.emailAddress} for ${sale}", e)
 			}
 		} else {
