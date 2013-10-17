@@ -25,6 +25,8 @@ class StripeController {
 		PUBLISHABLE_KEY = System.getProperty("STRIPE_USE_LIVE") == "true" ? "pk_live_h0i3a6TYJx4iK0zE6CyAITLh" : "pk_test_J460WxCY0NPbCGolQQDc19gx";
 	}
 	
+	EmailService emailService;
+	
 	def getPublishableKey() {
 		render PUBLISHABLE_KEY
 	}
@@ -114,10 +116,7 @@ class StripeController {
 		}
 		
 		if (result.paid) {
-			sale.wasConfirmationEmailSent = result.wasConfirmationEmailSent = EmailController.sendThankYouForYourOrderEmail(sale);
-			if (!sale.wasConfirmationEmailSent) {
-				log.error("Unable to send email to ${sale.giver.emailAddress} for ${sale}", e)
-			}
+			sale.wasConfirmationEmailSent = result.wasConfirmationEmailSent = emailService.sendThankYouForYourOrderEmail(sale);
 		} else {
 			log.warn("Attempting to delete <${sale}> since it wasn't successfully paid.")
 			sale.delete()

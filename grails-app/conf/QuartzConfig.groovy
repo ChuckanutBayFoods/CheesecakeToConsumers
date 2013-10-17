@@ -4,24 +4,4 @@
 quartz {
     autoStartup = true
     jdbcStore = false
-    waitForJobsToCompleteOnShutdown = true
-    exposeSchedulerInRepository = false
-
-    props {
-		// http://quartz-scheduler.org/documentation/best-practices
-        scheduler.skipUpdateCheck = true
-    }
-}
-
-environments {
-    test {
-        quartz {
-            autoStartup = false
-        }
-    }
-	development {
-		quartz {
-			autoStartup = false
-		}
-	}
 }
