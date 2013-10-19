@@ -4,19 +4,7 @@ A delightful gift is just around the corner!  This email confirms that we have r
 
 Details for order #${sale.id}:
 
-= Recipient = 
-${sale.recipient.name}<% if (sale.recipient.companyName)%>
-${sale.recipient.companyName}
-${sale.recipient.addressLine1}<% if (sale.recipient.addressLine2)%>
-${sale.recipient.addressLine2}
-${sale.recipient.city}, ${sale.recipient.state}  ${sale.recipient.zipCode}<% if (sale.recipient.phoneNumber)%>
-${sale.recipient.phoneNumber}
-
-= Cheesecakes =<% sale.saleItems.each { saleItem -> %>
-• ${saleItem.quantity} ${saleItem.product.name}<%}%>
-
-= Gift Message =
-${sale.giftMessage}
+<g:render template="/emails/orderDetailsTextTemplate" model="[sale:sale]"/>
 
 = Arrival Date =
 ${sale.customerFriendlyArrivalDate}
