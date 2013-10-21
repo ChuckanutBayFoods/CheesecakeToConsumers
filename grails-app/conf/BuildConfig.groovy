@@ -51,16 +51,12 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.8.3"
-		// Disabling since all resources are having "static" prefixing their path.
-        // http://grails-plugins.github.io/grails-resources/
-		// http://www.grails.org/plugin/resources 
-		// http://grails.1312388.n4.nabble.com/disabling-static-resource-stuff-td3827384.html
-		//runtime ":resources:1.2"
+        
+        runtime ":resources:1.2.1"
 
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0"
-        //runtime ":cached-resources:1.0"
+        runtime ":zipped-resources:1.0"
+        runtime ":cached-resources:1.0"
+		compile ":cache-headers:1.1.5"
         //runtime ":yui-minify-resources:0.1.5"
 
         build ":tomcat:$grailsVersion"

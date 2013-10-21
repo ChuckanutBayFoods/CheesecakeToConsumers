@@ -37,8 +37,12 @@ grails.mime.types = [
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 
+// http://grails-plugins.github.io/grails-resources/guide/9.%20Configuration.html
+// true is the default value, but I'm putting this in so it's easy for someone to turn off Resource management.
+grails.resources.processing.enabled = true
 // What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+// Disabling this so that only resources in StaticResources.groovy are touched
+// grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
