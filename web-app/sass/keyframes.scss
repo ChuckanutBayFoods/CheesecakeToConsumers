@@ -1,0 +1,8 @@
+$numberOfSections: 5;
+
+@import "mixins";
+@import "sections/commonKeyframes";
+
+html {
+  height: #{$numberOfSections * 100 + '%'};
+}

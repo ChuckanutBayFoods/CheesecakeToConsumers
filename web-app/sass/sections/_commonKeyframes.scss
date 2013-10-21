@@ -1,0 +1,16 @@
+
+@for $i from 1 through $numberOfSections {
+  .section#{$i} {
+    -skrollr-animation-name: section#{$i}Animation;
+  }
+
+  @-skrollr-keyframes section#{$i}Animation {
+      -100p {
+          top: #{$i * 100 + '%'};
+      }
+
+      #{$numberOfSections * 100 + 'p'} {
+          top: -#{($numberOfSections + 1 - $i) * 100 + '%'};
+      }
+  }
+}
