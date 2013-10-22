@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Edit this later -->
-    <title>Cheesecake to Consumers</title>
+    <title>givecheesecakes.com</title>
     <link rel="shortcut icon" href="../img/favicon.ico">
     <r:require modules="core"/>
     <r:layoutResources/>
@@ -14,7 +14,7 @@
                 <span class="span4"><img src="../img/logos/chuckanutbaylogo-small.png"/></span>
                 <span class="span4 free-shipping"><span>Free Overnight Shipping</span></span>
                 <span class="span4 questions">
-                    <a href="https://docs.google.com/a/chuckanutbay.com/document/d/1rpM6SlmaFaOuESQtR2MB_H-aOR1sp6hsS6iyd0x7UT8/">Questions?</a>
+                    <a href="/home/customerService">Questions or Comments?</a>
                 </span>
             </div>
         </div>
