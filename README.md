@@ -6,7 +6,7 @@
 ```bash
 export JAVA_HOME=/Library/Java/Home
 export PATH="$PATH:$JAVA_HOME/bin"
-export GRAILS_HOME=/Applications/springsource/grails-2.2.3
+export GRAILS_HOME=/Applications/springsource/grails-2.2.4
 export PATH="$PATH:$GRAILS_HOME/bin"
 ```
 
@@ -16,7 +16,7 @@ export PATH="$PATH:$GRAILS_HOME/bin"
 grails run-app -https
 ```
 
-You can then hit the site at https://localhost:8080/CheesecakeToConsumers or https://localhost:8443/CheesecakeToConsumers .
+You can then hit the site at https://localhost:8080/ or https://localhost:8443/ .
 
 For HTTPS you'll get some security exceptions because of a self-signed certificate.  It is ok to accept these/ignore the warnings.
 

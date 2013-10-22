@@ -14,7 +14,7 @@
                 <span class="span4"><img src="../img/logos/chuckanutbaylogo-small.png"/></span>
                 <span class="span4 free-shipping"><span>Free Overnight Shipping</span></span>
                 <span class="span4 questions">
-                    <a href="/home/customerService">Questions or Comments?</a>
+                    <a href="/home/customerService" target="_blank">Questions or Comments?</a>
                 </span>
             </div>
         </div>

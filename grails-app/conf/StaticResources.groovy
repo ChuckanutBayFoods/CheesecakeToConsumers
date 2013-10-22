@@ -5,7 +5,7 @@ def isProd = Environment.current == Environment.PRODUCTION;
 modules = {
 	core {
 		defaultBundle 'common'
-		resource url: 'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css'
+		resource url: 'https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css'
 		resource url: 'css/site.css'
 		resource url: 'css/keyframes.css', attrs:["data-skrollr-stylesheet":""]
 		
@@ -47,7 +47,7 @@ modules = {
 
 // Work in progress.
 // Attempting to see if can download files locally and use them instead.
-def getUrl(String url) {
+def cacheAndGetLocalUrl(String url) {
 	File tmpDir = new File(System.getProperty("java.io.tmpdir"));
 	File outputFile = new File(tmpDir, url.replaceFirst("https?://", ""));
 	println "Creating local file for ${url}.  Local file should be at ${outputFile}"
