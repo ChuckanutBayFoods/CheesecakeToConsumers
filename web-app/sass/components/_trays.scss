@@ -1,8 +1,4 @@
-$tray1Left: 0px;
-$tray2Left: 600px;
 .tray {
-  position: absolute;
-  top: $boxTopBaseline;
   width: 100%;
 
   .tray-part {
@@ -77,12 +73,4 @@ $tray2Left: 600px;
       margin-left: 4px;
     }
   }
-}
-
-#tray1 {
-  left: $tray1Left;
-}
-
-#tray2 {
-  left: $tray2Left;
 }

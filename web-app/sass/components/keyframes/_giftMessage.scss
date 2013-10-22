@@ -1,0 +1,34 @@
+@include skrollrKeyframes('#gift-message', giftMessage) {
+  150p {
+    top: 100%;
+  margin-top: 0px;
+}
+  200p {
+  top: 0%;
+  margin-top: -300px;
+  width: 900px;
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(0px) translateY(0px);
+}
+     240p {
+          transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(-170px) translateY(0px);
+          width: 450px;
+        }
+280p {
+     transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(.5) rotate(90deg) translateX(-210px) translateY(45px);
+   }
+}
+
+@include skrollrKeyframes('#gift-message .cover', giftMessageCover) {
+150p {
+     left: -450px;
+   }
+200p {
+     left: -450px;
+   }
+240p {
+     left: 0px;
+   }
+280p {
+     left: 0px;
+   }
+  }

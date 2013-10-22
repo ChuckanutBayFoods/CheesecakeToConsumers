@@ -8,7 +8,6 @@ $boxLeft: -56px;
 
   .box-part {
     position: absolute;
-    @include transition(all 1s);
 
     &.back {
       z-index: 500;

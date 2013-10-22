@@ -1,7 +1,9 @@
 #pick {
+  margin-top: $headerFooterHeight;
+
   #product-price {
     position: absolute;
-    top: 110px;
+    top: 70px;
     left: 12%;
 
     .price {

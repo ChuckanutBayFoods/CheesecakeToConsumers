@@ -1,0 +1,26 @@
+$boxTopBaseline: 375px;
+#component-container-part1, #component-container-part2 {
+  height: 100%;
+  pointer-events: none;
+  top: $boxTopBaseline;
+}
+
+#component-container-part1 {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 50%;
+}
+
+#component-container-part2 {
+  position: absolute;
+  left: -600px;
+  width: 1200px;
+}
+
+#component-container-part2 > * {
+  position: absolute;
+  //@include transform(translateZ(0));
+  //@include css3(backface-visibility, hidden);
+  //@include css3(perspective, 1000);
+}

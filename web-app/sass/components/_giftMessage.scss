@@ -18,7 +18,6 @@ $giftTransformShrunk: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) sc
   background-color: $white;
   overflow: hidden;
   pointer-events: auto;
-  @include transform($giftTransform);
 
   h1, h2, h3, h4, h5, h6 {
     color: $chuckanutRed;
@@ -56,7 +55,6 @@ $giftTransformShrunk: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) sc
     position: relative;
     vertical-align: top;
     padding: 12px;
-    @include transition(all 2s ease);
   }
 
   .message {

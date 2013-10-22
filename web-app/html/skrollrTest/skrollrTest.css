@@ -1,0 +1,147 @@
+html {
+    height: 400%;
+}
+
+body {
+    height: 100%;
+}
+
+#section-container > section {
+    min-width: 1200px;
+    height: 100%;
+    position: fixed;
+    left: 50%;
+    margin-left: -600px;
+    display: block;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue";
+    font-weight: 100;
+}
+
+#section-container {
+    left: 50%;
+    margin: -600px;
+    width: 1200px;
+}
+
+#section1 {
+    background-color: lightblue;
+}
+
+#section2 {
+    background-color: lightcoral;
+}
+
+#section3 {
+    background-color: lightgreen;
+}
+
+#section4 {
+    background-color: lightyellow;
+}
+
+#component-container-part1, #component-container-part2 {
+    height: 100%;
+    pointer-events: none;
+}
+
+#component-container-part1 {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 50%;
+}
+
+#component-container-part2 {
+    position: absolute;
+    left: -600px;
+    width: 1200px;
+}
+
+#component-container-part2 > * {
+    position: absolute;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
+}
+
+#component1 {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    background-color: greenyellow;
+    left: 300px;
+}
+
+#component2 {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-color: purple;
+    margin-top: -20px;
+    left: 260px;
+}
+
+#component3 {
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    background-color: orangered;
+    left: 280px;
+}
+
+#entered-exited-section4 {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+}
+
+#permission-to-enter-section3 {
+    padding: 6px 12px;
+    font-size: 20px;
+    color: white;
+    background-color: lightseagreen;
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    cursor: pointer;
+}
+
+#nav-container {
+    position: fixed;
+    top: 0;
+}
+
+.skrollable-after, .skrollable-before {
+    display: none;
+}

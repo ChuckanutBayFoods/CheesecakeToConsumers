@@ -1,0 +1,40 @@
+@include skrollrKeyframes("#tray1", tray1) {
+  -100p {
+    top: 0px;
+  }
+
+  30p {
+    top: 0px;
+  }
+
+60p {
+     top:  -200px;
+   }
+90p {
+     top:  -150px;
+   }
+
+200p {
+     top:  -150px;
+  }
+}
+
+@include skrollrKeyframes("#tray2", tray2) {
+  -100p {
+    top: 0px;
+  }
+
+50p {
+    left: 600px;
+  }
+
+90p {
+    left: 0px;
+  }
+
+  200p {
+    top: 0px;
+  }
+
+
+}

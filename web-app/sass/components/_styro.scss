@@ -1,8 +1,6 @@
-$expodeDistance: 200px;
-$styroTopBaseline: $boxTopBaseline - 213;
 #styro-container {
   position: absolute;
-  top: $styroTopBaseline;
+  top: -213px;
   left: -56px;
   width: 100%;
 

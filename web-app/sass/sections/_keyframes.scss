@@ -1,0 +1,28 @@
+
+@for $i from 1 through $numberOfSections {
+  @include skrollrKeyframes(".section#{$i}", section#{$i}Animation) {
+      -200p {
+          top: #{$i * 200 + '%'};
+      }
+
+      #{$numberOfSections * 200 + 'p'} {
+          top: -#{($numberOfSections + 1 - $i) * 200 + '%'};
+      }
+  }
+
+
+  @include skrollrKeyframes(".section#{$i} > *", section#{$i}ChildrenAnimation) {
+
+    #{($i - 1) * 200 - 50 + 'p'} {
+      opacity: 0;
+    }
+
+    #{($i - 1) * 200 + 'p'} {
+      opacity: 1;
+    }
+
+    #{($i - 1) * 200 + 50 + 'p'} {
+      opacity: 0;
+    }
+  }
+}

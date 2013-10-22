@@ -1,122 +1,37 @@
-@mixin border-radius($params) {
-/* Safari 3-4, iOS 1-3.2, Android 1.6- */
-  -webkit-border-radius: $params;
+$width: 1200px;
 
-/* Firefox 1-3.6 */
-  -moz-border-radius: $params;
-
-/* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
-  border-radius: $params;
-}
-
-@mixin box-shadow($params) {
-/* Firefox 1-3.6 */
-  -moz-box-shadow: $params;
-
-/* Safari 3-4, iOS 1-3.2, Android 1.6- */
-  -webkit-box-shadow: $params;
-
-/* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
-  box-shadow: $params;
-}
-
-@mixin transform($params...) {
-/* Safari and Chrome */
-  -webkit-transform: $params;
-
-/* IE 9 */
-  -ms-transform: $params;
-
-  transform: $params;
-}
-
-@mixin transition($params...) {
-/* Safari, iOS */
-  -webkit-transition: $params;
-
-/* IE, Chrome, Firefox, Opera, Android */
-  transition: $params;
-}
-
-@mixin animation($params...) {
-/* Safari 4+, Chrome */
-  -webkit-animation: $params;
-  -webkit-animation-fill-mode: both;
-
-/* Fx 5+ */
-  -moz-animation: $params;
-  -moz-animation-fill-mode: both;
-
-/* IE 9+ */
-  -ms-animation: $params;
-  -ms-animation-fill-mode: both;
-
-/* Opera 12+ */
-  -o-animation: $params;
-  -o-animation-fill-mode: both;
-
-  animation: $params;
-  animation-fill-mode: both;
-}
-
-@mixin keyframes($name) {
-/* Safari 4+, Chrome */
-  @-webkit-keyframes #{$name} { @content; }
-
-/* Fx 5+ */
-  @-moz-keyframes #{$name} { @content; }
-
-/* IE 9+ */
-  @-ms-keyframes #{$name} { @content; }
-
-/* Opera 12+ */
-  @-o-keyframes #{$name} { @content; }
-
-  @keyframes #{$name} { @content; }
-}
-
-@mixin square($size) {
-  width: $size;
-  height: $size;
-}
-
-$width: 1170px;
-$minHeight: 900px;
-
+@import "mixins";
 @import "bootstrap-datepicker";
 @import "colors";
 @import "fontSizes";
 @import "headerFooter";
 @import "sideNav";
 @import "loading";
-@import "objectsContainer";
+@import "sections/container";
 @import "sections/pick";
 @import "sections/personalize";
 @import "sections/pack";
 @import "sections/pay";
-@import "objects/trays";
-@import "objects/shields";
-@import "objects/styro";
-@import "objects/giftMessage";
-@import "objects/box";
-@import "objects/label";
-@import "objects/checkoutWindow";
-@import "objects/truck";
+@import "components/container";
+@import "components/trays";
+@import "components/shields";
+@import "components/styro";
+@import "components/giftMessage";
+@import "components/box";
+@import "components/label";
+@import "components/checkoutWindow";
+@import "components/truck";
 @import "sections/orderComplete";
-@import "transitions/pickToPersonalize";
-@import "transitions/personalizeToPack";
-@import "transitions/packToPay";
 
 html {
-  overflow-y: scroll;
   height: 100%;
 }
 
 body {
+  //margin-top: $headerFooterHeight;
   background-color: $white;
   font-weight: 300;
   padding: 1px;
-  padding-top: 50px;
 }
 
 input {
@@ -125,6 +40,7 @@ input {
 
 input[type="checkbox"] {
   height: 12px !important;
+
 }
 
 * {
@@ -165,19 +81,6 @@ pre {
   margin: 0;
   background: none;
   border: none;
-}
-
-section {
-  @include transition(all 1s);
-}
-
-#scroll-event-catcher {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 
 .transparent {
@@ -223,16 +126,6 @@ section {
   background-image: url('../img/arrow-left.png');
 }
 
-.fade-in {
-  display: block;
-  @include animation(fade-in 1s);
-}
-
-@include keyframes(fade-in) {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.skrollable-after, .skrollable-before {
+  display: none;
 }

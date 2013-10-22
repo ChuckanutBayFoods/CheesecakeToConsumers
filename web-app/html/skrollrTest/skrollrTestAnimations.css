@@ -1,0 +1,115 @@
+#section1 {
+     -skrollr-animation-name: section1Animation;
+ }
+
+@-skrollr-keyframes section1Animation {
+    -100p {
+        top: 100%;
+    }
+
+    400p {
+        top: -400%;
+    }
+}
+
+#section2 {
+    -skrollr-animation-name: section2Animation;
+}
+
+@-skrollr-keyframes section2Animation {
+    -100p {
+        top: 200%;
+    }
+
+    400p {
+        top: -300%;
+    }
+}
+
+#section3 {
+    -skrollr-animation-name: section3Animation;
+}
+
+@-skrollr-keyframes section3Animation {
+    -100p {
+        top: 300%;
+    }
+
+    400p {
+        top: -200%;
+    }
+}
+
+#section4 {
+    -skrollr-animation-name: section4Animation;
+}
+
+@-skrollr-keyframes section4Animation {
+    -100p {
+        top: 400%;
+    }
+
+    400p {
+        top: -100%;
+    }
+}
+
+#component1 {
+    -skrollr-animation-name: component1Animation;
+}
+
+@-skrollr-keyframes component1Animation {
+    75p {
+        top[sqrt]: 100%;
+        opacity[sqrt]: 0;
+    }
+
+    100p {
+        top[sqrt]: 50%;
+        opacity[sqrt]: 1;
+    }
+
+    200p {
+        top[sqrt]: 50%;
+    }
+}
+
+#component2 {
+    -skrollr-animation-name: component2Animation;
+}
+
+@-skrollr-keyframes component2Animation {
+    140p {
+        top[sqrt]: 100%;
+        opacity[sqrt]: 0;
+    }
+
+    170p {
+        top[sqrt]: 50%;
+        opacity[sqrt]: 1;
+    }
+
+    500p {
+        top[sqrt]: 50%;
+    }
+}
+
+#component3 {
+    -skrollr-animation-name: component3Animation;
+}
+
+@-skrollr-keyframes component3Animation {
+    160p {
+        top[sqrt]: 100%;
+        opacity[sqrt]: 0;
+    }
+
+    200p {
+        top[sqrt]: 50%;
+        opacity[sqrt]: 1;
+    }
+
+    500p {
+        top[sqrt]: 50%;
+    }
+}

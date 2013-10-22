@@ -1,0 +1,87 @@
+@include skrollrKeyframes('.styro.front', styroFront) {
+  110p {
+    top: 352px;
+  left: 62px;
+  opacity: 0;
+}
+  130p {
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+}
+  300p {
+  opacity: 1;
+}
+}
+
+@include skrollrKeyframes('.styro.back', styroBack) {
+110p {
+     top: -352px;
+     left: -62px;
+     opacity: 0;
+   }
+130p {
+     top: 0px;
+     left: 0px;
+     opacity: 1;
+   }
+300p {
+     opacity: 1;
+   }
+  }
+
+@include skrollrKeyframes('.styro.left', styroLeft) {
+110p {
+     left: -200px;
+     opacity: 0;
+   }
+130p {
+     left: 0px;
+     opacity: 1;
+   }
+300p {
+     opacity: 1;
+   }
+  }
+
+@include skrollrKeyframes('.styro.right', styroRight) {
+110p {
+     left: 200px;
+     opacity: 0;
+   }
+130p {
+     left: 0px;
+     opacity: 1;
+   }
+300p {
+     opacity: 1;
+   }
+  }
+
+@include skrollrKeyframes('.styro.top', styroTop) {
+110p {
+     top: -200px;
+     opacity: 0;
+   }
+130p {
+     top: 0px;
+     opacity: 1;
+   }
+300p {
+     opacity: 1;
+   }
+  }
+
+@include skrollrKeyframes('.styro.base', styroBase) {
+110p {
+     top: 200px;
+     opacity: 0;
+   }
+130p {
+     top: 0px;
+     opacity: 1;
+   }
+300p {
+     opacity: 1;
+   }
+  }
