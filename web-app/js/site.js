@@ -53,11 +53,11 @@ var Urls = {
 }
 
 var BOUNDARIES = {
-    PICK_TO_PERSONALIZE: {name: 'pickToPersonalize', position: function() { return Utils.getSectionHeight() * 1 - Utils.getViewportHeight() + $(header).height(); } },
-    PERSONALIZE_TO_PACK: {name: 'personalizeToPack', position: function() { return Utils.getSectionHeight() * 2 - Utils.getViewportHeight(); } },
-    PACK_TO_PAY: {name: 'packToPay', position: function() { return Utils.getSectionHeight() * 3 - Utils.getViewportHeight(); } },
-    PAY_TO_ORDER_COMPLETE: {name: 'payToOrderComplete', position: function() { return Utils.getSectionHeight() * 4 - Utils.getViewportHeight(); } },
-    END: {name: 'end', position: function() { return Utils.getSectionHeight() * 5 - Utils.getViewportHeight(); } }
+    PICK_TO_PERSONALIZE: {name: 'PICK_TO_PERSONALIZE', position: function() { return Utils.getSectionHeight() * 1 - Utils.getViewportHeight() + $('header').height(); } },
+    PERSONALIZE_TO_PACK: {name: 'PERSONALIZE_TO_PACK', position: function() { return Utils.getSectionHeight() * 2 - Utils.getViewportHeight(); } },
+    PACK_TO_PAY: {name: 'PACK_TO_PAY', position: function() { return Utils.getSectionHeight() * 3 - Utils.getViewportHeight(); } },
+    PAY_TO_ORDER_COMPLETE: {name: 'PAY_TO_ORDER_COMPLETE', position: function() { return Utils.getSectionHeight() * 4 - Utils.getViewportHeight(); } },
+    END: {name: 'END', position: function() { return Utils.getSectionHeight() * 5 - Utils.getViewportHeight(); } }
 }
 
 // Should not be called until S has been initialized.
@@ -94,7 +94,7 @@ var ScrollBoundaryManager = function() {
     // boundary - Can be any one of BOUNDARIES or a pixel position of a boundary (at the bottom of the viewport).
     function getBoundaryPosition(boundary) {
         // Accounts for the fact that boundaries at positions at the bottom of the window.
-        return (BOUNDARIES[boundary] && BOUNDARIES[boundary].position() || boundary) - Utils.getViewportHeight();
+        return (BOUNDARIES[boundary.name] && BOUNDARIES[boundary.name].position() || boundary) - Utils.getViewportHeight();
     };
 
     // Removes all of the boundary registrations.
@@ -127,7 +127,12 @@ var Order = function() {
         };
 
         this.isFull = function() {
-            return !this.add(undefined);
+            for(var i = 0; i < Utils.NUM_CHEESECAKE_SLOTS; i++) {
+                if (!cheesecakeSlots[i]) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         this.add = function(flavor) {
@@ -241,8 +246,9 @@ var PickManager = function(elementSelectors, order) {
     var flavorManager = new FlavorManager().loadFlavors(function(flavors) {
         flavorCarousel = new FlavorCarousel({
             main: elementSelectors.carousel + ' .well',
-            leftArrow: elementSelectors.carousel + ' .left-arrow',
-            rightArrow: elementSelectors.carousel + ' .right-arrow'
+            leftArrow: elementSelectors.carousel + ' .arrow-left',
+            rightArrow: elementSelectors.carousel + ' .arrow-right',
+            hiddenImages: '#hidden-image-loading-container'
         }, flavorManager)
     });
 
@@ -275,16 +281,18 @@ var PickManager = function(elementSelectors, order) {
         var flavor = flavorCarousel.getSelectedFlavor();
         var slot = order.cheesecakes.add(flavor);
 
-        if (!slot) {
+        if (slot === false) {
             return;
         }
 
-        if (slot == Utils.NUM_CHEESECAKE_SLOTS - 1) {
+        var cheesecakeNumber = slot + 1;
+
+        if (cheesecakeNumber == Utils.NUM_CHEESECAKE_SLOTS) {
             $(elementSelectors.addButton).addClass('disabled');
         }
 
         var parentContainer;
-        if (slot < Utils.NUM_CHEESECAKE_SLOTS/2) {
+        if (cheesecakeNumber <= Utils.NUM_CHEESECAKE_SLOTS/2) {
             parentContainer = $('#tray1');
         } else {
             parentContainer = $('#tray2');
@@ -294,8 +302,8 @@ var PickManager = function(elementSelectors, order) {
         var isVisible = false;
 
         var cheesecake = $(
-            '<img class="cheesecake cheesecake' + slot + '" src="' + flavor.bareImageUrl + '">' +
-                '<a href="#" class="cheesecake-event-catcher cheesecake cheesecake' + slot + '"><img src="' + flavor.bareImageUrl + '" /></a>')
+            '<img class="cheesecake cheesecake' + cheesecakeNumber + '" src="' + flavor.bareImageUrl + '">' +
+                '<a href="#" class="cheesecake-event-catcher cheesecake cheesecake' + cheesecakeNumber + '"><img src="' + flavor.bareImageUrl + '" /></a>')
             .appendTo(parentContainer)
             .animate({top: '-=100'}, 500)
             .popover({
@@ -303,7 +311,7 @@ var PickManager = function(elementSelectors, order) {
                 content: function() {
                     return $(
                         '<div class="flavor-label">' + flavor.name + '</div>' +
-                            '<div class="btn-container btn-container' + slot + '">' +
+                            '<div class="btn-container btn-container' + cheesecakeNumber + '">' +
                             '<div class="btn btn-more-info">More info</div>' +
                             '<div class="btn btn-remove btn-danger">Remove</div>' +
                             '</div>').data('flavor', flavor);
@@ -322,9 +330,10 @@ var PickManager = function(elementSelectors, order) {
                 });
             });
 
-        cheesecake.parent().delegate('.btn-container' + slot + ' .btn-more-info', 'click', function() {
+        var displayMoreInfo = this.displayMoreInfo;
+        cheesecake.parent().delegate('.btn-container' + cheesecakeNumber + ' .btn-more-info', 'click', function() {
             displayMoreInfo($(this).parent().data('flavor'));
-        }).delegate('.btn-container' + slot + ' .btn-remove', 'click', function() {
+        }).delegate('.btn-container' + cheesecakeNumber + ' .btn-remove', 'click', function() {
                 order.cheesecakes.remove(slot);
                 cheesecake.popover('hide').animate({top: '+=100'}, 500, function() {
                     cheesecake.remove();
@@ -348,7 +357,7 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
 
     this.preloadSelectedBareImage = function() {
         $(elementSelectors.hiddenImages).append(
-            '<img src="' + this.getSelectedFlavor() + '" />'
+            '<img src="' + this.getSelectedFlavor().bareImageUrl + '" />'
         );
     };
 
@@ -742,7 +751,11 @@ var OrderCompleteManager = function(elementSelectors, order) {
         moreInfoButton: '#selected-cheesecake-btns .btn-more-info',
         addButton: '#selected-cheesecake-btns .btn-add',
         moreInfo: '#more-info',
-        nutritionLabelButon: '.btn-show-nutrition-label'
+        showNutritionLabelButton: '.btn-show-nutrition-label'
+    }, order);
+
+    var personalizeManager = new PersonalizeManager({
+        main: '#gift-message'
     }, order);
 
     S = skrollr.init({
@@ -757,6 +770,12 @@ var OrderCompleteManager = function(elementSelectors, order) {
         scrollBoundaryManager
             .unregisterAllBoundaries()
             .registerBoundary(BOUNDARIES.PICK_TO_PERSONALIZE, function(e) {
+                //console.log(e);
+                if (e.direction === "down" && !order.cheesecakes.isFull()) {
+                    return false;
+                }
+            })
+            .registerBoundary(BOUNDARIES.PERSONALIZE_TO_PACK, function(e) {
                 //console.log(e);
                 if (e.direction === "down" && !order.cheesecakes.isFull()) {
                     return false;

@@ -130,3 +130,7 @@ pre {
 .skrollable-after, .skrollable-before {
   display: none;
 }
+
+.btn {
+  pointer-events: auto;
+}

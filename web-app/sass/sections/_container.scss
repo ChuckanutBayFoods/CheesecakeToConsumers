@@ -12,5 +12,9 @@
   margin-left: -$width/2;
   position: fixed;
 
-  @include threeDimensional();
+  //@include threeDimensional();
+
+  > * {
+    //@include threeDimensional();
+  }
 }
