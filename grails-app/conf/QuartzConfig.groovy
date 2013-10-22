@@ -7,7 +7,7 @@ quartz {
     jdbcStore = false
 }
 environments {
-	development {
+    development {
 		quartz {
 			autoStartup = false
 		}

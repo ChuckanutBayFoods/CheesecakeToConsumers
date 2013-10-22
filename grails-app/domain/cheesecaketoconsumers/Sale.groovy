@@ -19,9 +19,13 @@ class Sale {
 		// Have ids that don't start at 0.
 		// http://grails.org/doc/2.2.x/ref/Database%20Mapping/id.html
 		id generator : 'native', params : [initialValue : 5501]
+		
+		// http://grails.org/doc/latest/guide/GORM.html#eventsAutoTimestamping
+		autoTimestamp true
 	}
 	
 	Date dateCreated
+	Date lastUpdated
 	Giver giver
 	Recipient recipient
 	static hasMany = [saleItems : SaleItem]

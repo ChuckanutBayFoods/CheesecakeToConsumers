@@ -15,11 +15,15 @@ class Product {
 		// Enable using Chuckanut's #####-# format
 		// http://stackoverflow.com/questions/8856336/changing-primary-key-id-to-string-type-in-grails
 		id column: 'id', generator : 'assigned'
+		
+		// http://grails.org/doc/latest/guide/GORM.html#eventsAutoTimestamping
+		autoTimestamp true
 	}
 	
 	// See conf/BootStrap.groovy for the custom ObjectMarshaler when converting to JSON.
 	
 	String id
+	Date lastUpdated
 	boolean isActive = true
 	String name
 	String description
@@ -29,14 +33,18 @@ class Product {
 	boolean isNoSugarAdded = false
 	
 	String getStageImageUrl() {
-		return "https://s3.amazonaws.com/resources.givecheesecakes.com/productImages/stage/${id}.png"
+		return getImageUrl("stage")
 	}
 	
 	String getBareImageUrl() {
-		return "https://s3.amazonaws.com/resources.givecheesecakes.com/productImages/bare/${id}.png"
+		return getImageUrl("bare")
 	}
 	
 	String getNutritionLabelImageUrl() {
-		return "https://s3.amazonaws.com/resources.givecheesecakes.com/productImages/nutritionLabel/${id}.png"
+		return getImageUrl("nutritionLabel")
+	}
+	
+	private String getImageUrl(String imageType) {
+		return "https://d1xgog5oet4pf7.cloudfront.net/productImages/${imageType}/${id}.png?lastUpdate=${lastUpdated}"
 	}
 }
