@@ -3,14 +3,12 @@
 
   border: 1px solid $mediumGray;
   position: absolute;
-  top: 140px;
   padding: 12px;
   width: 80%;
   right: 0;
   z-index: 8800;
   background-color: $white;
   pointer-events: auto;
-  @include transition(all 1s ease);
 
   > * {
     display: inline-block;

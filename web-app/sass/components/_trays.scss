@@ -8,15 +8,15 @@
     width: 550px;
   }
   .back {
-    z-index: 1000;
+    @include threeDimensional(1000);
   }
 
   .mid {
-    z-index: 2000;
+    @include threeDimensional(2000);
   }
 
   .front {
-    z-index: 3000;
+    @include threeDimensional(3000);
   }
 
   .cheesecake {
@@ -27,7 +27,7 @@
 
   a.cheesecake-event-catcher {
     opacity: 0;
-    z-index: 5000;
+    @include threeDimensional(5000);
     pointer-events: auto;
   }
 
@@ -37,28 +37,28 @@
   .cheesecake5 {
     top: $backRowTop;
     left: 84px;
-    z-index: 1100;
+    @include threeDimensional(1100);
   }
 
   .cheesecake2,
   .cheesecake6 {
     top: $backRowTop;
     left: 300px;
-    z-index: 1200;
+    @include threeDimensional(1200);
   }
 
   .cheesecake3,
   .cheesecake7 {
     top: $frontRowTop;
     left: 120px;
-    z-index: 2300;
+    @include threeDimensional(2300);
   }
 
   .cheesecake4,
   .cheesecake8 {
     top: $frontRowTop;
     left: 334px;
-    z-index: 2400;
+    @include threeDimensional(2400);
   }
 
   .popover {

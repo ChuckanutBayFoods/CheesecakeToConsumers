@@ -9,7 +9,10 @@ $numberOfSections: 5;
 @import "components/keyframes/shields";
 @import "components/keyframes/styro";
 @import "components/keyframes/giftMessage";
+@import "components/keyframes/label";
+@import "components/keyframes/checkoutWindow";
+@import "components/keyframes/completePackage";
 
 body {
-  height: #{$numberOfSections * 200 + '%'};
+  height: #{$numberOfSections * 200 - 100 + '%'};
 }

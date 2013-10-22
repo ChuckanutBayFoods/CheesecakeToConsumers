@@ -1,0 +1,20 @@
+@include skrollrKeyframes("#label", label) {
+  350p {
+    top: 100%;
+    margin-top: 0px;
+}
+  400p {
+  top: 0%;
+  margin-top: -300px;
+     }
+  450p {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px) translateZ(0px);
+  }
+    500p {
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(.9) scaleY(0.4) translateX(-525px) translateY(-170px) translateZ(0px);
+  }
+
+   1000p {
+       top: 0%;
+       }
+}
