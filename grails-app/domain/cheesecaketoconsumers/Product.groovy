@@ -45,6 +45,8 @@ class Product {
 	}
 	
 	private String getImageUrl(String imageType) {
-		return "https://d1xgog5oet4pf7.cloudfront.net/productImages/${imageType}/${id}.png?lastUpdate=${lastUpdated}"
+		// We don't use resources.givecheeseackes.com because we need to serve over https in production,
+		// and we'd need to buy another SSL certificate for that domain.
+		return "https://d1z9tzwlpwyvx2.cloudfront.net/productImages/${imageType}/${id}.png?lastUpdate=${lastUpdated}"
 	}
 }
