@@ -6,11 +6,11 @@
 }
 
 #shield1 {
-  z-index: 1999;
+  @include threeDimensional(1999);
   top: $boxTopBaseline + 130px;
 }
 
 #shield2 {
-  z-index: 2999;
+  @include threeDimensional(2999);
   top: $boxTopBaseline + 230px;
 }

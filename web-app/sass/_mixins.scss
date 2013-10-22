@@ -93,3 +93,10 @@
   width: $size;
   height: $size;
 }
+
+@mixin threeDimensional($zIndex: 1) {
+  @include transform(translateZ(0px));
+  @include css3(backface-visibility, hidden);
+  @include css3(perspective, 1000);
+  z-index: $zIndex;
+}

@@ -1,47 +1,57 @@
 @include skrollrKeyframes("#box", box) {
-  200p {
+  270p {
     top: 100%;
+    margin-top: 0px;
   }
 
   300p {
     top: 0%;
+    margin-top: -213px;
   }
+
+1000p {
+     top: 0%;
+   }
 }
 
-@include skrollrKeyframes("#box flaps", box-flaps) {
-200p {
-     top: 100%;
-   }
-
-300p {
-     top: 0%;
+@include skrollrKeyframes("#box .flaps", boxFlaps) {
+270p {
   opacity: 1;
    }
 
-350p {
-     top: 0%;
-     opacity: 0;
-   }
-  }
-
-@include skrollrKeyframes("#box top", box-top) {
-300p {
-     top: 0%;
+420p {
      opacity: 1;
    }
 
-350p {
+450p {
      opacity: 0;
    }
-  }
+}
 
-@include skrollrKeyframes("#box tape", box-tape) {
-300p {
-     top: 0%;
+@include skrollrKeyframes("#box .top", boxTop) {
+420p {
+     opacity: 0;
+   }
+
+450p {
      opacity: 1;
    }
 
-350p {
+1000p {
+     opacity: 1;
+   }
+  }
+
+@include skrollrKeyframes("#box .tape", boxTape) {
+420p {
      opacity: 0;
+   }
+
+450p {
+     opacity: 1;
+   }
+
+1000p {
+     opacity: 1;
    }
   }

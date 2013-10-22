@@ -12,7 +12,5 @@
   margin-left: -$width/2;
   position: fixed;
 
-  @include transform(translateZ(0));
-  @include css3(backface-visibility, hidden);
-  @include css3(perspective, 1000);
+  @include threeDimensional();
 }

@@ -1,0 +1,8 @@
+@include skrollrKeyframes('#complete-package', completePackage) {
+  670p {
+  transform: translateX(0px) translateY(0px) scale(1);
+}
+  770p {
+  transform: translateX(1700px) translateY(-400px) scale(.25);
+}
+}

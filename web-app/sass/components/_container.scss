@@ -20,7 +20,4 @@ $boxTopBaseline: 375px;
 
 #component-container-part2 > * {
   position: absolute;
-  //@include transform(translateZ(0));
-  //@include css3(backface-visibility, hidden);
-  //@include css3(perspective, 1000);
 }

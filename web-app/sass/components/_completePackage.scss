@@ -1,0 +1,12 @@
+#complete-package {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  &.skrollable-before {
+    @include transform(inherit !important);
+    display: block;
+  }
+}

@@ -1,8 +1,6 @@
-$boxTop: $boxTopBaseline - 213px;
 $boxLeft: -56px;
 #box {
   position: absolute;
-  top: $boxTop;
   left: $boxLeft;
   width: 100%;
 
@@ -10,23 +8,23 @@ $boxLeft: -56px;
     position: absolute;
 
     &.back {
-      z-index: 500;
+      @include threeDimensional(500);
     }
 
     &.front {
-      z-index: 7000;
+      @include threeDimensional(7000);
     }
 
     &.flaps {
-      z-index: 7500;
+      @include threeDimensional(7500);
     }
 
     &.top {
-      z-index: 7600;
+      @include threeDimensional(7600);
     }
 
     &.tape {
-      z-index: 7700;
+      @include threeDimensional(7700);
     }
   }
 }

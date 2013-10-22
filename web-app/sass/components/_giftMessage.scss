@@ -2,9 +2,6 @@ $giftMessageWidth: 900px;
 $giftMessageWidthFolded: $giftMessageWidth/2;
 $giftMessageTop: $boxTopBaseline - 245;
 $giftMessageLeft: 270px;
-$giftTransform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(0) translateY(0);
-$giftTransformFolded: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(-170px) translateY(0);
-$giftTransformShrunk: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(.5) rotate(90deg) translateX(-210px) translateY(45px);
 #gift-message {
   @include box-shadow(0 5px 10px $shadowColor);
 
@@ -14,7 +11,7 @@ $giftTransformShrunk: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) sc
   top: $giftMessageTop;
   width: $giftMessageWidth;
   height: 700px;
-  z-index: 5000;
+  @include threeDimensional(5000);
   background-color: $white;
   overflow: hidden;
   pointer-events: auto;
@@ -50,8 +47,9 @@ $giftTransformShrunk: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) sc
 
   .gift-message-page-base {
     display: inline-block;
-    width: 50%;
+    width: $giftMessageWidthFolded;
     height: 100%;
+    top: 0;
     position: relative;
     vertical-align: top;
     padding: 12px;

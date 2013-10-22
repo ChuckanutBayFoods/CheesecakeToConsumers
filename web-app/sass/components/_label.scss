@@ -1,7 +1,4 @@
-$labelTop: $boxTopBaseline - 200;
 $labelLeft: 500px;
-$labelTransform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
-$labelTransformShrink: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) translateX(-450px) translateY(-115px);
 #label {
   @include box-shadow(0 5px 10px $shadowColor);
   @include border-radius(12px);
@@ -11,13 +8,11 @@ $labelTransformShrink: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) s
   font-family: "Arial Narrow", Arial;
   font-weight: 600;
   position: absolute;
-  top: $labelTop;
   left: $labelLeft;
   width: 400px;
-  z-index: 8700;
   background-color: $white;
   pointer-events: auto;
-  @include transform($labelTransform);
+  @include threeDimensional(8700);
 
   .return-address {
     line-height: 16px;

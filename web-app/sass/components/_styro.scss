@@ -6,33 +6,32 @@
 
   .styro {
     position: absolute;
-    display: block;
     opacity: 0;
     top: 0;
     left: 0;
 
     &.base {
-      z-index: 100;
+      @include threeDimensional(100);
     }
 
     &.back {
-      z-index: 200;
+      @include threeDimensional(200);
     }
 
     &.right {
-      z-index: 300;
+      @include threeDimensional(300);
     }
 
     &.left {
-      z-index: 3100;
+      @include threeDimensional(3100);
     }
 
     &.front {
-      z-index: 3200;
+      @include threeDimensional(3200);
     }
 
     &.top {
-      z-index: 3300;
+      @include threeDimensional(3300);
     }
 
     &.styro-label {

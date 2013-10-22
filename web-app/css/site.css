@@ -519,10 +519,10 @@ footer {
   margin-left: -600px;
   position: fixed;
   /* Safari and Chrome */
-  -webkit-transform: translateZ(0);
+  -webkit-transform: translateZ(0px);
   /* IE 9 */
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
@@ -530,7 +530,8 @@ footer {
   -webkit-perspective: 1000;
   -moz-perspective: 1000;
   -ms-perspective: 1000;
-  perspective: 1000; }
+  perspective: 1000;
+  z-index: 1; }
 
 #pick {
   margin-top: 50px; }
@@ -665,10 +666,49 @@ footer {
     left: 0;
     width: 550px; }
   .tray .back {
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 1000; }
   .tray .mid {
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 2000; }
   .tray .front {
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 3000; }
   .tray .cheesecake {
     position: absolute;
@@ -676,27 +716,92 @@ footer {
     cursor: pointer; }
   .tray a.cheesecake-event-catcher {
     opacity: 0;
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 5000;
     pointer-events: auto; }
   .tray .cheesecake1,
   .tray .cheesecake5 {
     top: 134px;
     left: 84px;
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 1100; }
   .tray .cheesecake2,
   .tray .cheesecake6 {
     top: 134px;
     left: 300px;
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 1200; }
   .tray .cheesecake3,
   .tray .cheesecake7 {
     top: 248px;
     left: 120px;
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 2300; }
   .tray .cheesecake4,
   .tray .cheesecake8 {
     top: 248px;
     left: 334px;
+    /* Safari and Chrome */
+    -webkit-transform: translateZ(0px);
+    /* IE 9 */
+    -ms-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
     z-index: 2400; }
   .tray .popover {
     width: 200px; }
@@ -713,10 +818,36 @@ footer {
   background-color: white; }
 
 #shield1 {
+  /* Safari and Chrome */
+  -webkit-transform: translateZ(0px);
+  /* IE 9 */
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
   z-index: 1999;
   top: 505px; }
 
 #shield2 {
+  /* Safari and Chrome */
+  -webkit-transform: translateZ(0px);
+  /* IE 9 */
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
   z-index: 2999;
   top: 605px; }
 
@@ -727,21 +858,98 @@ footer {
   width: 100%; }
   #styro-container .styro {
     position: absolute;
-    display: block;
     opacity: 0;
     top: 0;
     left: 0; }
     #styro-container .styro.base {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 100; }
     #styro-container .styro.back {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 200; }
     #styro-container .styro.right {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 300; }
     #styro-container .styro.left {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 3100; }
     #styro-container .styro.front {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 3200; }
     #styro-container .styro.top {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 3300; }
     #styro-container .styro.styro-label {
       color: #b3b3b3;
@@ -762,6 +970,19 @@ footer {
   top: 130px;
   width: 900px;
   height: 700px;
+  /* Safari and Chrome */
+  -webkit-transform: translateZ(0px);
+  /* IE 9 */
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
   z-index: 5000;
   background-color: white;
   overflow: hidden;
@@ -786,8 +1007,9 @@ footer {
         margin-bottom: 0; }
   #gift-message .gift-message-page-base, #gift-message .info, #gift-message .message, #gift-message .cover {
     display: inline-block;
-    width: 50%;
+    width: 450px;
     height: 100%;
+    top: 0;
     position: relative;
     vertical-align: top;
     padding: 12px; }
@@ -842,20 +1064,84 @@ footer {
 
 #box {
   position: absolute;
-  top: 162px;
   left: -56px;
   width: 100%; }
   #box .box-part {
     position: absolute; }
     #box .box-part.back {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 500; }
     #box .box-part.front {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 7000; }
     #box .box-part.flaps {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 7500; }
     #box .box-part.top {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 7600; }
     #box .box-part.tape {
+      /* Safari and Chrome */
+      -webkit-transform: translateZ(0px);
+      /* IE 9 */
+      -ms-transform: translateZ(0px);
+      transform: translateZ(0px);
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      perspective: 1000;
       z-index: 7700; }
 
 #label {
@@ -876,17 +1162,24 @@ footer {
   font-family: "Arial Narrow", Arial;
   font-weight: 600;
   position: absolute;
-  top: 175px;
   left: 500px;
   width: 400px;
-  z-index: 8700;
   background-color: white;
   pointer-events: auto;
   /* Safari and Chrome */
-  -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
+  -webkit-transform: translateZ(0px);
   /* IE 9 */
-  -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px);
-  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) translateX(0px) translateY(0px); }
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+  z-index: 8700; }
   #label .return-address {
     line-height: 16px; }
   #label .ship-to-wrapper {
@@ -951,17 +1244,12 @@ footer {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid #b3b3b3;
   position: absolute;
-  top: 140px;
   padding: 12px;
   width: 80%;
   right: 0;
   z-index: 8800;
   background-color: white;
-  pointer-events: auto;
-  /* Safari, iOS */
-  -webkit-transition: all 1s ease;
-  /* IE, Chrome, Firefox, Opera, Android */
-  transition: all 1s ease; }
+  pointer-events: auto; }
   #checkout-window > * {
     display: inline-block;
     width: 50%;
@@ -1010,6 +1298,19 @@ footer {
 #truck {
   right: 0px;
   top: 124px;
+  /* Safari and Chrome */
+  -webkit-transform: translateZ(0px);
+  /* IE 9 */
+  -ms-transform: translateZ(0px);
+  transform: translateZ(0px);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
   z-index: 8800;
   position: fixed; }
 
@@ -1018,17 +1319,14 @@ footer {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  /* Safari, iOS */
-  -webkit-transition: all 1s ease-in;
-  /* IE, Chrome, Firefox, Opera, Android */
-  transition: all 1s ease-in; }
-  #complete-package.enter-truck {
+  height: 100%; }
+  #complete-package.skrollable-before {
     /* Safari and Chrome */
-    -webkit-transform: scale3d(0.2, 0.2, 0.2);
+    -webkit-transform: inherit !important;
     /* IE 9 */
-    -ms-transform: scale3d(0.2, 0.2, 0.2);
-    transform: scale3d(0.2, 0.2, 0.2); }
+    -ms-transform: inherit !important;
+    transform: inherit !important;
+    display: block; }
 
 #order-complete h1 {
   margin-top: 100px; }
