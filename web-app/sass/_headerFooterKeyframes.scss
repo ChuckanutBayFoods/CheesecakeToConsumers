@@ -1,0 +1,13 @@
+@include skrollrKeyframes("header", header) {
+  -100p {
+    top: 0%;
+  }
+
+  0p {
+    top: 0%;
+  }
+
+  100p {
+    top: -100%;
+  }
+}

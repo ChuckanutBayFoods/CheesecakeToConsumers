@@ -1,52 +1,376 @@
+header {
+  -skrollr-animation-name: header; }
+
+@-skrollr-keyframes header {
+  -100p {
+    top: 0%; }
+
+  0p {
+    top: 0%; }
+
+  100p {
+    top: -100%; } }
+
 .section1 {
   -skrollr-animation-name: section1Animation; }
 
 @-skrollr-keyframes section1Animation {
-  -100p {
-    top: 100%; }
+  -200p {
+    top: 200%; }
 
-  500p {
-    top: -500%; } }
+  1000p {
+    top: -1000%; } }
+
+.section1 > * {
+  -skrollr-animation-name: section1ChildrenAnimation; }
+
+@-skrollr-keyframes section1ChildrenAnimation {
+  -50p {
+    opacity: 0; }
+
+  0p {
+    opacity: 1; }
+
+  50p {
+    opacity: 0; } }
 
 .section2 {
   -skrollr-animation-name: section2Animation; }
 
 @-skrollr-keyframes section2Animation {
-  -100p {
-    top: 200%; }
+  -200p {
+    top: 400%; }
 
-  500p {
-    top: -400%; } }
+  1000p {
+    top: -800%; } }
+
+.section2 > * {
+  -skrollr-animation-name: section2ChildrenAnimation; }
+
+@-skrollr-keyframes section2ChildrenAnimation {
+  150p {
+    opacity: 0; }
+
+  200p {
+    opacity: 1; }
+
+  250p {
+    opacity: 0; } }
 
 .section3 {
   -skrollr-animation-name: section3Animation; }
 
 @-skrollr-keyframes section3Animation {
-  -100p {
-    top: 300%; }
+  -200p {
+    top: 600%; }
 
-  500p {
-    top: -300%; } }
+  1000p {
+    top: -600%; } }
+
+.section3 > * {
+  -skrollr-animation-name: section3ChildrenAnimation; }
+
+@-skrollr-keyframes section3ChildrenAnimation {
+  350p {
+    opacity: 0; }
+
+  400p {
+    opacity: 1; }
+
+  450p {
+    opacity: 0; } }
 
 .section4 {
   -skrollr-animation-name: section4Animation; }
 
 @-skrollr-keyframes section4Animation {
-  -100p {
-    top: 400%; }
+  -200p {
+    top: 800%; }
 
-  500p {
-    top: -200%; } }
+  1000p {
+    top: -400%; } }
+
+.section4 > * {
+  -skrollr-animation-name: section4ChildrenAnimation; }
+
+@-skrollr-keyframes section4ChildrenAnimation {
+  550p {
+    opacity: 0; }
+
+  600p {
+    opacity: 1; }
+
+  650p {
+    opacity: 0; } }
 
 .section5 {
   -skrollr-animation-name: section5Animation; }
 
 @-skrollr-keyframes section5Animation {
-  -100p {
-    top: 500%; }
+  -200p {
+    top: 1000%; }
+
+  1000p {
+    top: -200%; } }
+
+.section5 > * {
+  -skrollr-animation-name: section5ChildrenAnimation; }
+
+@-skrollr-keyframes section5ChildrenAnimation {
+  750p {
+    opacity: 0; }
+
+  800p {
+    opacity: 1; }
+
+  850p {
+    opacity: 0; } }
+
+#truck {
+  -skrollr-animation-name: truck; }
+
+@-skrollr-keyframes truck {
+  300p {
+    right: -204px; }
+
+  350p {
+    right: 0px; }
 
   500p {
-    top: -100%; } }
+    right: 0px; } }
 
-html {
-  height: 500%; }
+#box {
+  -skrollr-animation-name: box; }
+
+@-skrollr-keyframes box {
+  200p {
+    top: 100%; }
+
+  300p {
+    top: 0%; } }
+
+#box flaps {
+  -skrollr-animation-name: box-flaps; }
+
+@-skrollr-keyframes box-flaps {
+  200p {
+    top: 100%; }
+
+  300p {
+    top: 0%;
+    opacity: 1; }
+
+  350p {
+    top: 0%;
+    opacity: 0; } }
+
+#box top {
+  -skrollr-animation-name: box-top; }
+
+@-skrollr-keyframes box-top {
+  300p {
+    top: 0%;
+    opacity: 1; }
+
+  350p {
+    opacity: 0; } }
+
+#box tape {
+  -skrollr-animation-name: box-tape; }
+
+@-skrollr-keyframes box-tape {
+  300p {
+    top: 0%;
+    opacity: 1; }
+
+  350p {
+    opacity: 0; } }
+
+#tray1 {
+  -skrollr-animation-name: tray1; }
+
+@-skrollr-keyframes tray1 {
+  -100p {
+    top: 0px; }
+
+  30p {
+    top: 0px; }
+
+  60p {
+    top: -200px; }
+
+  90p {
+    top: -150px; }
+
+  200p {
+    top: -150px; } }
+
+#tray2 {
+  -skrollr-animation-name: tray2; }
+
+@-skrollr-keyframes tray2 {
+  -100p {
+    top: 0px; }
+
+  50p {
+    left: 600px; }
+
+  90p {
+    left: 0px; }
+
+  200p {
+    top: 0px; } }
+
+#shield1 {
+  -skrollr-animation-name: shield1; }
+
+@-skrollr-keyframes shield1 {
+  -100p {
+    top: 130px; }
+
+  20p {
+    top: 130px; } }
+
+#shield2 {
+  -skrollr-animation-name: shield2; }
+
+@-skrollr-keyframes shield2 {
+  -100p {
+    top: 230px; }
+
+  20p {
+    top: 230px; } }
+
+.styro.front {
+  -skrollr-animation-name: styroFront; }
+
+@-skrollr-keyframes styroFront {
+  110p {
+    top: 352px;
+    left: 62px;
+    opacity: 0; }
+
+  130p {
+    top: 0px;
+    left: 0px;
+    opacity: 1; }
+
+  300p {
+    opacity: 1; } }
+
+.styro.back {
+  -skrollr-animation-name: styroBack; }
+
+@-skrollr-keyframes styroBack {
+  110p {
+    top: -352px;
+    left: -62px;
+    opacity: 0; }
+
+  130p {
+    top: 0px;
+    left: 0px;
+    opacity: 1; }
+
+  300p {
+    opacity: 1; } }
+
+.styro.left {
+  -skrollr-animation-name: styroLeft; }
+
+@-skrollr-keyframes styroLeft {
+  110p {
+    left: -200px;
+    opacity: 0; }
+
+  130p {
+    left: 0px;
+    opacity: 1; }
+
+  300p {
+    opacity: 1; } }
+
+.styro.right {
+  -skrollr-animation-name: styroRight; }
+
+@-skrollr-keyframes styroRight {
+  110p {
+    left: 200px;
+    opacity: 0; }
+
+  130p {
+    left: 0px;
+    opacity: 1; }
+
+  300p {
+    opacity: 1; } }
+
+.styro.top {
+  -skrollr-animation-name: styroTop; }
+
+@-skrollr-keyframes styroTop {
+  110p {
+    top: -200px;
+    opacity: 0; }
+
+  130p {
+    top: 0px;
+    opacity: 1; }
+
+  300p {
+    opacity: 1; } }
+
+.styro.base {
+  -skrollr-animation-name: styroBase; }
+
+@-skrollr-keyframes styroBase {
+  110p {
+    top: 200px;
+    opacity: 0; }
+
+  130p {
+    top: 0px;
+    opacity: 1; }
+
+  300p {
+    opacity: 1; } }
+
+#gift-message {
+  -skrollr-animation-name: giftMessage; }
+
+@-skrollr-keyframes giftMessage {
+  150p {
+    top: 100%;
+    margin-top: 0px; }
+
+  200p {
+    top: 0%;
+    margin-top: -300px;
+    width: 900px;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(0px) translateY(0px); }
+
+  240p {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(-170px) translateY(0px);
+    width: 450px; }
+
+  280p {
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) rotate(90deg) translateX(-210px) translateY(45px); } }
+
+#gift-message .cover {
+  -skrollr-animation-name: giftMessageCover; }
+
+@-skrollr-keyframes giftMessageCover {
+  150p {
+    left: -450px; }
+
+  200p {
+    left: -450px; }
+
+  240p {
+    left: 0px; }
+
+  280p {
+    left: 0px; } }
+
+body {
+  height: 1000%; }

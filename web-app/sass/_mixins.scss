@@ -82,6 +82,13 @@
   @keyframes #{$name} { @content; }
 }
 
+@mixin skrollrKeyframes($selector, $name) {
+  #{$selector} {
+    -skrollr-animation-name: $name;
+  }
+  @-skrollr-keyframes $name { @content }
+}
+
 @mixin square($size) {
   width: $size;
   height: $size;

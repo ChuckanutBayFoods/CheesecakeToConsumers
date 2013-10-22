@@ -1,8 +1,10 @@
+//skrollr object
+var S;
+
 // Utility functions
 var Utils = {
 
     // Returns true if unning on a mobile device
-    _isMobile: undefined,
     isMobile: function() {
         if (this._isMobile === undefined) {
             this._isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
@@ -14,17 +16,92 @@ var Utils = {
         return (value && (context[name] = value) && context) || context[name];
     },
 
-    removeClassFromAll: function(className) {
-        return $('.' + className).removeClass(className);
+    // Gets the current height of the viewport
+    getViewportHeight: function() {
+        this._viewportHeight = this._viewportHeight || $(window).height();
+        return this._viewportHeight;
     },
 
-    NUM_CHESSECAKE_SLOTS: 8
+    // Gets the current height of each section
+    getSectionHeight: function() {
+        return this.getViewportHeight() * 2;
+    },
+
+    // Gets the height of the viewport prior to the most recent window resize
+    getPreviousViewportHeight: function() {
+        return this._previousViewportHeight;
+    },
+
+    NUM_CHEESECAKE_SLOTS: 8
 };
+
+// Update viewport functions on resize;
+(function() {
+    $(window).resize(function(e) {
+        Utils._previousViewportHeight = Utils._viewportHeight;
+        Utils._viewportHeight = $(window).height();
+
+        // Reposition skrollr to account for size change
+        S.setScrollTop(S.getScrollTop() * Utils.getViewportHeight() / Utils.getPreviousViewportHeight(), true);
+    });
+})();
 
 var Urls = {
     STRIPE_GET_PUBLISHABLE_KEY: '/stripe/getPublishableKey',
     STRIPE_CHARGE: '/stripe/charge',
     PRODUCT_GET_DUMP: '/product/getDump'
+}
+
+var BOUNDARIES = {
+    PICK_TO_PERSONALIZE: {name: 'pickToPersonalize', position: function() { return Utils.getSectionHeight() * 1 - Utils.getViewportHeight() + $(header).height(); } },
+    PERSONALIZE_TO_PACK: {name: 'personalizeToPack', position: function() { return Utils.getSectionHeight() * 2 - Utils.getViewportHeight(); } },
+    PACK_TO_PAY: {name: 'packToPay', position: function() { return Utils.getSectionHeight() * 3 - Utils.getViewportHeight(); } },
+    PAY_TO_ORDER_COMPLETE: {name: 'payToOrderComplete', position: function() { return Utils.getSectionHeight() * 4 - Utils.getViewportHeight(); } },
+    END: {name: 'end', position: function() { return Utils.getSectionHeight() * 5 - Utils.getViewportHeight(); } }
+}
+
+// Should not be called until S has been initialized.
+// Clears registered boundaries.
+var ScrollBoundaryManager = function() {
+    if (!S) {
+        throw "Initialize the skrollr object (S) first."
+    }
+    var boundaries = [];
+    S.on('beforerender', function(e) {
+
+        // Call the handler function of every boundary that is about to be crossed
+        for(var i = 0; i < boundaries.length; i++) {
+            var boundary = boundaries[i];
+            if ((e.curTop > boundary.position && e.lastTop <= boundary.position) // Crossing down over the boundary
+                || (e.curTop < boundary.position && e.lastTop >= boundary.position)) { // Crossing up over the boundary
+                if(boundary.handler(e) === false) { // handler function called, the boundary should not be crossed
+                    S.setScrollTop(boundary.position, false);
+                    return false;
+                };
+            }
+        }
+    });
+
+    // Registers a function to be called when the user scrolls to a specified location.
+    // boundary - Can be any one of BOUNDARIES or a pixel position of a boundary (at the bottom of the viewport).
+    // onBoundary - The function to notify when the boundary is crossed. Should return false if the user should not be allowed to scroll past the boundary.
+    this.registerBoundary = function(boundary, onBoundary) {
+        boundaries.push({position: getBoundaryPosition(boundary), handler: onBoundary});
+        return this;
+    };
+
+    // Gets the position of the top of the viewport in pixels for any boundary.
+    // boundary - Can be any one of BOUNDARIES or a pixel position of a boundary (at the bottom of the viewport).
+    function getBoundaryPosition(boundary) {
+        // Accounts for the fact that boundaries at positions at the bottom of the window.
+        return (BOUNDARIES[boundary] && BOUNDARIES[boundary].position() || boundary) - Utils.getViewportHeight();
+    };
+
+    // Removes all of the boundary registrations.
+    this.unregisterAllBoundaries = function() {
+        boundaries = [];
+        return this;
+    };
 }
 
 var Order = function() {
@@ -49,10 +126,15 @@ var Order = function() {
             });
         };
 
+        this.isFull = function() {
+            return !this.add(undefined);
+        }
+
         this.add = function(flavor) {
-            for(var i = 0; i < Utils.NUM_CHESSECAKE_SLOTS; i++) {
+            for(var i = 0; i < Utils.NUM_CHEESECAKE_SLOTS; i++) {
                 if (!cheesecakeSlots[i]) {
                     cheesecakeSlots[i] = flavor;
+                    return i;
                 }
             }
             return false;
@@ -118,7 +200,7 @@ var Order = function() {
 //};
 
 var FlavorManager = function() {
-    var flavors = [];
+    var flavors;
 
     this.loadFlavors = function(callback) {
         if (flavors) {
@@ -156,12 +238,12 @@ var FlavorManager = function() {
 //'.btn-show-nutrition-label'
 var PickManager = function(elementSelectors, order) {
     var flavorCarousel;
-    var flavorManager = new FlavorManager().load(function(flavors) {
+    var flavorManager = new FlavorManager().loadFlavors(function(flavors) {
         flavorCarousel = new FlavorCarousel({
             main: elementSelectors.carousel + ' .well',
             leftArrow: elementSelectors.carousel + ' .left-arrow',
             rightArrow: elementSelectors.carousel + ' .right-arrow'
-        }, flavors)
+        }, flavorManager)
     });
 
     $(elementSelectors.showNutritionLabelButton).click(function() {
@@ -171,11 +253,11 @@ var PickManager = function(elementSelectors, order) {
 
     $(elementSelectors.moreInfoButton).click($.proxy(function() {
         this.displayMoreInfo(flavorCarousel.getSelectedFlavor());
-    }), this);
+    }, this));
 
     $(elementSelectors.addButton).click($.proxy(function() {
         this.pickCheesecake(flavorCarousel.getSelectedFlavor());
-    }), this);
+    }, this));
 
     this.displayMoreInfo = function(flavor) {
         var moreInfoWindow = $(elementSelectors.moreInfo).removeClass('show-nutrition-label').modal();
@@ -191,18 +273,18 @@ var PickManager = function(elementSelectors, order) {
 
     this.pickCheesecake = function(flavor) {
         var flavor = flavorCarousel.getSelectedFlavor();
-        var slot = Flavors.pickCheesecake(flavor);
+        var slot = order.cheesecakes.add(flavor);
 
         if (!slot) {
             return;
         }
 
-        if (slot == Utils.NUM_CHESSECAKE_SLOTS - 1) {
+        if (slot == Utils.NUM_CHEESECAKE_SLOTS - 1) {
             $(elementSelectors.addButton).addClass('disabled');
         }
 
         var parentContainer;
-        if (slot < Utils.NUM_CHESSECAKE_SLOTS/2) {
+        if (slot < Utils.NUM_CHEESECAKE_SLOTS/2) {
             parentContainer = $('#tray1');
         } else {
             parentContainer = $('#tray2');
@@ -212,7 +294,7 @@ var PickManager = function(elementSelectors, order) {
         var isVisible = false;
 
         var cheesecake = $(
-            '<img class="cheesecake cheesecake' + slot + ' src="' + flavor.bareImageUrl + '">' +
+            '<img class="cheesecake cheesecake' + slot + '" src="' + flavor.bareImageUrl + '">' +
                 '<a href="#" class="cheesecake-event-catcher cheesecake cheesecake' + slot + '"><img src="' + flavor.bareImageUrl + '" /></a>')
             .appendTo(parentContainer)
             .animate({top: '-=100'}, 500)
@@ -263,6 +345,32 @@ var PickManager = function(elementSelectors, order) {
 };
 
 FlavorCarousel = function(elementSelectors, flavorManager) {
+
+    this.preloadSelectedBareImage = function() {
+        $(elementSelectors.hiddenImages).append(
+            '<img src="' + this.getSelectedFlavor() + '" />'
+        );
+    };
+
+    this.getSelectedFlavor = function() {
+        return flavorManager.getFlavorById($(elementSelectors.main).find('.flavor.active').attr('data-id'));
+    }
+
+    this.addFlavor = function(flavor) {
+        $(elementSelectors.main).find('.scroll').append(
+            '<li class="flavor" data-id="' + flavor.id + '">' +
+                (flavor.isGlutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
+                '<img src="' + flavor.stageImageUrl + '"/>' +
+                '<div class="flavor-label">' + flavor.name + '</div>' +
+                '</li>'
+        );
+    };
+
+    this.addAllFlavors = function(flavors) {
+        $.each(flavors, $.proxy(function(i, v) {
+            this.addFlavor(v);
+        }, this));
+    };
     this.addAllFlavors(flavorManager.getAllFlavors());
 
     // See http://darsa.in/sly/examples/horizontal.html
@@ -287,33 +395,7 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
         prev: $(elementSelectors.leftArrow),
         next: $(elementSelectors.rightArrow)
 
-    }).sly('on', 'change', this.preloadSelectedBareImage);
-
-    this.addAllFlavors = function(flavors) {
-        $.each(flavors, $.proxy(function(i, v) {
-            this.addFlavor(v);
-        }, this));
-    };
-
-    this.addFlavor = function(flavor) {
-        $(elementSelectors.main).find('.scroll').append(
-            '<li class="flavor" data-id="' + flavor.id + '">' +
-                (flavor.isGlutenFree ? '<img class="gf-icon" src="../img/gluten-free-icon.png" />' : '') +
-                '<img src="' + flavor.stageImageUrl + '"/>' +
-                '<div class="flavor-label">' + flavor.name + '</div>' +
-                '</li>'
-        );
-    };
-
-    this.preloadSelectedBareImage = function() {
-        $(elementSelectors.hiddenImages).append(
-            '<img src="' + this.getSelectedFlavor() + '" />'
-        );
-    };
-
-    this.getSelectedFlavor = function() {
-        return flavorManager.getFlavorById($(elementSelectors.main).find('.flavor.active').attr('data-id'));
-    }
+    }).sly('on', 'change', $.proxy(this.preloadSelectedBareImage, this));
 };
 
 var PersonalizeManager = function(elementSelectors, order) {
@@ -650,5 +732,40 @@ var OrderCompleteManager = function(elementSelectors, order) {
         element.find('.delivery-date').text(moment(order.label.deliverdate()).format('MMMM Do YYYY'));
 
     }
+};
 
-}
+(function() {
+    var order = new Order();
+
+    var pickManager = new PickManager({
+        carousel: '#flavor-carousel',
+        moreInfoButton: '#selected-cheesecake-btns .btn-more-info',
+        addButton: '#selected-cheesecake-btns .btn-add',
+        moreInfo: '#more-info',
+        nutritionLabelButon: '.btn-show-nutrition-label'
+    }, order);
+
+    S = skrollr.init({
+        constants: {},
+        forceHeight: false
+    });
+    skrollr.menu.init(S);
+
+    var scrollBoundaryManager = new ScrollBoundaryManager();
+
+    function registerBoundaries() {
+        scrollBoundaryManager
+            .unregisterAllBoundaries()
+            .registerBoundary(BOUNDARIES.PICK_TO_PERSONALIZE, function(e) {
+                //console.log(e);
+                if (e.direction === "down" && !order.cheesecakes.isFull()) {
+                    return false;
+                }
+            });
+    }
+    registerBoundaries();
+
+    $(window).resize(function(e) {
+        registerBoundaries();
+    });
+})();

@@ -29,14 +29,14 @@ class Product {
 	boolean isNoSugarAdded = false
 	
 	String getStageImageUrl() {
-		return "http://resources.givecheesecakes.com/productImages/stage/${id}.png"
+		return "https://s3.amazonaws.com/resources.givecheesecakes.com/productImages/stage/${id}.png"
 	}
 	
 	String getBareImageUrl() {
-		return "http://resources.givecheesecakes.com/productImages/bare/${id}.png"
+		return "https://s3.amazonaws.com/resources.givecheesecakes.com/productImages/bare/${id}.png"
 	}
 	
 	String getNutritionLabelImageUrl() {
-		return "http://resources.givecheesecakes.com/productImages/nutritionLabel/${id}.png"
+		return "https://s3.amazonaws.com/resources.givecheesecakes.com/productImages/nutritionLabel/${id}.png"
 	}
 }

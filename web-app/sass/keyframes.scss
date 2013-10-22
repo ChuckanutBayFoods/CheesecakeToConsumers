@@ -1,8 +1,15 @@
 $numberOfSections: 5;
 
 @import "mixins";
-@import "sections/commonKeyframes";
+@import "headerFooterKeyframes";
+@import "sections/keyframes";
+@import "components/keyframes/truck";
+@import "components/keyframes/box";
+@import "components/keyframes/trays";
+@import "components/keyframes/shields";
+@import "components/keyframes/styro";
+@import "components/keyframes/giftMessage";
 
-html {
-  height: #{$numberOfSections * 100 + '%'};
+body {
+  height: #{$numberOfSections * 200 + '%'};
 }

@@ -1,0 +1,19 @@
+@include skrollrKeyframes('#shield1', shield1) {
+  -100p {
+    top: 130px;
+  }
+
+  20p {
+    top: 130px
+  }
+}
+
+@include skrollrKeyframes('#shield2', shield2) {
+  -100p {
+    top: 230px;
+  }
+
+  20p {
+    top: 230px
+  }
+}

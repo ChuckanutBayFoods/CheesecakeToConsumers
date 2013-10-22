@@ -1,0 +1,47 @@
+@include skrollrKeyframes("#box", box) {
+  200p {
+    top: 100%;
+  }
+
+  300p {
+    top: 0%;
+  }
+}
+
+@include skrollrKeyframes("#box flaps", box-flaps) {
+200p {
+     top: 100%;
+   }
+
+300p {
+     top: 0%;
+  opacity: 1;
+   }
+
+350p {
+     top: 0%;
+     opacity: 0;
+   }
+  }
+
+@include skrollrKeyframes("#box top", box-top) {
+300p {
+     top: 0%;
+     opacity: 1;
+   }
+
+350p {
+     opacity: 0;
+   }
+  }
+
+@include skrollrKeyframes("#box tape", box-tape) {
+300p {
+     top: 0%;
+     opacity: 1;
+   }
+
+350p {
+     opacity: 0;
+   }
+  }

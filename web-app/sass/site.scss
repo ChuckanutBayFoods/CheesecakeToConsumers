@@ -1,4 +1,4 @@
-$width: 1170px;
+$width: 1200px;
 
 @import "mixins";
 @import "bootstrap-datepicker";
@@ -7,31 +7,31 @@ $width: 1170px;
 @import "headerFooter";
 @import "sideNav";
 @import "loading";
-@import "objectsContainer";
-@import "sections/common";
+@import "sections/container";
 @import "sections/pick";
 @import "sections/personalize";
 @import "sections/pack";
 @import "sections/pay";
-@import "objects/trays";
-@import "objects/shields";
-@import "objects/styro";
-@import "objects/giftMessage";
-@import "objects/box";
-@import "objects/label";
-@import "objects/checkoutWindow";
-@import "objects/truck";
+@import "components/container";
+@import "components/trays";
+@import "components/shields";
+@import "components/styro";
+@import "components/giftMessage";
+@import "components/box";
+@import "components/label";
+@import "components/checkoutWindow";
+@import "components/truck";
 @import "sections/orderComplete";
-@import "transitions/pickToPersonalize";
-@import "transitions/personalizeToPack";
-@import "transitions/packToPay";
+
+html {
+  height: 100%;
+}
 
 body {
+  //margin-top: $headerFooterHeight;
   background-color: $white;
   font-weight: 300;
   padding: 1px;
-  padding-top: 50px;
-  height: 100%;
 }
 
 input {
@@ -83,19 +83,6 @@ pre {
   border: none;
 }
 
-section {
-  @include transition(all 1s);
-}
-
-#scroll-event-catcher {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
 .transparent {
   opacity: 0;
 }
@@ -139,16 +126,6 @@ section {
   background-image: url('../img/arrow-left.png');
 }
 
-.fade-in {
-  display: block;
-  @include animation(fade-in 1s);
-}
-
-@include keyframes(fade-in) {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.skrollable-after, .skrollable-before {
+  display: none;
 }
