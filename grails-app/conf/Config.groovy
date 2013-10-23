@@ -44,6 +44,14 @@ grails.resources.processing.enabled = true
 // Disabling this so that only resources in StaticResources.groovy are touched
 // grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+// Have CloudFront front the static resources from this site.
+// This is only expected to be setup and enabled in production.
+// http://grails-plugins.github.io/grails-resources/ref/Mappers/baseurl.html
+String baseurlDefault = System.getProperty("grails.resources.mappers.baseurl.default");
+if (baseurlDefault) {
+	grails.resources.mappers.baseurl.default = baseurlDefault
+}
+
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
 grails.views.gsp.encoding = "UTF-8"
