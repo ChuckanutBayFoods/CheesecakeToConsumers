@@ -28,7 +28,7 @@
     text-align: center;
 
     .well {
-      height: 150px;
+      height: 205px;
       overflow: hidden;
       padding: 0;
       margin: 0;
@@ -68,18 +68,18 @@
 
       .active {
         line-height: 0px;
-        @include transform(scale(1.4));
+        @include transform(scale(1.3));
       }
     }
 
     .arrow-right {
       float: right;
-      margin: 64px 16px;
+      margin: 90px 16px;
     }
 
     .arrow-left {
       float: left;
-      margin: 64px 16px;
+      margin: 90px 16px;
     }
 
     $carrotSize: 11px;

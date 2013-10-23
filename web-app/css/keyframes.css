@@ -1,3 +1,175 @@
+#nav-container [data-section="pick"] .section-label {
+  -skrollr-animation-name: navPickText; }
+
+@-skrollr-keyframes navPickText {
+  -100p {
+    cursor: default; }
+
+  0p {
+    cursor: pointer;
+    color: rgb(0, 136, 204); }
+
+  100p {
+    color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="pick"] .dot {
+  -skrollr-animation-name: navPickDot; }
+
+@-skrollr-keyframes navPickDot {
+  -100p {
+    cursor: default; }
+
+  0p {
+    cursor: pointer;
+    background-color: rgb(0, 136, 204); }
+
+  100p {
+    background-color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="personalize"] .section-label {
+  -skrollr-animation-name: navPersonalizeText; }
+
+@-skrollr-keyframes navPersonalizeText {
+  -100p {
+    cursor: default;
+    color: rgb(230, 230, 230); }
+
+  0p {
+    cursor: pointer; }
+
+  100p {
+    color: rgb(0, 136, 204); }
+
+  200p {
+    color: rgb(0, 136, 204); }
+
+  300p {
+    color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="personalize"] .dot {
+  -skrollr-animation-name: navPersonalizeDot; }
+
+@-skrollr-keyframes navPersonalizeDot {
+  -100p {
+    cursor: default;
+    background-color: rgb(230, 230, 230); }
+
+  0p {
+    cursor: pointer; }
+
+  100p {
+    background-color: rgb(0, 136, 204); }
+
+  200p {
+    background-color: rgb(0, 136, 204); }
+
+  300p {
+    background-color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="pack"] .section-label {
+  -skrollr-animation-name: navPackText; }
+
+@-skrollr-keyframes navPackText {
+  -100p {
+    cursor: default;
+    color: rgb(230, 230, 230); }
+
+  200p {
+    cursor: pointer; }
+
+  300p {
+    color: rgb(0, 136, 204); }
+
+  400p {
+    color: rgb(0, 136, 204); }
+
+  500p {
+    color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="pack"] .dot {
+  -skrollr-animation-name: navPackDot; }
+
+@-skrollr-keyframes navPackDot {
+  -100p {
+    cursor: default;
+    background-color: rgb(230, 230, 230); }
+
+  200p {
+    cursor: pointer; }
+
+  300p {
+    background-color: rgb(0, 136, 204); }
+
+  400p {
+    background-color: rgb(0, 136, 204); }
+
+  500p {
+    background-color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="pay"] .section-label {
+  -skrollr-animation-name: navPayText; }
+
+@-skrollr-keyframes navPayText {
+  -100p {
+    cursor: default;
+    color: rgb(230, 230, 230); }
+
+  400p {
+    cursor: pointer; }
+
+  500p {
+    color: rgb(0, 136, 204); }
+
+  600p {
+    color: rgb(0, 136, 204); }
+
+  700p {
+    color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
+#nav-container [data-section="pay"] .dot {
+  -skrollr-animation-name: navPayDot; }
+
+@-skrollr-keyframes navPayDot {
+  -100p {
+    cursor: default;
+    background-color: rgb(230, 230, 230); }
+
+  400p {
+    cursor: pointer; }
+
+  500p {
+    background-color: rgb(0, 136, 204); }
+
+  600p {
+    background-color: rgb(0, 136, 204); }
+
+  700p {
+    background-color: rgb(200, 200, 200); }
+
+  1000p {
+    opacity: 1; } }
+
 header {
   -skrollr-animation-name: header; }
 
@@ -201,6 +373,12 @@ header {
 
 @-skrollr-keyframes tray1 {
   -100p {
+    top: 40px; }
+
+  0p {
+    top: 40px; }
+
+  5p {
     top: 0px; }
 
   30p {
@@ -220,6 +398,12 @@ header {
 
 @-skrollr-keyframes tray2 {
   -100p {
+    top: 40px; }
+
+  0p {
+    top: 40px; }
+
+  5p {
     top: 0px; }
 
   50p {
@@ -236,6 +420,12 @@ header {
 
 @-skrollr-keyframes shield1 {
   -100p {
+    top: 170px; }
+
+  0p {
+    top: 170px; }
+
+  5p {
     top: 130px; }
 
   20p {
@@ -246,6 +436,12 @@ header {
 
 @-skrollr-keyframes shield2 {
   -100p {
+    top: 270px; }
+
+  0p {
+    top: 270px; }
+
+  5p {
     top: 230px; }
 
   20p {
@@ -364,7 +560,7 @@ header {
     width: 450px; }
 
   280p {
-    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) rotate(90deg) translateX(-220px) translateY(320px) translateZ(0px); }
+    transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(0.5) rotate(90deg) translateX(-220px) translateY(110px) translateZ(0px); }
 
   450p {
     opacity: 1; } }

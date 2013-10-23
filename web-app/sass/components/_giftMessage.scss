@@ -1,7 +1,7 @@
 $giftMessageWidth: 900px;
 $giftMessageWidthFolded: $giftMessageWidth/2;
 $giftMessageTop: $boxTopBaseline - 245;
-$giftMessageLeft: 270px;
+$giftMessageLeft: 150px;
 #gift-message {
   @include box-shadow(0 5px 10px $shadowColor);
 

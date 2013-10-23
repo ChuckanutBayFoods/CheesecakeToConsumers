@@ -244,30 +244,28 @@ footer {
   top: 0;
   bottom: 0;
   height: 100px;
-  margin: auto;
+  margin: auto 8px;
   font-size: 12px;
   color: #b3b3b3; }
-  #nav-container * {
-    /* Safari, iOS */
-    -webkit-transition: all 0.1s;
-    /* IE, Chrome, Firefox, Opera, Android */
-    transition: all 0.1s; }
   #nav-container > div {
     text-align: right; }
     #nav-container > div:hover {
-      cursor: pointer;
-      font-size: 14px; }
-      #nav-container > div:hover .dot {
-        width: 9.6px;
-        height: 9.6px;
-        /* Safari 3-4, iOS 1-3.2, Android 1.6- */
-        -webkit-border-radius: 4.8px;
-        /* Firefox 1-3.6 */
-        -moz-border-radius: 4.8px;
-        /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
-        border-radius: 4.8px; }
+      /* Safari and Chrome */
+      -webkit-transform: scale(1.3);
+      /* IE 9 */
+      -ms-transform: scale(1.3);
+      transform: scale(1.3);
+      /* Safari, iOS */
+      -webkit-transition: all 0.2s;
+      /* IE, Chrome, Firefox, Opera, Android */
+      transition: all 0.2s;
+      -webkit-transform-origin: right;
+      -moz-transform-origin: right;
+      -ms-transform-origin: right;
+      transform-origin: right; }
   #nav-container .dot {
-    margin: 0 8px;
+    margin: 0;
+    margin-left: 8px;
     display: inline-block;
     background-color: rgba(189, 189, 189, 0.85);
     width: 8px;
@@ -278,10 +276,6 @@ footer {
     -moz-border-radius: 4px;
     /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
     border-radius: 4px; }
-  #nav-container .selected {
-    color: #0088cc; }
-    #nav-container .selected .dot {
-      background-color: #0088cc; }
   #nav-container .disabled {
     color: #e6e6e6; }
     #nav-container .disabled .dot {
@@ -537,7 +531,7 @@ footer {
     width: 80%;
     text-align: center; }
     #pick #flavor-carousel .well {
-      height: 150px;
+      height: 205px;
       overflow: hidden;
       padding: 0;
       margin: 0; }
@@ -570,16 +564,16 @@ footer {
       #pick #flavor-carousel .well .active {
         line-height: 0px;
         /* Safari and Chrome */
-        -webkit-transform: scale(1.4);
+        -webkit-transform: scale(1.3);
         /* IE 9 */
-        -ms-transform: scale(1.4);
-        transform: scale(1.4); }
+        -ms-transform: scale(1.3);
+        transform: scale(1.3); }
     #pick #flavor-carousel .arrow-right {
       float: right;
-      margin: 64px 16px; }
+      margin: 90px 16px; }
     #pick #flavor-carousel .arrow-left {
       float: left;
-      margin: 64px 16px; }
+      margin: 90px 16px; }
     #pick #flavor-carousel .carrot-container {
       display: inline-block;
       position: relative;
@@ -952,7 +946,7 @@ footer {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid #b3b3b3;
   position: absolute;
-  left: 270px;
+  left: 150px;
   top: 130px;
   width: 900px;
   height: 700px;
@@ -1215,6 +1209,16 @@ footer {
       border-right: 1px solid black; }
     #label .next-day-wrapper .next-day-label-wrapper .next-day-label {
       font-size: 18px; }
+  #label .edit {
+    clear: both;
+    margin-left: 40px; }
+  #label form {
+    margin: 0; }
+  #label .form-errors {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 0;
+    width: 187px; }
 
 .datepicker {
   z-index: 9500; }
@@ -1232,7 +1236,7 @@ footer {
   position: absolute;
   padding: 12px;
   width: 80%;
-  right: 0;
+  right: 10%;
   z-index: 8800;
   background-color: white;
   pointer-events: auto; }
@@ -1366,6 +1370,10 @@ pre {
   margin: 0;
   background: none;
   border: none; }
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer; }
 
 .transparent {
   opacity: 0; }

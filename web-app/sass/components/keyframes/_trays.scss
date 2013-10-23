@@ -1,5 +1,14 @@
 @include skrollrKeyframes("#tray1", tray1) {
   -100p {
+    top: 40px;
+  }
+
+
+  0p {
+   top: 40px;
+  }
+
+  5p {
     top: 0px;
   }
 
@@ -21,8 +30,15 @@
 
 @include skrollrKeyframes("#tray2", tray2) {
   -100p {
-    top: 0px;
+    top: 40px;
   }
+0p {
+   top: 40px;
+ }
+
+  5p {
+     top: 0px;
+   }
 
 50p {
     left: 600px;

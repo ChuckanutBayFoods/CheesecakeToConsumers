@@ -1,7 +1,15 @@
 @include skrollrKeyframes('#shield1', shield1) {
   -100p {
-    top: 130px;
+    top: 170px;
   }
+
+      0p {
+         top: 170px
+       }
+
+5p {
+   top: 130px
+ }
 
   20p {
     top: 130px
@@ -10,8 +18,16 @@
 
 @include skrollrKeyframes('#shield2', shield2) {
   -100p {
-    top: 230px;
+    top: 270px;
   }
+
+0p {
+   top: 270px
+ }
+
+5p {
+   top: 230px
+ }
 
   20p {
     top: 230px

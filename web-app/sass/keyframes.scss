@@ -1,6 +1,8 @@
 $numberOfSections: 5;
 
 @import "mixins";
+@import "colors";
+@import "sideNavKeyframes";
 @import "headerFooterKeyframes";
 @import "sections/keyframes";
 @import "components/keyframes/truck";
@@ -12,6 +14,7 @@ $numberOfSections: 5;
 @import "components/keyframes/label";
 @import "components/keyframes/checkoutWindow";
 @import "components/keyframes/completePackage";
+
 
 body {
   height: #{$numberOfSections * 200 - 100 + '%'};

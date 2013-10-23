@@ -5,43 +5,27 @@ $dotSize: 8px;
   top: 0;
   bottom: 0;
   height: 100px;
-  margin: auto;
+  margin: auto 8px;
   font-size: $tiny;
   color: $mediumGray;
-
-  * {
-    @include transition(all .1s);
-  }
 
   > div {
     text-align: right;
 
     &:hover {
-      cursor: pointer;
-      font-size: $small;
-
-      .dot {
-        @include square($dotSize*1.2);
-        @include border-radius($dotSize/2*1.2);
-
-      }
+      @include transform(scale(1.3));
+      @include transition(all .2s);
+      @include css3(transform-origin, right);
     }
   }
 
   .dot {
-    margin: 0 8px;
+    margin: 0;
+    margin-left: 8px;
     display: inline-block;
     background-color: $transparentMediumGray;
     @include square($dotSize);
     @include border-radius($dotSize/2);
-  }
-
-  .selected {
-    color: $lightBlue;
-
-    .dot {
-      background-color: $lightBlue;
-    }
   }
 
   .disabled {

@@ -39,6 +39,9 @@ modules = {
 		// skrollr-stylesheets.js - CSS support for skrollr
 		resource url: "js/skrollr.stylesheets.js"
 
+        // persist.js - For browser storage
+        resource url: "js/persist.js"
+
 		// Our own lovely js
 		resource url: "js/site.js"
 	}

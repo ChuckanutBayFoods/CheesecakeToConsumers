@@ -24,6 +24,7 @@ $width: 1200px;
 @import "components/completePackage";
 @import "sections/orderComplete";
 
+
 html {
   height: 100%;
 }
@@ -82,6 +83,11 @@ pre {
   margin: 0;
   background: none;
   border: none;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .transparent {

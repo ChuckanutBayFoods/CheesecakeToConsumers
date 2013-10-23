@@ -7,7 +7,7 @@
     <r:require modules="core"/>
     <r:layoutResources/>
 </head>
-<body>
+<body style="display: none">
     <header>
         <div class="content container">
             <div class="row">
@@ -20,7 +20,7 @@
         </div>
     </header>
     <div id="nav-container">
-        <div class="selected" data-section="pick">
+        <div class="disabled" data-section="pick">
             <a href="#pick"><span class="section-label">Pick</span><span class="dot"></span></a>
         </div>
         <div class="disabled" data-section="personalize">
@@ -115,7 +115,7 @@
                     <h1>A Gift for You!</h1>
                     <div class="non-edit">
                         <pre></pre>
-                        <a href="#" class="edit-message-label right-aligned">Edit Message</a>
+                        <a class="edit-message-label right-aligned">Edit Message</a>
                     </div>
                     <div class="edit hide">
                         <textarea maxlength="350" rows="10"></textarea>
@@ -139,7 +139,7 @@
                     <img class="box-part tape" src="../img/box/tape.png">
                 </div>
                 <div id="label">
-                    <form action="/" method="post" autocomplete="on" id="pack-form">
+                    <form autocomplete="on" id="pack-form">
                         <div class="return-address">
                             Chuckanut Bay Foods<br>
                             5501 Hovander Rd #1<br>
@@ -148,6 +148,7 @@
                         <div class="ship-to-wrapper">
                             <div class="ship-to-label">SHIP TO:</div>
                             <pre class="ship-to hide"></pre>
+                            <a class="edit hide">Edit</a>
                             <div>
                                 <input autocomplete="on" class="name" name="name" type="text" placeholder="Recipient Name"/><br>
                                 <input autocomplete="on" class="company" name="company" type="text" placeholder="Company (optional)"/><br>
@@ -155,7 +156,9 @@
                                 <input autocomplete="on" class="address2" name="addressLine2" type="text" placeholder="Address 2 (optional)"/><br>
                                 <input autocomplete="on" class="city" name="city"type="text" placeholder="City"/>
                                 <input autocomplete="on" class="state" name="state" type="text" placeholder="State" maxlength="2" />
-                                <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" />
+                                <input autocomplete="on" class="zip" name="zip" type="text" placeholder="Zip" maxlength="5" /><br>
+                                <button type="submit" class="btn btn-success" name="submit-button">Done</button>
+                                <div class="form-errors alert alert-error fade"></div>
                             </div>
                         </div>
                         <div class="date-picker-wrapper">
@@ -263,8 +266,8 @@
             <img class="nutrition-label hide" />
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn btn-show-nutrition-label">Show Nutrition Label</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a class="btn btn-show-nutrition-label">Show Nutrition Label</a>
+            <a class="btn" data-dismiss="modal">Close</a>
         </div>
     </div>
     <r:layoutResources/>

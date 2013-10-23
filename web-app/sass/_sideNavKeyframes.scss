@@ -1,0 +1,174 @@
+$navLightBlue: unquote('rgb(0, 136, 204)');
+$navLightGray: unquote('rgb(230, 230, 230)');
+$navMediumGray: unquote('rgb(200, 200, 200)');
+@include skrollrKeyframes('#nav-container [data-section="pick"] .section-label', navPickText) {
+  -100p {
+        cursor: default;
+}
+  0p {
+     cursor: pointer;
+  color: $navLightBlue;
+}
+  100p {
+  color: $navMediumGray;
+}
+
+  1000p {
+  opacity: 1;
+}
+}
+
+@include skrollrKeyframes('#nav-container [data-section="pick"] .dot', navPickDot) {
+  -100p {
+        cursor: default;
+}
+  0p {
+     cursor: pointer;
+     background-color: $navLightBlue;
+}
+  100p {
+       background-color: $navMediumGray;
+}
+
+  1000p {
+  opacity: 1;
+}
+}
+@include skrollrKeyframes('#nav-container [data-section="personalize"] .section-label', navPersonalizeText) {
+-100p {
+      cursor: default;
+      color: $navLightGray
+    }
+
+    0p {
+         cursor: pointer;
+       }
+100p {
+     color: $navLightBlue;
+   }
+200p {
+   color: $navLightBlue;
+ }
+300p {
+     color: $navMediumGray;
+   }
+
+1000p {
+      opacity: 1;
+    }
+  }
+@include skrollrKeyframes('#nav-container [data-section="personalize"] .dot', navPersonalizeDot) {
+-100p {
+      cursor: default;
+      background-color: $navLightGray
+    }
+
+0p {
+   cursor: pointer;
+ }
+100p {
+     background-color: $navLightBlue;
+   }
+200p {
+     background-color: $navLightBlue;
+   }
+300p {
+     background-color: $navMediumGray;
+   }
+
+1000p {
+      opacity: 1;
+    }
+  }
+@include skrollrKeyframes('#nav-container [data-section="pack"] .section-label', navPackText) {
+-100p {
+      cursor: default;
+      color: $navLightGray
+    }
+
+200p {
+   cursor: pointer;
+ }
+300p {
+     color: $navLightBlue;
+   }
+400p {
+     color: $navLightBlue;
+   }
+500p {
+     color: $navMediumGray;
+   }
+
+1000p {
+      opacity: 1;
+    }
+  }
+@include skrollrKeyframes('#nav-container [data-section="pack"] .dot', navPackDot) {
+-100p {
+      cursor: default;
+      background-color: $navLightGray
+    }
+
+200p {
+   cursor: pointer;
+ }
+300p {
+     background-color: $navLightBlue;
+   }
+400p {
+     background-color: $navLightBlue;
+   }
+500p {
+     background-color: $navMediumGray;
+   }
+
+1000p {
+      opacity: 1;
+    }
+  }
+@include skrollrKeyframes('#nav-container [data-section="pay"] .section-label', navPayText) {
+-100p {
+      cursor: default;
+      color: $navLightGray
+    }
+
+400p {
+     cursor: pointer;
+   }
+500p {
+     color: $navLightBlue;
+   }
+600p {
+     color: $navLightBlue;
+   }
+700p {
+     color: $navMediumGray;
+   }
+
+1000p {
+      opacity: 1;
+    }
+  }
+@include skrollrKeyframes('#nav-container [data-section="pay"] .dot', navPayDot) {
+-100p {
+      cursor: default;
+      background-color: $navLightGray
+    }
+
+400p {
+     cursor: pointer;
+   }
+500p {
+     background-color: $navLightBlue;
+   }
+600p {
+     background-color: $navLightBlue;
+   }
+700p {
+     background-color: $navMediumGray;
+   }
+
+1000p {
+      opacity: 1;
+    }
+  }

@@ -53,11 +53,11 @@ var Urls = {
 }
 
 var BOUNDARIES = {
-    PICK_TO_PERSONALIZE: {name: 'PICK_TO_PERSONALIZE', position: function() { return Utils.getSectionHeight() * 1 - Utils.getViewportHeight() + $('header').height(); } },
-    PERSONALIZE_TO_PACK: {name: 'PERSONALIZE_TO_PACK', position: function() { return Utils.getSectionHeight() * 2 - Utils.getViewportHeight(); } },
-    PACK_TO_PAY: {name: 'PACK_TO_PAY', position: function() { return Utils.getSectionHeight() * 3 - Utils.getViewportHeight(); } },
-    PAY_TO_ORDER_COMPLETE: {name: 'PAY_TO_ORDER_COMPLETE', position: function() { return Utils.getSectionHeight() * 4 - Utils.getViewportHeight(); } },
-    END: {name: 'END', position: function() { return Utils.getSectionHeight() * 5 - Utils.getViewportHeight(); } }
+    PICK_TO_PERSONALIZE: {name: 'PICK_TO_PERSONALIZE', position: function() { return Utils.getSectionHeight() * 1 - 2 * Utils.getViewportHeight() + $('header').height(); } },
+    PERSONALIZE_TO_PACK: {name: 'PERSONALIZE_TO_PACK', position: function() { return Utils.getSectionHeight() * 2 - 2 * Utils.getViewportHeight(); } },
+    PACK_TO_PAY: {name: 'PACK_TO_PAY', position: function() { return Utils.getSectionHeight() * 3 - 2 * Utils.getViewportHeight(); } },
+    PAY_TO_ORDER_COMPLETE: {name: 'PAY_TO_ORDER_COMPLETE', position: function() { return Utils.getSectionHeight() * 4 - 2 * Utils.getViewportHeight(); } },
+    END: {name: 'END', position: function() { return Utils.getSectionHeight() * 5 - 2 * Utils.getViewportHeight(); } }
 }
 
 // Should not be called until S has been initialized.
@@ -94,7 +94,7 @@ var ScrollBoundaryManager = function() {
     // boundary - Can be any one of BOUNDARIES or a pixel position of a boundary (at the bottom of the viewport).
     function getBoundaryPosition(boundary) {
         // Accounts for the fact that boundaries at positions at the bottom of the window.
-        return (BOUNDARIES[boundary.name] && BOUNDARIES[boundary.name].position() || boundary) - Utils.getViewportHeight();
+        return (BOUNDARIES[boundary.name] && BOUNDARIES[boundary.name].position() || boundary - Utils.getViewportHeight());
     };
 
     // Removes all of the boundary registrations.
@@ -109,30 +109,37 @@ var Order = function() {
         var cheesecakeSlots = [];
 
         this.getUnique = function() {
+            var idMap = {};
             return $.grep(cheesecakeSlots, function(v, i) {
 
                 // ignore open slots
-                if(!v || !i) {
+                if(!v) {
                     return false;
                 }
 
-                if ($.inArray(v, cheesecakeSlots) === i) { // This is the first occurrence of the flavor v
+                if (!idMap[v.id]) { // This is the first occurrence of the flavor v
                     v.quantity = 1;
+                    idMap[v.id] = v;
                     return true;
                 } else { // We have seen this flavor before
-                    v.quantity++;
+                    idMap[v.id].quantity++;
                     return false;
                 }
             });
         };
 
-        this.isFull = function() {
+        this.openSlots = function() {
+            var openSlots = 0;
             for(var i = 0; i < Utils.NUM_CHEESECAKE_SLOTS; i++) {
                 if (!cheesecakeSlots[i]) {
-                    return false;
+                    openSlots++;
                 }
             }
-            return true;
+            return openSlots;
+        };
+
+        this.isFull = function() {
+            return this.openSlots() == 0;
         }
 
         this.add = function(flavor) {
@@ -150,27 +157,26 @@ var Order = function() {
             cheesecakeSlots[slot] = undefined;
             return removedCheesecake;
         };
+
+        this.all = function(cheesecakes) {
+            if (cheesecakes) {
+                cheesecakeSlots = cheesecakes;
+                return this;
+            }
+            return cheesecakeSlots;
+        }
     }
     this.cheesecakes = new Cheesecakes();
 
     this.giftMessage =
-        'My dearest,                                          \
-                                                              \
-        I hope you enjoy this all natural delicious dessert.  \
-                                                              \
-        Love,                                                 \
-        Your secret admirer';
+'My dearest,\n\
+\n\
+I hope you enjoy this all natural delicious dessert.\n\
+\n\
+Love,\n\
+Your secret admirer';
 
     var Label = function() {
-        var _name;
-        var _company;
-        var _address;
-        var _address2;
-        var _city;
-        var _state;
-        var _zip;
-        var _deliverdate;
-
         this.name        = function(name) { return Utils.getSetProp('_name', name, this) };
         this.company     = function(company) { return Utils.getSetProp('_company', company, this) };
         this.address     = function(address) { return Utils.getSetProp('_address', address, this) };
@@ -179,19 +185,75 @@ var Order = function() {
         this.state       = function(state) { return Utils.getSetProp('_state', state, this) };
         this.zip         = function(zip) { return Utils.getSetProp('_zip', zip, this) };
         this.deliverdate = function(deliverdate) { return Utils.getSetProp('_deliverdate', deliverdate, this) };
+
+        this.all = function(data) {
+            if (data) {
+                this.name(data.name)
+                this.company(data.company)
+                this.address(data.address)
+                this.address2(data.address2)
+                this.city(data.city)
+                this.state(data.state)
+                this.zip(data.zip)
+                this.deliverdate(data.deliverdate);
+                return this;
+            } else {
+                return {
+                    name: this.name(),
+                    company: this.company(),
+                    address: this.address(),
+                    address2: this.address2(),
+                    city: this.city(),
+                    state: this.state(),
+                    zip: this.zip(),
+                    deliverdate: this.deliverdate()
+                };
+            }
+        }
     }
     this.label = new Label();
 
     var BillingInfo = function() {
-        var _name;
-        var _email;
-        var _stripeToken;
+        this.name           = function(name) { return Utils.getSetProp('_name', name, this) };
+        this.email          = function(email) { return Utils.getSetProp('_email', email, this) };
+        this.stripeToken    = function(stripeToken) { return Utils.getSetProp('_stripeToken', stripeToken, this) };
 
-        this.name        = function(name) { return Utils.getSetProp('_name', name, this) };
-        this.email     = function(email) { return Utils.getSetProp('_email', email, this) };
-        this.stripeToken     = function(stripeToken) { return Utils.getSetProp('_stripeToken', stripeToken, this) };
+        this.all = function(data) {
+            if (data) {
+                this.name(data.name)
+                this.email(data.email)
+                this.stripeToken(data.stripeToken);
+                return this;
+            } else {
+                return {
+                    name: this.name(),
+                    email: this.email(),
+                    stripeToken: this.stripeToken()
+                };
+            }
+        }
     }
     this.billingInfo = new BillingInfo();
+
+    this.toString = function() {
+        return JSON.stringify({
+            cheesecakes: this.cheesecakes.all(),
+            giftMessage: this.giftMessage,
+            label: this.label.all(),
+            billingInfo: this.billingInfo.all()
+        });
+    }
+
+    this.parse = function(string) {
+        if (string && string !== "undefined") {
+            order = JSON.parse(string);
+            this.cheesecakes.all(order.cheesecakes);
+            this.giftMessage = order.giftMessage;
+            this.label.all(order.label);
+            this.billingInfo.all(order.billingInfo);
+        }
+        return this;
+    }
 }
 
 
@@ -265,6 +327,12 @@ var PickManager = function(elementSelectors, order) {
         this.pickCheesecake(flavorCarousel.getSelectedFlavor());
     }, this));
 
+    $.each(order.cheesecakes.all(), function(i, v) {
+        if (v) {
+            displayCheesecake(i + 1,  v);
+        }
+    })
+
     this.displayMoreInfo = function(flavor) {
         var moreInfoWindow = $(elementSelectors.moreInfo).removeClass('show-nutrition-label').modal();
         $(elementSelectors.showNutritionLabelButton).show();
@@ -277,7 +345,12 @@ var PickManager = function(elementSelectors, order) {
         return this;
     };
 
-    this.pickCheesecake = function(flavor) {
+    this.disable = function() {
+        $(elementSelectors.addButton).addClass('disabled');
+        $(elementSelectors.tray1 + ', ' + elementSelectors.tray2).find('.cheesecake').off('click');
+    };
+
+    this.pickCheesecake = function(flaovr) {
         var flavor = flavorCarousel.getSelectedFlavor();
         var slot = order.cheesecakes.add(flavor);
 
@@ -285,17 +358,19 @@ var PickManager = function(elementSelectors, order) {
             return;
         }
 
-        var cheesecakeNumber = slot + 1;
+        displayCheesecake(slot + 1, flavor);
+    }
 
-        if (cheesecakeNumber == Utils.NUM_CHEESECAKE_SLOTS) {
+    function displayCheesecake(cheesecakeNumber, flavor) {
+        if (order.cheesecakes.openSlots() == 0) {
             $(elementSelectors.addButton).addClass('disabled');
         }
 
         var parentContainer;
         if (cheesecakeNumber <= Utils.NUM_CHEESECAKE_SLOTS/2) {
-            parentContainer = $('#tray1');
+            parentContainer = $(elementSelectors.tray1);
         } else {
-            parentContainer = $('#tray2');
+            parentContainer = $(elementSelectors.tray2);
         }
 
         var clickedAway = false;
@@ -334,7 +409,7 @@ var PickManager = function(elementSelectors, order) {
         cheesecake.parent().delegate('.btn-container' + cheesecakeNumber + ' .btn-more-info', 'click', function() {
             displayMoreInfo($(this).parent().data('flavor'));
         }).delegate('.btn-container' + cheesecakeNumber + ' .btn-remove', 'click', function() {
-                order.cheesecakes.remove(slot);
+                order.cheesecakes.remove(cheesecakeNumber - 1);
                 cheesecake.popover('hide').animate({top: '+=100'}, 500, function() {
                     cheesecake.remove();
                 });
@@ -409,8 +484,8 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
 
 var PersonalizeManager = function(elementSelectors, order) {
     var mainElement = $(elementSelectors.main);
-    mainElement.find('pre, .edit-message-label').click(function() {this.makeEditable(true) });
-    mainElement.find('.btn-save').click(function() {this.makeEditable(false) });
+    mainElement.find('pre, .edit-message-label').click($.proxy(function() { this.makeEditable(true) }, this));
+    mainElement.find('.btn-save').click($.proxy(function() { this.makeEditable(false); this._isEdited = true }, this));
     mainElement.find('pre').text(order.giftMessage);
 
     this.displayPickedCheesecakesInfo = function() {
@@ -425,6 +500,16 @@ var PersonalizeManager = function(elementSelectors, order) {
         });
     };
 
+    this.disable = function() {
+        this.makeEditable(false);
+        mainElement.find('.edit-message-label').hide();
+    };
+
+    this.isEdited = function() {
+        return this._isEdited;
+    };
+    this._isEdited = false;
+
     this.makeEditable = function(editable) {
         if (editable) {
             mainElement.find('textarea').val(order.giftMessage);
@@ -438,65 +523,120 @@ var PersonalizeManager = function(elementSelectors, order) {
 // #label form
 var PackManager = function(elementSelectors, order) {
     var form = $(elementSelectors.main);
-    var datePicker = new DatePicker({ main: '#datepicker' });
+    var isValid = false;
+    var datePicker = new DatePicker($('#datepicker'));
 
-    jQuery.validator.addMethod("packArrivalDate", this.validArrivalDate, "Please select a valid arrival date.");
-    jQuery.validator.addMethod("packName", this.validName, "Please enter the recipient's name.");
-    jQuery.validator.addMethod("packAddressLine1", this.validAddress, "Please enter the recipient's address");
-    jQuery.validator.addMethod("packCity", this.validCity, "Please enter the recipient's city");
-    jQuery.validator.addMethod("packState", this.validState, "Please enter the recipient's state");
-    jQuery.validator.addMethod("packZip", this.validZip, "Please enter the recipient's zip code");
+    form.find('.edit').click($.proxy(function() {
+        isValid = false;
+        this.makeEditable(true);
+        S.setScrollTop(BOUNDARIES.PACK_TO_PAY.position());
+    }, this));
+
+    form.find('.arrival-date').val(order.label.deliverdate());
+    form.find('.name').val(order.label.name());
+    form.find('.company').val(order.label.company());
+    form.find('.address').val(order.label.address());
+    form.find('.address2').val(order.label.address2());
+    form.find('.city').val(order.label.city());
+    form.find('.state').val(order.label.state());
+    form.find('.zip').val(order.label.zip());
+
+
+    jQuery.validator.addMethod("packArrivalDate", function() {
+        order.label.deliverdate(moment(datePicker.getValue()).format('MM/DD/YY'));
+        return datePicker.validArrivalDate();
+    }, "Select a valid arrival date.");
+
+    jQuery.validator.addMethod("packName", function(name) {
+        order.label.name(name);
+        return name;
+    }, "Enter the recipient's name.");
+
+    jQuery.validator.addMethod("packCompany", function(company) {
+        order.label.company(company);
+        return true;
+    }, "Enter the recipient's company.");
+
+    jQuery.validator.addMethod("packAddressLine1", function(address) {
+        order.label.address(address);
+        return address;
+    }, "Enter the recipient's address");
+
+    jQuery.validator.addMethod("packAddressLine2", function(address2) {
+        order.label.address2(address2);
+        return true;
+    }, "Enter the recipient's address");
+
+    jQuery.validator.addMethod("packCity", function(city) {
+        order.label.city(city);
+        return city;
+    }, "Enter the recipient's city");
+
+    jQuery.validator.addMethod("packState", function(state) {
+        order.label.state(state);
+        return (/^(A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[ANU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/).test(state.toUpperCase());
+    }, "Enter the recipient's state");
+
+    jQuery.validator.addMethod("packZip", function(zip) {
+        order.label.zip(zip);
+        return (/^\d{5}$/).test(zip);
+    }, "Enter the recipient's zip code");
 
     form.validate({
-        submitHandler: this.submit,
+        submitHandler: $.proxy(function(e) {
+            isValid = true;
+            this.makeEditable(false);
+        }, this),
         showErrors: function(errorMap, errorList) {
+            console.log(errorMap);
+            console.log(errorList);
             var error = errorList[0];
-            error.element.tooltip({
-                title: error.message,
-                placement: 'right',
-                trigger: 'manual'
-            }).data('tooltip').show();
+            var errorContainer = form.find('.form-errors');
+            if (error) {
+                isValid = false;
+                errorContainer.text(error.message);
+            }
+            errorContainer.toggleClass('in', error != undefined).toggleClass('out', error == undefined);
         },
+
+        onkeyup: false,
+        onfocusout: false,
 
         rules: {
             'arrival-date': {
-                packArrivalDate: true,
-                required: true
+                packArrivalDate: true
             },
             'name': {
-                packName: true,
-                required: true
+                packName: true
             },
-            'address': {
-                packAddressLine1: true,
-                required: true
+            'company': {
+                packCompany: true
+            },
+            'addressLine1': {
+                packAddressLine1: true
+            },
+            'addressLine2': {
+                packAddressLine2: true
             },
             'city': {
-                packCity: true,
-                required: true
+                packCity: true
             },
             'state': {
-                packState: true,
-                required: true
+                packState: true
             },
             'zip': {
-                packZip: true,
-                required: true
+                packZip: true
             }
         }
     });
 
+    this.disable = function() {
+        this.makeEditable(false);
+        form.find('.edit').hide();
+    };
+
     this.makeEditable = function(editable) {
         if (!editable)  {
-            order.label
-                .name(form.find('.name').val())
-                .company(form.find('.company').val())
-                .address(form.find('.address').val())
-                .address2(form.find('.address2').val())
-                .city(form.find('.city').val())
-                .state(form.find('.state').val())
-                .zip(form.find('.zip').val())
-                .deliverdate($('#datepicker').val());
             var addressString =
                 order.label.name() + '\n' +
                     (order.label.company() ? order.label.company() + '\n' : '') +
@@ -506,47 +646,16 @@ var PackManager = function(elementSelectors, order) {
             form.find('.ship-to').text(addressString);
             form.find('.deliver-date').text(order.label.deliverdate());
         }
-        form.find('.ship-to').toggle(!editable);
-        form.find('.deliver-date').toggle(!editable);
-        form.find('input, label').toggle(editable);
+        form.find('.ship-to, .deliver-date, .edit').toggle(!editable);
+        form.find('input, label, button').toggle(editable);
     };
 
-    this.submit = function() {
-        // TODO go to next section
+    this.isValid = function() {
+        return isValid;
     };
-
-//    $('#label .zip').keyup(function() {
-//        if ($('#label .zip').val().length == 5) {
-//            $('footer.pack').removeClass('slide-down');
-//        } else {
-//            $('footer.pack').addClass('slide-down');
-//        }
-//    });
 }
 
-$.extend(PackManager.prototype, {
-    validArrivalDate: function(arrivalDate) {
-        return this.datePicker.validArrivalDate(new Date($('#datepicker').val()));
-    },
-    validName: function(name) {return name;},
-    validAddress: function(address) {return address;},
-    validCity: function(city) {return city;},
-    validState: function(state) {
-        return (/^(A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[ANU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/).test(state.toUpperCase());
-    },
-    validZip: function(zip) {
-        return (/^\d{5}$/).test(zip);
-    }
-});
-
 DatePicker = function(element) {
-    element.datepicker({
-        format: 'mm/dd/yyyy',
-        onRender: $.proxy(function(date) {
-            return !this.validArrivalDate(date) ? '' : 'disabled';
-        }, this)
-    }).data('datepicker').setValue(this.getFirstArrivalDate());
-
     this.getFirstArrivalDate = function() {
         var startDate = new Date();
         startDate.setDate(startDate.getDate() + 1); // Earliest delivery is next day
@@ -565,15 +674,150 @@ DatePicker = function(element) {
         return startDate;
     };
 
-    this.validArrivalDate = function() {
-        var date = element.data('datepicker').date;
+    this.getValue = function() {
+        return element.data('datepicker').date;
+    }
+
+    this.validArrivalDate = function(date) {
+        date = date || this.getValue();
         return this.getFirstArrivalDate().valueOf() <= date.valueOf() && $.inArray(date.getDay(), [0, 1, 6]) == -1;
     }
+
+    element.datepicker({
+        format: 'mm/dd/yyyy',
+        onRender: $.proxy(function(date) {
+            return this.validArrivalDate(date) ? '' : 'disabled';
+        }, this)
+    }).data('datepicker').setValue(this.getFirstArrivalDate());
 };
 
-var PayManager = function(elementSelectors, order) {
+var PayManager = function(elementSelectors, order, onPaymentComplete) {
     var checkoutWindow = $(elementSelectors.checkoutWindow);
     var payForm = $(elementSelectors.payForm);
+    var isPaymentComplete = false;
+
+    payForm.find('.name').val(order.billingInfo.name());
+    payForm.find('.email').val(order.billingInfo.email());
+
+    this.disable = function() {
+        $(payForm.find('input, button, select')).attr('disabled', 'disabled');
+    };
+
+    this.displayOrderSummary = function() {
+        var flavorQuantitiesContainer = checkoutWindow.find('ul');
+        flavorQuantitiesContainer.empty();
+        $.each(order.cheesecakes.getUnique(), function(i, v) {
+            flavorQuantitiesContainer.append(
+                '<li>' + v.quantity + 'x ' + v.name + '</li>'
+            );
+        });
+    },
+
+    this.addInputNames = function() {
+        // Not ideal, but jQuery's validate plugin requires fields to have names
+        // so we add them at the last possible minute, in case any javascript
+        // exceptions have caused other parts of the script to fail.
+        payForm.find('.card-number').attr('name', 'card-number');
+        payForm.find('.card-cvc').attr('name', 'card-cvc');
+        payForm.find('.card-expiry-year').attr('name', 'card-expiry-year');
+    },
+
+    this.removeInputNames = function() {
+        payForm.find('.card-number, .card-cvc, .card-expiry-year').removeAttr('name');
+    },
+
+    this.submit = function(form) {
+        // remove the input field names for security
+        // we do this *before* anything else which might throw an exception
+        this.removeInputNames(); // THIS IS IMPORTANT!
+
+        // given a valid form, submit the payment details to stripe
+        $(form['submit-button']).attr('disabled', 'disabled')
+        checkoutWindow.find('.loading > *').addClass('active');
+
+        Stripe.createToken({
+            number: $('.card-number').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(),
+            exp_year: $('.card-expiry-year').val()
+        }, function(status, response) {
+            if (response.error) {
+                // re-enable the submit button
+                $(form['submit-button']).removeAttr('disabled');
+                payForm.find('.loading > *').removeClass('active');
+
+                // show the error
+                payForm.find('.payment-errors').show().html(response.error.message);
+
+                // we add these names back in so we can revalidate properly
+                this.addInputNames();
+            } else {
+                payForm.find('.payment-errors').hide();
+                order.billingInfo.stripeToken(response.id);
+                var sale = {
+                    sale: {
+                        stripeToken: order.billingInfo.stripeToken(),
+                        recipient: {
+                            name: order.label.name(),
+                            companyName: order.label.company() || ' ',
+                            addressLine1: order.label.address(),
+                            addressLine2: order.label.address2() || ' ',
+                            city: order.label.city(),
+                            state: order.label.state(),
+                            zipCode: order.label.zip(),
+                            phoneNumber: 'Not Given'
+                        },
+                        saleItems: (function() {
+                            var saleItems = [];
+                            $.each(order.cheesecakes.getUnique(), function(i, v) {
+                                saleItems.push({
+                                    quantity: v.quantity,
+                                    product: {
+                                        id: v.id
+                                    }
+                                });
+                            });
+                            return saleItems;
+                        })(),
+                        arrivalDate: order.label.deliverdate(),
+                        giftMessage: order.giftMessage,
+                        giver: {
+                            emailAddress: order.billingInfo.email(),
+                            name: order.billingInfo.name()
+                        }
+                    }
+                }
+                $.ajax({
+                    url: Urls.STRIPE_CHARGE,
+                    method: 'post',
+                    contentType: 'application/json',
+                    processData: false,
+                    data: JSON.stringify(sale)
+                }).done(function(response) {
+                    $(form['submit-button']).removeAttr('disabled');
+                    if (response.paid) {
+                        isPaymentComplete = true;
+                        onPaymentComplete();
+                    } else if (response.backendFailure) {
+                        payForm.find('.payment-errors').show().html('There was an error processing your order. Please try again.');
+                    } else {
+                        payForm.find('.payment-errors').show().html(response.failureMessage);
+                    }
+                }).fail(function() {
+                    payForm.find('.payment-errors').show().html('There was an error processing your order. Please try again.');
+                    $(form['submit-button']).removeAttr('disabled');
+                }).always(function() {
+                    checkoutWindow.find('.loading > *').removeClass('active');
+                });
+            }
+        });
+
+        return false;
+    }
+
+    this.isPaymentComplete = function() {
+        return isPaymentComplete;
+    }
 
     // Get publishable key
     $.get(Urls.STRIPE_GET_PUBLISHABLE_KEY).done(function(result) {
@@ -585,10 +829,20 @@ var PayManager = function(elementSelectors, order) {
     var month = new Date().getMonth() + 1;
     for (var i = 0; i < 12; i++) {
         $(".card-expiry-year").append($("<option value='"+(i + year)+"' "+(i === 0 ? "selected" : "")+">"+(i + year)+"</option>"));
-        $(".card-expiry-month").append($("<option value='"+i+"' "+(month === i ? "selected" : "")+">"+i+"</option>"));
+        $(".card-expiry-month").append($("<option value='"+ (i + 1) +"' "+(month === i + 1 ? "selected" : "")+">"+ (i + 1) +"</option>"));
     }
 
     // add custom rules for credit card validating
+    jQuery.validator.addMethod("billingName", function(name) {
+        order.billingInfo.name(name);
+        return name;
+    }, "Enter name on credit card.");
+
+    jQuery.validator.addMethod("billingEmail", function(email) {
+        order.billingInfo.email(email);
+        return email;
+    }, "Enter your email.");
+
     jQuery.validator.addMethod("cardNumber", Stripe.validateCardNumber, "Please enter a valid card number");
     jQuery.validator.addMethod("cardCVC", Stripe.validateCVC, "Please enter a valid security code");
     jQuery.validator.addMethod("cardExpiry", function() {
@@ -597,8 +851,14 @@ var PayManager = function(elementSelectors, order) {
 
     // We use the jQuery validate plugin to validate required params on submit
     payForm.validate({
-        submitHandler: this.submit,
+        submitHandler: $.proxy(this.submit, this),
         rules: {
+            'name' : {
+                billingName: true
+            },
+            'email' : {
+                billingEmail: true
+            },
             'card-cvc' : {
                 cardCVC: true,
                 required: true
@@ -613,123 +873,6 @@ var PayManager = function(elementSelectors, order) {
 
     // adding the input field names is the last step, in case an earlier step errors
     this.addInputNames();
-
-    this.displayOrderSummary = function() {
-        var flavorQuantitiesContainer = checkoutWindow.find('ul');
-        flavorQuantitiesContainer.empty();
-        $.each(order.cheesecakes.getUnique(), function(i, v) {
-            flavorQuantitiesContainer.append(
-                '<li>' + v.quantity + 'x ' + v.name + '</li>'
-            );
-        });
-    },
-
-        this.paymentComplete = function() {
-            // TODO go to payment complete
-        },
-
-        this.addInputNames = function() {
-            // Not ideal, but jQuery's validate plugin requires fields to have names
-            // so we add them at the last possible minute, in case any javascript
-            // exceptions have caused other parts of the script to fail.
-            payForm.find('.card-number').attr('name', 'card-number');
-            payForm.find('.card-cvc').attr('name', 'card-cvc');
-            payForm.find('.card-expiry-year').attr('name', 'card-expiry-year');
-        },
-
-        this.removeInputNames = function() {
-            payForm.find('.card-number, .card-cvc, .card-expiry-year').removeAttr('name');
-        },
-
-        this.submit = function(form) {
-            // remove the input field names for security
-            // we do this *before* anything else which might throw an exception
-            this.removeInputNames(); // THIS IS IMPORTANT!
-
-            // given a valid form, submit the payment details to stripe
-            $(form['submit-button']).attr('disabled', 'disabled')
-            checkoutWindow.find('.loading > *').addClass('active');
-
-            order.billingInfo.name(payForm.find('.name').val());
-            order.billingInfo.email(payForm.find('.email').val());
-
-            Stripe.createToken({
-                number: $('.card-number').val(),
-                cvc: $('.card-cvc').val(),
-                exp_month: $('.card-expiry-month').val(),
-                exp_year: $('.card-expiry-year').val()
-            }, function(status, response) {
-                if (response.error) {
-                    // re-enable the submit button
-                    $(form['submit-button']).removeAttr('disabled');
-                    payForm.find('.loading > *').removeClass('active');
-
-                    // show the error
-                    payForm.find('.payment-errors').show().html(response.error.message);
-
-                    // we add these names back in so we can revalidate properly
-                    this.addInputNames();
-                } else {
-                    payForm.find('.payment-errors').hide();
-                    order.billingInfo.stripeToken(response.id);
-                    var sale = {
-                        sale: {
-                            stripeToken: order.billingInfo.stripeToken(),
-                            recipient: {
-                                name: order.label.name(),
-                                companyName: order.label.company(),
-                                addressLine1: order.label.address(),
-                                addressLine2: order.label.address2(),
-                                city: order.label.city(),
-                                state: order.label.state(),
-                                zipCode: order.label.zip(),
-                                phoneNumber: 'Not Given'
-                            },
-                            saleItems: (function() {
-                                var saleItems = [];
-                                $.each(order.cheesecakes.getUnique(), function(i, v) {
-                                    saleItems.push({
-                                        quantity: v.quantity,
-                                        product: {
-                                            id: v.id
-                                        }
-                                    });
-                                });
-                                return saleItems;
-                            })(),
-                            arrivalDate: order.label.deliverdate(),
-                            giftMessage: order.giftMessage(),
-                            giver: {
-                                emailAddress: order.billingInfo.email(),
-                                name: order.billingInfo.name()
-                            }
-                        }
-                    }
-                    $.ajax({
-                        url: Urls.STRIPE_CHARGE,
-                        method: 'post',
-                        contentType: 'application/json',
-                        processData: false,
-                        data: JSON.stringify(sale)
-                    }).done(function(response) {
-                            if (response.paid) {
-                                paymentComplete();
-                            } else if (response.backendFailure) {
-                                payForm.find('.payment-errors').show().html('There was an error processing your order. Please try again.');
-                            } else {
-                                payForm.find('.payment-errors').show().html(response.failureMessage);
-                            }
-                        }).fail(function() {
-                            payForm.find('.payment-errors').show().html('There was an error processing your order. Please try again.');
-                        }).always(function() {
-                            $(form['submit-button']).removeAttr('disabled');
-                            checkoutWindow.find('.loading > *').removeClass('active');
-                        });
-                }
-            });
-
-            return false;
-        }
 };
 
 var OrderCompleteManager = function(elementSelectors, order) {
@@ -744,18 +887,44 @@ var OrderCompleteManager = function(elementSelectors, order) {
 };
 
 (function() {
-    var order = new Order();
+    var store = new Persist.Store('GiveCheesecakes');
+
+    //store.remove('incompleteOrder');
+    var order = new Order().parse(store.get('incompleteOrder'));
+    console.log(order);
 
     var pickManager = new PickManager({
         carousel: '#flavor-carousel',
         moreInfoButton: '#selected-cheesecake-btns .btn-more-info',
         addButton: '#selected-cheesecake-btns .btn-add',
         moreInfo: '#more-info',
-        showNutritionLabelButton: '.btn-show-nutrition-label'
+        showNutritionLabelButton: '.btn-show-nutrition-label',
+        tray1: '#tray1',
+        tray2: '#tray2'
     }, order);
 
     var personalizeManager = new PersonalizeManager({
         main: '#gift-message'
+    }, order);
+
+    var packManager = new PackManager({
+        main: '#label form'
+    }, order);
+
+    var payManager = new PayManager({
+        payForm: '#checkout-window form',
+        checkoutWindow: '#checkout-window'
+    }, order, function() {
+        store.remove('incompleteOrder');
+        pickManager.disable();
+        personalizeManager.disable();
+        packManager.disable();
+        payManager.disable();
+        orderCompleteManager.refreshSummaryFields();
+    });
+
+    var orderCompleteManager = new OrderCompleteManager({
+        main: '#order-complete'
     }, order);
 
     S = skrollr.init({
@@ -771,13 +940,30 @@ var OrderCompleteManager = function(elementSelectors, order) {
             .unregisterAllBoundaries()
             .registerBoundary(BOUNDARIES.PICK_TO_PERSONALIZE, function(e) {
                 //console.log(e);
-                if (e.direction === "down" && !order.cheesecakes.isFull()) {
-                    return false;
+                if (e.direction === "down") {
+                    if (!order.cheesecakes.isFull()) {
+                        return false;
+                    } else {
+                        personalizeManager.displayPickedCheesecakesInfo();
+                        payManager.displayOrderSummary();
+                    }
                 }
             })
             .registerBoundary(BOUNDARIES.PERSONALIZE_TO_PACK, function(e) {
                 //console.log(e);
-                if (e.direction === "down" && !order.cheesecakes.isFull()) {
+                if (e.direction === "down" && !personalizeManager.isEdited()) {
+                    return false;
+                }
+            })
+            .registerBoundary(BOUNDARIES.PACK_TO_PAY, function(e) {
+                //console.log(e);
+                if (e.direction === "down" && !packManager.isValid()) {
+                    return false;
+                }
+            })
+            .registerBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE, function(e) {
+                //console.log(e);
+                if (e.direction === "down" && !payManager.isPaymentComplete()) {
                     return false;
                 }
             });
@@ -786,5 +972,9 @@ var OrderCompleteManager = function(elementSelectors, order) {
 
     $(window).resize(function(e) {
         registerBoundaries();
+    }).unload(function() {
+        !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
     });
+
+    $('body').show();
 })();
