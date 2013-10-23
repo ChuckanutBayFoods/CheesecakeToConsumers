@@ -60,6 +60,9 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
 
         build ":tomcat:$grailsVersion"
+		
+		// https://github.com/kenliu/grails-elastic-beanstalk
+		build ":aws-elastic-beanstalk:0.2"
 
         runtime ":database-migration:1.3.2"
 

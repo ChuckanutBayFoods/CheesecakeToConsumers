@@ -142,6 +142,7 @@ log4j = {
 			'grails.app.jobs'
 }
 
+// http://gpc.github.io/grails-mail/docs/guide/2.%20Configuration.html
 grails {
 	mail {
 		host = "smtp.gmail.com"
@@ -156,3 +157,8 @@ grails {
 		]
 	}
 }
+
+// https://github.com/kenliu/grails-elastic-beanstalk
+// These are needed because our our Elastic Beanstalk application and environment names differ from the defauls suggested in the above URL
+grails.plugin.awsElasticBeanstalk.applicationName = 'givecheesecakes.com'
+grails.plugin.awsElasticBeanstalk.environmentName = 'givecheesecakes'
