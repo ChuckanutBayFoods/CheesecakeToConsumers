@@ -1,11 +1,9 @@
 @include skrollrKeyframes('#checkout-window', checkoutWindow) {
   500p {
   top: 100%;
-  margin-top: 0px;
 }
   600p {
   top: 0%;
-  margin-top: -200px;
 }
   620p {
        top: 0%;

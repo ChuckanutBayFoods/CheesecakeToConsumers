@@ -104,16 +104,12 @@ a:hover {
   opacity: 0;
 }
 
-.popover {
-  z-index: 9500;
-}
-
 .modal {
-  z-index: 9800;
+  @include threeDimensional(9800);
 }
 
 .modal-backdrop {
-  z-index: 9700;
+  @include threeDimensional(9700);
 }
 
 .btn-container {

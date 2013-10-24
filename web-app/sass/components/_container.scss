@@ -1,4 +1,4 @@
-$boxTopBaseline: 375px;
+$boxTopBaseline: 150px;
 #component-container-part1, #component-container-part2 {
   height: 100%;
   pointer-events: none;
@@ -14,8 +14,8 @@ $boxTopBaseline: 375px;
 
 #component-container-part2 {
   position: absolute;
-  left: -600px;
-  width: 1200px;
+  left: -$width/2;
+  width: $width;
 }
 
 #component-container-part2 > * {

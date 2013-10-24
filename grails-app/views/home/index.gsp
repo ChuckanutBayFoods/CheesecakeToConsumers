@@ -85,17 +85,11 @@
     </div>
     <div id="component-container-part1">
         <div id="component-container-part2">
-            <div id="shield1" class="shield"></div>
-            <div id="shield2" class="shield"></div>
             <div id="tray1" class="tray">
-                <img class="back tray-part" src="../img/tray/back.png">
-                <img class="mid tray-part" src="../img/tray/mid.png">
-                <img class="front tray-part" src="../img/tray/front.png">
+                <img class="tray-part" src="../img/tray/tray.png"/>
             </div>
             <div id="tray2" class="tray">
-                <img class="back tray-part" src="../img/tray/back.png">
-                <img class="mid tray-part" src="../img/tray/mid.png">
-                <img class="front tray-part" src="../img/tray/front.png">
+                <img class="tray-part" src="../img/tray/tray.png"/>
             </div>
             <div id="styro-container">
                 <img class="styro front" src="../img/styro/front.png">

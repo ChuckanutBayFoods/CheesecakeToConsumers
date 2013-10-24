@@ -5,16 +5,16 @@
 }
   200p {
   top: 0%;
-  margin-top: -300px;
+  margin-top: -76px;
   width: 900px;
-  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(0px) translateY(0px) translateZ(0px);
+  transform:  skew(0deg, 0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(0px) translateY(0px) translateZ(5000px);
 }
      240p {
-          transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(-170px) translateY(0px) translateZ(0px);
+          transform:  skew(0deg, 0deg) scaleX(1) scaleY(1) rotate(0deg) translateX(-170px) translateY(0px) translateZ(5000px);
           width: 450px;
         }
 280p {
-     transform: rotateX(35deg) rotateY(51deg) rotateZ(-29deg) scaleX(1) scaleY(.5) rotate(90deg) translateX(-220px) translateY(110px) translateZ(0px);
+     transform:  skew(18deg, -.8deg) scaleX(.5) scaleY(.4) rotate(90deg) translateX(-300px) translateY(0px) translateZ(5000px);
    }
 450p {
      opacity: 1;

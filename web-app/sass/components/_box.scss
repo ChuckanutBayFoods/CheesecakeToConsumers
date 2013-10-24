@@ -1,7 +1,5 @@
-$boxLeft: -56px;
 #box {
   position: absolute;
-  left: $boxLeft;
   width: 100%;
 
   .box-part {
@@ -12,19 +10,19 @@ $boxLeft: -56px;
     }
 
     &.front {
-      @include threeDimensional(7000);
+      @include threeDimensional(5100);
     }
 
     &.flaps {
-      @include threeDimensional(7500);
+      @include threeDimensional(5500);
     }
 
     &.top {
-      @include threeDimensional(7600);
+      @include threeDimensional(5600);
     }
 
     &.tape {
-      @include threeDimensional(7700);
+      @include threeDimensional(5700);
     }
   }
 }

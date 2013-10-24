@@ -5,60 +5,41 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 550px;
-  }
-  .back {
-    @include threeDimensional(1000);
-  }
-
-  .mid {
-    @include threeDimensional(2000);
-  }
-
-  .front {
-    @include threeDimensional(3000);
+    width: 656px;
   }
 
   .cheesecake {
     position: absolute;
     width: 135px;
     cursor: pointer;
-  }
-
-  a.cheesecake-event-catcher {
-    opacity: 0;
-    @include threeDimensional(5000);
     pointer-events: auto;
+    opacity: 0;
   }
 
-  $backRowTop: 134px;
-  $frontRowTop: 248px;
+  $backRowTop: 220px;
+  $frontRowTop: 338px;
   .cheesecake1,
   .cheesecake5 {
     top: $backRowTop;
-    left: 84px;
-    @include threeDimensional(1100);
+    left: 134px;
   }
 
   .cheesecake2,
   .cheesecake6 {
     top: $backRowTop;
-    left: 300px;
-    @include threeDimensional(1200);
+    left: 350px;
   }
 
   .cheesecake3,
   .cheesecake7 {
     top: $frontRowTop;
-    left: 120px;
-    @include threeDimensional(2300);
+    left: 170px;
   }
 
   .cheesecake4,
   .cheesecake8 {
     top: $frontRowTop;
-    left: 334px;
-    @include threeDimensional(2400);
+    left: 384px;
   }
 
   .popover {
@@ -73,4 +54,12 @@
       margin-left: 4px;
     }
   }
+}
+
+#tray1 {
+  @include threeDimensional(2000);
+}
+
+#tray2 {
+  @include threeDimensional(1000);
 }

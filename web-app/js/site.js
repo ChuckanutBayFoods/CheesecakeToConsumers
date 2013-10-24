@@ -321,7 +321,7 @@ var PickManager = function(elementSelectors, order) {
     });
 
     $(elementSelectors.moreInfoButton).click($.proxy(function() {
-        this.displayMoreInfo(flavorCarousel.getSelectedFlavor());
+        displayMoreInfo(flavorCarousel.getSelectedFlavor());
     }, this));
 
     $(elementSelectors.addButton).click($.proxy(function() {
@@ -334,7 +334,7 @@ var PickManager = function(elementSelectors, order) {
         }
     })
 
-    this.displayMoreInfo = function(flavor) {
+    function displayMoreInfo(flavor) {
         var moreInfoWindow = $(elementSelectors.moreInfo).removeClass('show-nutrition-label').modal();
         $(elementSelectors.showNutritionLabelButton).show();
         moreInfoWindow.find('h3').text(flavor.name);
@@ -379,10 +379,8 @@ var PickManager = function(elementSelectors, order) {
         var isVisible = false;
 
         var cheesecake = $(
-            '<img class="cheesecake cheesecake' + cheesecakeNumber + '" src="' + flavor.bareImageUrl + '">' +
-                '<a href="#" class="cheesecake-event-catcher cheesecake cheesecake' + cheesecakeNumber + '"><img src="' + flavor.bareImageUrl + '" /></a>')
+            '<img class="cheesecake cheesecake' + cheesecakeNumber + '" src="' + flavor.bareImageUrl + '">')
             .appendTo(parentContainer)
-            .animate({top: '-=100'}, 500)
             .popover({
                 placement: 'top',
                 content: function() {
@@ -405,19 +403,19 @@ var PickManager = function(elementSelectors, order) {
                 $('.popover').bind('click', function() {
                     clickedAway = false;
                 });
-            });
+            })
+            .animate({opacity: 1}, 500);
 
-        var displayMoreInfo = this.displayMoreInfo;
-        cheesecake.parent().delegate('.btn-container' + cheesecakeNumber + ' .btn-more-info', 'click', function() {
-            displayMoreInfo($(this).parent().data('flavor'));
-        }).delegate('.btn-container' + cheesecakeNumber + ' .btn-remove', 'click', function() {
-                order.cheesecakes.remove(cheesecakeNumber - 1);
-                cheesecake.popover('hide').animate({top: '+=100'}, 500, function() {
-                    cheesecake.remove();
-                });
-                $(elementSelectors.addButton).removeClass('disabled');
-                $('footer').addClass('out');
-            });
+        cheesecake.parent().delegate('.btn-container' + cheesecakeNumber + ' .btn-more-info', 'click', $.proxy(function() {
+            displayMoreInfo(flavor);
+        }, this)).delegate('.btn-container' + cheesecakeNumber + ' .btn-remove', 'click', function() {
+            order.cheesecakes.remove(cheesecakeNumber - 1);
+            cheesecake.popover('hide').animate({opacity: 0}, 500, function() {
+                cheesecake.remove();
+            })
+            $(elementSelectors.addButton).removeClass('disabled');
+            $('footer').addClass('out');
+        });
 
         $(document).click(function(e) {
             if(isVisible && clickedAway) {
@@ -903,7 +901,7 @@ var OrderCompleteManager = function(elementSelectors, order) {
 function main() {
     var store = new Persist.Store('GiveCheesecakes');
 
-    //store.remove('incompleteOrder');
+    store.remove('incompleteOrder'); // Remove this line to activate local storage
     var order = new Order().parse(store.get('incompleteOrder'));
     console.log(order);
 
@@ -934,7 +932,6 @@ function main() {
         personalizeManager.disable();
         packManager.disable();
         payManager.disable();
-        orderCompleteManager.refreshSummaryFields();
     });
 
     var orderCompleteManager = new OrderCompleteManager({
@@ -960,7 +957,6 @@ function main() {
                         return false;
                     } else {
                         personalizeManager.displayPickedCheesecakesInfo();
-                        payManager.displayOrderSummary();
                         $('footer').addClass('out');
                     }
                 }
@@ -982,6 +978,7 @@ function main() {
                         return false;
                     } else {
                         $('footer').addClass('out');
+                        payManager.displayOrderSummary();
                     }
                 }
             })
@@ -992,6 +989,7 @@ function main() {
                         return false;
                     } else {
                         $('footer').addClass('out');
+                        orderCompleteManager.refreshSummaryFields();
                     }
                 }
             });
