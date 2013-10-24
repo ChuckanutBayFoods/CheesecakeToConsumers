@@ -544,7 +544,8 @@ var PackManager = function(elementSelectors, order) {
 
 
     jQuery.validator.addMethod("packArrivalDate", function() {
-        order.label.deliverdate(moment(datePicker.getValue()).format('MM/DD/YY'));
+        // This is the format expected by the back-end.
+        order.label.deliverdate(moment(datePicker.getValue()).format('YYYYMMDD'));
         return datePicker.validArrivalDate();
     }, "Select a valid arrival date.");
 
