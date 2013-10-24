@@ -95,8 +95,8 @@
 }
 
 @mixin threeDimensional($zIndex: 1) {
-  @include transform(translateZ(0px));
-  @include css3(backface-visibility, hidden);
-  @include css3(perspective, 1000);
+  //@include transform(translateZ(#{$zIndex}px));
+  //@include css3(backface-visibility, hidden);
+  //@include css3(perspective, 1000);
   z-index: $zIndex;
 }

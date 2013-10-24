@@ -138,12 +138,6 @@
   500p {
     color: rgb(0, 136, 204); }
 
-  600p {
-    color: rgb(0, 136, 204); }
-
-  700p {
-    color: rgb(200, 200, 200); }
-
   1000p {
     opacity: 1; } }
 
@@ -160,12 +154,6 @@
 
   500p {
     background-color: rgb(0, 136, 204); }
-
-  600p {
-    background-color: rgb(0, 136, 204); }
-
-  700p {
-    background-color: rgb(200, 200, 200); }
 
   1000p {
     opacity: 1; } }

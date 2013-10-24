@@ -34,6 +34,7 @@ body {
   background-color: $white;
   font-weight: 300;
   padding: 1px;
+  font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial;
 }
 
 input {
@@ -56,6 +57,15 @@ input[type="checkbox"] {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+textarea, input {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 h1 {
@@ -131,6 +141,14 @@ a:hover {
   @extend .arrow-base;
 
   background-image: url('../img/arrow-left.png');
+}
+
+.arrow-bottom {
+  @extend .arrow-base;
+  width: 24px;
+  height: 12px;
+
+  background-image: url('../img/arrow-bottom.png');
 }
 
 .skrollable-after, .skrollable-before {

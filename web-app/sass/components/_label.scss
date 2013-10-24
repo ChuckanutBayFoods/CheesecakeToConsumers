@@ -27,7 +27,7 @@ $labelLeft: 500px;
     }
 
     .ship-to-label {
-      width: 40px;
+      width: 48px;
       font-size: $large;
       vertical-align: top;
     }
@@ -81,6 +81,7 @@ $labelLeft: 500px;
   .shipping-constraints {
     @extend .label-label;
     clear: both;
+    font-size: $tiny;
   }
 
   .next-day-wrapper {

@@ -365,6 +365,7 @@ var PickManager = function(elementSelectors, order) {
     function displayCheesecake(cheesecakeNumber, flavor) {
         if (order.cheesecakes.openSlots() == 0) {
             $(elementSelectors.addButton).addClass('disabled');
+            $('footer').removeClass('out');
         }
 
         var parentContainer;
@@ -415,6 +416,7 @@ var PickManager = function(elementSelectors, order) {
                     cheesecake.remove();
                 });
                 $(elementSelectors.addButton).removeClass('disabled');
+                $('footer').addClass('out');
             });
 
         $(document).click(function(e) {
@@ -485,9 +487,14 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
 
 var PersonalizeManager = function(elementSelectors, order) {
     var mainElement = $(elementSelectors.main);
-    mainElement.find('pre, .edit-message-label').click($.proxy(function() { this.makeEditable(true) }, this));
-    mainElement.find('.btn-save').click($.proxy(function() { this.makeEditable(false); this._isEdited = true }, this));
-    mainElement.find('pre').text(order.giftMessage);
+    mainElement.find('.edit-message-label').click($.proxy(function() { this.makeEditable(true) }, this));
+    mainElement.find('.btn-save').click($.proxy(function() {
+        this.makeEditable(false);
+        isEdited = true;
+        $('footer').removeClass('out');
+    }, this));
+    mainElement.find('textarea').text(order.giftMessage);
+    var isEdited = false;
 
     this.displayPickedCheesecakesInfo = function() {
         var flavorInfoContainer = mainElement.find('.flavor-info-container');
@@ -507,9 +514,8 @@ var PersonalizeManager = function(elementSelectors, order) {
     };
 
     this.isEdited = function() {
-        return this._isEdited;
+        return isEdited;
     };
-    this._isEdited = false;
 
     this.makeEditable = function(editable) {
         if (editable) {
@@ -587,6 +593,7 @@ var PackManager = function(elementSelectors, order) {
     form.validate({
         submitHandler: $.proxy(function(e) {
             isValid = true;
+            $('footer').removeClass('out');
             this.makeEditable(false);
         }, this),
         showErrors: function(errorMap, errorList) {
@@ -700,6 +707,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
 
     payForm.find('.name').val(order.billingInfo.name());
     payForm.find('.email').val(order.billingInfo.email());
+    payForm.find('[disabled=""]').removeAttr('disabled');
 
     this.disable = function() {
         $(payForm.find('input, button, select')).attr('disabled', 'disabled');
@@ -799,6 +807,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
                     $(form['submit-button']).removeAttr('disabled');
                     if (response.paid) {
                         isPaymentComplete = true;
+                        $('footer').removeClass('out');
                         onPaymentComplete();
                     } else if (response.backendFailure) {
                         payForm.find('.payment-errors').show().html('There was an error processing your order. Please try again.');
@@ -879,6 +888,9 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
 
 var OrderCompleteManager = function(elementSelectors, order) {
     var element = $(elementSelectors.main);
+    element.find('.new-order').click(function() {
+        location.reload();
+    });
 
     this.refreshSummaryFields = function() {
         element.find('.email').text(order.billingInfo.email());
@@ -888,7 +900,7 @@ var OrderCompleteManager = function(elementSelectors, order) {
     }
 };
 
-(function() {
+function main() {
     var store = new Persist.Store('GiveCheesecakes');
 
     //store.remove('incompleteOrder');
@@ -934,6 +946,7 @@ var OrderCompleteManager = function(elementSelectors, order) {
         forceHeight: false
     });
     skrollr.menu.init(S);
+    S.setScrollTop(0);
 
     var scrollBoundaryManager = new ScrollBoundaryManager();
 
@@ -948,25 +961,38 @@ var OrderCompleteManager = function(elementSelectors, order) {
                     } else {
                         personalizeManager.displayPickedCheesecakesInfo();
                         payManager.displayOrderSummary();
+                        $('footer').addClass('out');
                     }
                 }
             })
             .registerBoundary(BOUNDARIES.PERSONALIZE_TO_PACK, function(e) {
                 //console.log(e);
-                if (e.direction === "down" && !personalizeManager.isEdited()) {
-                    return false;
+                if (e.direction === "down") {
+                    if (!personalizeManager.isEdited()) {
+                        return false;
+                    } else {
+                        $('footer').addClass('out');
+                    }
                 }
             })
             .registerBoundary(BOUNDARIES.PACK_TO_PAY, function(e) {
                 //console.log(e);
-                if (e.direction === "down" && !packManager.isValid()) {
-                    return false;
+                if (e.direction === "down") {
+                    if (!packManager.isValid()) {
+                        return false;
+                    } else {
+                        $('footer').addClass('out');
+                    }
                 }
             })
             .registerBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE, function(e) {
                 //console.log(e);
-                if (e.direction === "down" && !payManager.isPaymentComplete()) {
-                    return false;
+                if (e.direction === "down") {
+                    if (!payManager.isPaymentComplete()) {
+                        return false;
+                    } else {
+                        $('footer').addClass('out');
+                    }
                 }
             });
     }
@@ -979,4 +1005,5 @@ var OrderCompleteManager = function(elementSelectors, order) {
     });
 
     $('body').show();
-})();
+}
+main();

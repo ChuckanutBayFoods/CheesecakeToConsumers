@@ -3,6 +3,7 @@
 <head>
     <!-- Edit this later -->
     <title>givecheesecakes.com</title>
+    <meta name="viewport" content="width=1200px">
     <link rel="shortcut icon" href="../img/favicon.ico">
     <r:require modules="core"/>
     <r:layoutResources/>
@@ -79,6 +80,7 @@
                 <span class="recipient"></span> will receive the handmade cheesecakes on
                 <span class="delivery-date"></span>.
             </div>
+            <div class="btn btn-success new-order">Place Another Order</div>
         </section>
     </div>
     <div id="component-container-part1">
@@ -113,11 +115,11 @@
                     <div class="logo-container"><img src="../img/logos/chuckanutbaylogo-medium.png"/></div>
                 </div><div class="message">
                     <h1>A Gift for You!</h1>
-                    <div class="non-edit">
+                    <div class="non-edit hide">
                         <pre></pre>
                         <a class="edit-message-label right-aligned">Edit Message</a>
                     </div>
-                    <div class="edit hide">
+                    <div class="edit">
                         <textarea maxlength="350" rows="10"></textarea>
                         <span class='btn btn-success btn-save right-aligned'>Save</span>
                         <span class="max-characters-label right-aligned">350 characters max</span>
@@ -270,6 +272,10 @@
             <a class="btn" data-dismiss="modal">Close</a>
         </div>
     </div>
+    <footer class="out">
+        Scroll
+        <div class="arrow-bottom"></div>
+    </footer>
     <r:layoutResources/>
 </body>
 </html>

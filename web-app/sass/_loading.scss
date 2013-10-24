@@ -11,7 +11,7 @@ $loadingDelayPerBall: $loadingCycleTime / 14;
   background-color: $black;
 
   &.active {
-    -webkit-animation: loading $loadingCycleTime $delay infinite cubic-bezier(0.33, 0.80, 0.80, 0.33);
+    @include animation(loading $loadingCycleTime $delay infinite cubic-bezier(0.33, 0.80, 0.80, 0.33));
   }
 }
 .loading {
@@ -73,6 +73,6 @@ $loadingDelayPerBall: $loadingCycleTime / 14;
 
   100% {
     opacity: 0;
-    -webkit-transform: translateX(0);
+    @include transform(translateX(0));
   }
 }

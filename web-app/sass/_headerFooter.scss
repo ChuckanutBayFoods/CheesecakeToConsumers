@@ -45,31 +45,26 @@ header {
   }
 }
 
-/*
 footer {
   @extend .header-footer-base;
 
-  border-top: 1px solid $transparentMediumGray;
   bottom: 0;
-  width: 100%;
-  @include transition(all .25s ease);
+  left: 50%;
+  margin-left: -$headerFooterHeight/2;
+  margin-bottom: 0;
+  width: $headerFooterHeight;
   text-align: center;
-  cursor: pointer;
-  z-index: 9000;
+  padding: 6px;
+  @include css3(border-top-left-radius, 8px);
+  @include css3(border-top-right-radius, 8px);
+  border: 1px solid $transparentMediumGray;
+  border-bottom: none;
 
-  .next-prompt {
-    font-size: $large;
-    line-height: $headerFooterHeight * 3/5;
+  @include transition(margin .5s ease-out);
+
+  &.out {
+    margin-bottom: -$headerFooterHeight;
   }
 
-  .continue-prompt {
-    color: $mediumGray;
-    font-size: $tiny;
-    line-height: $headerFooterHeight * 2/5;
-  }
 
-  &.slide-down {
-    bottom: -$headerFooterHeight;
-  }
 }
-*/
