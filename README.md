@@ -20,6 +20,15 @@ You can then hit the site at https://localhost:8080/ or https://localhost:8443/ 
 
 For HTTPS you'll get some security exceptions because of a self-signed certificate.  It is ok to accept these/ignore the warnings.
 
+# Deploying to CloudFront
+
+* Follow the *AWS Credentials File Setup* instructions in https://github.com/kenliu/grails-elastic-beanstalk
+* Run the following:
+```bash
+grails war
+grails aws-eb-deploy
+```
+
 # Markdown Info
 
 * http://www.winterwell.com/software/markdown-editor.php
