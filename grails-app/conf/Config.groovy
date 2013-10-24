@@ -49,6 +49,8 @@ grails.resources.processing.enabled = true
 // http://grails-plugins.github.io/grails-resources/ref/Mappers/baseurl.html
 String baseurlDefault = System.getProperty("grails.resources.mappers.baseurl.default");
 if (baseurlDefault) {
+	println("Performing basurl mapping with prefix ${baseurlDefault}")
+	grails.resources.mappers.baseurl.enabled = true
 	grails.resources.mappers.baseurl.default = baseurlDefault
 }
 
