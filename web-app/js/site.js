@@ -168,13 +168,14 @@ var Order = function() {
     }
     this.cheesecakes = new Cheesecakes();
 
-    this.giftMessage =
-'My dearest,\n\
-\n\
-I hope you enjoy this all natural delicious dessert.\n\
-\n\
-Love,\n\
-Your secret admirer';
+    this.giftMessage = [
+        'Grandma Jane,'
+        ''
+        'Happy 83rd brithday!  Thank you for another year of fun, joy, and love.  We hope you enjoy this all natural delicious dessert!'
+        ''
+        'With much love,'
+        'Jim and Jill'
+    ].join('\n');
 
     var Label = function() {
         this.name        = function(name) { return Utils.getSetProp('_name', name, this) };
