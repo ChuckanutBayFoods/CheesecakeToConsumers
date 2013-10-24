@@ -169,11 +169,11 @@ var Order = function() {
     this.cheesecakes = new Cheesecakes();
 
     this.giftMessage = [
-        'Grandma Jane,'
-        ''
-        'Happy 83rd brithday!  Thank you for another year of fun, joy, and love.  We hope you enjoy this all natural delicious dessert!'
-        ''
-        'With much love,'
+        'Grandma Jane,',
+        '',
+        'Happy 83rd birthday!  Thank you for another year of fun, joy, and love.  We hope you enjoy this all natural delicious dessert!',
+        '',
+        'With much love,',
         'Jim and Jill'
     ].join('\n');
 
