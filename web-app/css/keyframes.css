@@ -3,7 +3,8 @@
 
 @-skrollr-keyframes navPickText {
   -100p {
-    cursor: default; }
+    cursor: default; 
+ }
 
   0p {
     cursor: pointer;

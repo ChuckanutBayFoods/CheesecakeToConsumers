@@ -11,6 +11,12 @@ grails.project.source.level = 1.6
 //   run: [maxMemory:1024, minMemory:64, debug:false, maxPerm:256]
 //]
 
+// Not using the cors plugin as adding the CORS headers via Apach.  See web-app/.ebextensions
+// Use a local installation of cors that sets the Filter mapping ahead of the Resrouce filters.
+// This way the CORS-related filters will get set.
+// http://stackoverflow.com/questions/4435611/how-to-install-grails-plugin-from-source-code
+//grails.plugin.location.cors = 'plugins/cors'
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -52,6 +58,11 @@ grails.project.dependency.resolution = {
     plugins {
         runtime ":hibernate:$grailsVersion"
         
+		// https://github.com/davidtinker/grails-cors
+		// Currently commenting out since using a local version.
+		// If this is left in, it will trump the local version.
+		//runtime ":cors:1.1.1"
+		
         runtime ":resources:1.2.1"
 
         runtime ":zipped-resources:1.0"
@@ -73,5 +84,7 @@ grails.project.dependency.resolution = {
 		
 		// http://grails.org/plugin/quartz
 		compile ":quartz:1.0-RC13"
+		
+		
     }
 }

@@ -164,3 +164,13 @@ grails {
 // These are needed because our our Elastic Beanstalk application and environment names differ from the defauls suggested in the above URL
 grails.plugin.awsElasticBeanstalk.applicationName = 'givecheesecakes.com'
 grails.plugin.awsElasticBeanstalk.environmentName = 'givecheesecakes'
+
+// https://github.com/davidtinker/grails-cors
+// Add CORS headers for static resources.
+// Since these headers will be cached by CloudFront, we set allow-oring to be '*', rather than 'value of Origin header'
+// Not using cors plugin since headers are set by Apache.
+cors.enabled = false
+cors.url.pattern = '/static/*'
+cors.headers = [
+	'Access-Control-Allow-Origin': '*',
+]
