@@ -103,7 +103,7 @@
             <div id="gift-message">
                 <div class="info">
                     <h3>All Natural Ingredients</h3>
-                    <p>These cheesecakes were handmade in the beautiful pacific northwest by Chuckanut Bay Foods.</p>
+                    <p>These cheesecakes were handmade in the beautiful Pacific Northwest by Chuckanut Bay Foods.</p>
                     <p>Here is more info about the cheesecakes you have been given:</p>
                     <div class="flavor-info-container"></div>
                     <div class="logo-container"><img src="../img/logos/chuckanutbaylogo-medium.png"/></div>

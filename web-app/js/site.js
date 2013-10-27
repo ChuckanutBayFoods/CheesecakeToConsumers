@@ -174,7 +174,7 @@ var Order = function() {
         'Happy 83rd birthday!  Thank you for another year of fun, joy, and love.  We hope you enjoy this all natural delicious dessert!',
         '',
         'With much love,',
-        'Jim and Jill'
+        'Jack and Jill'
     ].join('\n');
 
     var Label = function() {
