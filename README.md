@@ -29,6 +29,26 @@ grails war
 grails aws-eb-deploy
 ```
 
+# Debugging
+
+Add ?_debugResources=y to the URL
+
+# SSHing into the EC2 instance
+
+* Find the current running EC2 instance's public DNS
+* Ensure you have access to the Dropbox folder with the "EC2KeyPairs"
+* You made to do 
+
+```bash
+chmod 400 passToDotPem file.
+```
+
+* ssh
+
+```bash
+ssh ec2-user@ec2-54-211-192-108.compute-1.amazonaws.com -i ~/Dropbox/givecheesecakes.com/EC2KeyPairs/givecheesecakescom2.pem
+```
+
 # Markdown Info
 
 * http://www.winterwell.com/software/markdown-editor.php
