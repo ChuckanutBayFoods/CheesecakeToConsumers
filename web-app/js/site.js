@@ -183,7 +183,9 @@ var Order = function() {
         this.address     = function(address) { return Utils.getSetProp('_address', address, this) };
         this.address2    = function(address2) { return Utils.getSetProp('_address2', address2, this) };
         this.city        = function(city) { return Utils.getSetProp('_city', city, this) };
-        this.state       = function(state) { return Utils.getSetProp('_state', state, this) };
+        this.state       = function(state) { 
+            return Utils.getSetProp('_state', (state || '').toUpperCase(), this);
+        };
         this.zip         = function(zip) { return Utils.getSetProp('_zip', zip, this) };
         this.deliverdate = function(deliverdate) { return Utils.getSetProp('_deliverdate', deliverdate, this) };
 
@@ -767,9 +769,9 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
                         stripeToken: order.billingInfo.stripeToken(),
                         recipient: {
                             name: order.label.name(),
-                            companyName: order.label.company() || ' ',
+                            companyName: order.label.company(),
                             addressLine1: order.label.address(),
-                            addressLine2: order.label.address2() || ' ',
+                            addressLine2: order.label.address2(),
                             city: order.label.city(),
                             state: order.label.state(),
                             zipCode: order.label.zip(),
