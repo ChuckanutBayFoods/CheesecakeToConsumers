@@ -53,11 +53,41 @@ var Urls = {
 }
 
 var BOUNDARIES = {
-    PICK_TO_PERSONALIZE: {name: 'PICK_TO_PERSONALIZE', position: function() { return Utils.getSectionHeight() * 1 - 2 * Utils.getViewportHeight() + $('header').height(); } },
-    PERSONALIZE_TO_PACK: {name: 'PERSONALIZE_TO_PACK', position: function() { return Utils.getSectionHeight() * 2 - 2 * Utils.getViewportHeight(); } },
-    PACK_TO_PAY: {name: 'PACK_TO_PAY', position: function() { return Utils.getSectionHeight() * 3 - 2 * Utils.getViewportHeight(); } },
-    PAY_TO_ORDER_COMPLETE: {name: 'PAY_TO_ORDER_COMPLETE', position: function() { return Utils.getSectionHeight() * 4 - 2 * Utils.getViewportHeight(); } },
-    END: {name: 'END', position: function() { return Utils.getSectionHeight() * 5 - 2 * Utils.getViewportHeight(); } }
+    PICK_TO_PERSONALIZE: {
+        name: 'PICK_TO_PERSONALIZE',
+        friendlyName: 'pick',
+        position: function() {
+            return Utils.getSectionHeight() * 1 - 2 * Utils.getViewportHeight() + $('header').height();
+        }
+    },
+    PERSONALIZE_TO_PACK: {
+        name: 'PERSONALIZE_TO_PACK',
+        friendlyName: 'personalize',
+        position: function() {
+            return Utils.getSectionHeight() * 2 - 2 * Utils.getViewportHeight();
+        }
+    },
+    PACK_TO_PAY: {
+        name: 'PACK_TO_PAY',
+        friendlyName: 'pack',
+        position: function() {
+            return Utils.getSectionHeight() * 3 - 2 * Utils.getViewportHeight();
+        }
+    },
+    PAY_TO_ORDER_COMPLETE: {
+        name: 'PAY_TO_ORDER_COMPLETE',
+        friendlyName: 'pay',
+        position: function() {
+            return Utils.getSectionHeight() * 4 - 2 * Utils.getViewportHeight();
+        }
+    },
+    END: {
+        name: 'END',
+        friendlyName: 'orderComplete',
+        position: function() {
+            return Utils.getSectionHeight() * 5 - 2 * Utils.getViewportHeight();
+        }
+    }
 }
 
 // Should not be called until S has been initialized.
@@ -73,7 +103,7 @@ var ScrollBoundaryManager = function() {
         for(var i = 0; i < boundaries.length; i++) {
             var boundary = boundaries[i];
             if ((e.curTop > boundary.position && e.lastTop <= boundary.position) // Crossing down over the boundary
-                || (e.curTop < boundary.position && e.lastTop >= boundary.position)) { // Crossing up over the boundary
+                || (e.curTop <= boundary.position && e.lastTop > boundary.position)) { // Crossing up over the boundary
                 if(boundary.handler(e) === false) { // handler function called, the boundary should not be crossed
                     S.setScrollTop(boundary.position, false);
                     return false;
@@ -183,9 +213,7 @@ var Order = function() {
         this.address     = function(address) { return Utils.getSetProp('_address', address, this) };
         this.address2    = function(address2) { return Utils.getSetProp('_address2', address2, this) };
         this.city        = function(city) { return Utils.getSetProp('_city', city, this) };
-        this.state       = function(state) { 
-            return Utils.getSetProp('_state', (state || '').toUpperCase(), this);
-        };
+        this.state       = function(state) { return Utils.getSetProp('_state', (state || '').toUpperCase(), this); };
         this.zip         = function(zip) { return Utils.getSetProp('_zip', zip, this) };
         this.deliverdate = function(deliverdate) { return Utils.getSetProp('_deliverdate', deliverdate, this) };
 
@@ -306,7 +334,7 @@ var FlavorManager = function() {
 // #selected-cheesecake-btns .btn-add
 //'#more-info'
 //'.btn-show-nutrition-label'
-var PickManager = function(elementSelectors, order) {
+var PickManager = function(elementSelectors, order, onPickComplete) {
     var flavorCarousel;
     var flavorManager = new FlavorManager().loadFlavors(function(flavors) {
         flavorCarousel = new FlavorCarousel({
@@ -367,7 +395,7 @@ var PickManager = function(elementSelectors, order) {
     function displayCheesecake(cheesecakeNumber, flavor) {
         if (order.cheesecakes.openSlots() == 0) {
             $(elementSelectors.addButton).addClass('disabled');
-            $('footer').removeClass('out');
+            onPickComplete();
         }
 
         var parentContainer;
@@ -485,13 +513,13 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
     }).sly('on', 'change', $.proxy(this.preloadSelectedBareImage, this));
 };
 
-var PersonalizeManager = function(elementSelectors, order) {
+var PersonalizeManager = function(elementSelectors, order, onPersonalizeComplete) {
     var mainElement = $(elementSelectors.main);
     mainElement.find('.edit-message-label').click($.proxy(function() { this.makeEditable(true) }, this));
     mainElement.find('.btn-save').click($.proxy(function() {
         this.makeEditable(false);
         isEdited = true;
-        $('footer').removeClass('out');
+        onPersonalizeComplete();
     }, this));
     mainElement.find('textarea').text(order.giftMessage);
     var isEdited = false;
@@ -527,8 +555,8 @@ var PersonalizeManager = function(elementSelectors, order) {
         mainElement.find('.edit').toggleClass('hide', !editable);
     }
 };
-// #label form
-var PackManager = function(elementSelectors, order) {
+
+var PackManager = function(elementSelectors, order, onPackComplete) {
     var form = $(elementSelectors.main);
     var isValid = false;
     var datePicker = new DatePicker($('#datepicker'));
@@ -551,7 +579,7 @@ var PackManager = function(elementSelectors, order) {
 
     jQuery.validator.addMethod("packArrivalDate", function() {
         // This is the format expected by the back-end.
-        order.label.deliverdate(moment(datePicker.getValue()).format('YYYYMMDD'));
+        order.label.deliverdate(datePicker.getValue());
         return datePicker.validArrivalDate();
     }, "Select a valid arrival date.");
 
@@ -593,7 +621,7 @@ var PackManager = function(elementSelectors, order) {
     form.validate({
         submitHandler: $.proxy(function(e) {
             isValid = true;
-            $('footer').removeClass('out');
+            onPackComplete();
             this.makeEditable(false);
         }, this),
         showErrors: function(errorMap, errorList) {
@@ -653,7 +681,7 @@ var PackManager = function(elementSelectors, order) {
                     (order.label.address2() ? order.label.address2() + '\n' : '') +
                     order.label.city() + ' ' + order.label.state() + ' ' + order.label.zip();
             form.find('.ship-to').text(addressString);
-            form.find('.deliver-date').text(order.label.deliverdate());
+            form.find('.deliver-date').text(moment(order.label.deliverdate()).format('YYYYMMDD'));
         }
         form.find('.ship-to, .deliver-date, .edit').toggle(!editable);
         form.find('input, label, button').toggle(editable);
@@ -789,7 +817,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
                             });
                             return saleItems;
                         })(),
-                        arrivalDate: order.label.deliverdate(),
+                        arrivalDate: moment(order.label.deliverdate()).format('YYYYMMDD'),
                         giftMessage: order.giftMessage,
                         giver: {
                             emailAddress: order.billingInfo.email(),
@@ -807,7 +835,6 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
                     $(form['submit-button']).removeAttr('disabled');
                     if (response.paid) {
                         isPaymentComplete = true;
-                        $('footer').removeClass('out');
                         onPaymentComplete();
                     } else if (response.backendFailure) {
                         payForm.find('.payment-errors').show().html('There was an error processing your order. Please try again.');
@@ -915,15 +942,21 @@ function main() {
         showNutritionLabelButton: '.btn-show-nutrition-label',
         tray1: '#tray1',
         tray2: '#tray2'
-    }, order);
+    }, order, function() {
+        S.animateTo(BOUNDARIES.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
+    });
 
     var personalizeManager = new PersonalizeManager({
         main: '#gift-message'
-    }, order);
+    }, order, function() {
+        S.animateTo(BOUNDARIES.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
+    });
 
     var packManager = new PackManager({
         main: '#label form'
-    }, order);
+    }, order, function() {
+        S.animateTo(BOUNDARIES.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
+    });
 
     var payManager = new PayManager({
         payForm: '#checkout-window form',
@@ -934,6 +967,7 @@ function main() {
         personalizeManager.disable();
         packManager.disable();
         payManager.disable();
+        S.animateTo(BOUNDARIES.END.position(), {duration: 3000, easing: 'swing'});
     });
 
     var orderCompleteManager = new OrderCompleteManager({
@@ -949,6 +983,7 @@ function main() {
 
     var scrollBoundaryManager = new ScrollBoundaryManager();
 
+
     function registerBoundaries() {
         scrollBoundaryManager
             .unregisterAllBoundaries()
@@ -958,9 +993,11 @@ function main() {
                     if (!order.cheesecakes.isFull()) {
                         return false;
                     } else {
+                        pushBoundary(BOUNDARIES.PICK_TO_PERSONALIZE );
                         personalizeManager.displayPickedCheesecakesInfo();
-                        $('footer').addClass('out');
                     }
+                } else {
+                    pushBoundary(BOUNDARIES.PICK_TO_PERSONALIZE );
                 }
             })
             .registerBoundary(BOUNDARIES.PERSONALIZE_TO_PACK, function(e) {
@@ -969,8 +1006,10 @@ function main() {
                     if (!personalizeManager.isEdited()) {
                         return false;
                     } else {
-                        $('footer').addClass('out');
+                        pushBoundary(BOUNDARIES.PERSONALIZE_TO_PACK);
                     }
+                } else {
+                    pushBoundary(BOUNDARIES.PERSONALIZE_TO_PACK);
                 }
             })
             .registerBoundary(BOUNDARIES.PACK_TO_PAY, function(e) {
@@ -979,9 +1018,11 @@ function main() {
                     if (!packManager.isValid()) {
                         return false;
                     } else {
-                        $('footer').addClass('out');
+                        pushBoundary(BOUNDARIES.PACK_TO_PAY);
                         payManager.displayOrderSummary();
                     }
+                } else {
+                    pushBoundary(BOUNDARIES.PACK_TO_PAY);
                 }
             })
             .registerBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE, function(e) {
@@ -990,9 +1031,11 @@ function main() {
                     if (!payManager.isPaymentComplete()) {
                         return false;
                     } else {
-                        $('footer').addClass('out');
+                        pushBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE);
                         orderCompleteManager.refreshSummaryFields();
                     }
+                } else {
+                   pushBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE);
                 }
             });
     }
@@ -1005,5 +1048,9 @@ function main() {
     });
 
     $('body').show();
+
+    function pushBoundary(boundary) {
+        history.pushState(null, null, '#' + boundary.friendlyName);
+    }
 }
 main();

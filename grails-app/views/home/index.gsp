@@ -3,7 +3,7 @@
 <head>
     <!-- Edit this later -->
     <title>givecheesecakes.com</title>
-    <meta name="viewport" content="width=1200px">
+    <meta name="viewport" content="width=1200">
     <link rel="shortcut icon" href="../img/favicon.ico">
     <r:require modules="core"/>
     <r:layoutResources/>
