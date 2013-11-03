@@ -42,7 +42,7 @@ grails.mime.types = [
 grails.resources.processing.enabled = true
 // What URL patterns should be processed by the resources plugin
 // Disabling this so that only resources in StaticResources.groovy are touched
-// grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+grails.resources.adhoc.patterns = ['/images/*', '/img/*']
 
 // Have CloudFront front the static resources from this site.
 // This is only expected to be setup and enabled in production.

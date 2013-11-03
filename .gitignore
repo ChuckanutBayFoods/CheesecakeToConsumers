@@ -1,8 +1,10 @@
 /.idea
-web-app/css/site.css
 *.min.css
 *.min.js
+/plugins
 /target
 /target-eclipse
 /.README.md.html
 /var
+/web-app/css/externalDownloads
+/web-app/js/externalDownloads
