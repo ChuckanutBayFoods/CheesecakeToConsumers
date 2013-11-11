@@ -10,15 +10,49 @@ export GRAILS_HOME=/Applications/springsource/grails-2.2.4
 export PATH="$PATH:$GRAILS_HOME/bin"
 ```
 
-* Assuming you are in the "CheesecakeToConsumers" directory, you can then run:
+## Setup for Compass/Sass
+
+* Install Homebrew
+```bash
+# Per http://brew.sh/
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+```
+* Install JRuby
+```bash
+brew install jruby
+```
+
+* Install Compass
+```bash
+jruby -S gem update --system
+jruby -S gem install compass
+```
+
+# Running the application 
+
+## Command Line
+Assuming you are in the "CheesecakeToConsumers" directory, you can then run:
 
 ```bash
 grails run-app -https
 ```
 
+You may also want to append:
+
+```bash
+-DJDBC_CONNECTION_STRING=VALUE -DJDBC_USERNAME=VALUE -DJDBC_PASSWORD=VALUE -DuseProdDb=true -DMAIL_USERNAME=VALUE -DMAIL_PASSWORD=VALUE
+```
+
 You can then hit the site at https://localhost:8080/ or https://localhost:8443/ .
 
 For HTTPS you'll get some security exceptions because of a self-signed certificate.  It is ok to accept these/ignore the warnings.
+
+## Groovy and Grails Tool Suite (GGTS)
+Be sure to launch GGTS using the "GGTS" symlink instead of the GGTS.app.  
+
+For example, launch /Applications/springsource/ggts-3.4.0.RELEASE/GGTS not /Applications/springsource/ggts-3.4.0.RELEASE/GGTS.app
+
+If you don't, then jruby won't be on your PATH.
 
 # Deploying to CloudFront
 

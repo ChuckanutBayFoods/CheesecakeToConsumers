@@ -1,6 +1,5 @@
 /.idea
-*.min.css
-*.min.js
+.sass-cache
 /plugins
 /target
 /target-eclipse

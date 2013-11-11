@@ -85,6 +85,8 @@ grails.project.dependency.resolution = {
 		// http://grails.org/plugin/quartz
 		compile ":quartz:1.0-RC13"
 		
+		// https://github.com/dpcasady/compass-sass
+		compile ":compass-sass:0.7"
 		
     }
 }
