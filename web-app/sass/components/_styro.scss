@@ -1,3 +1,6 @@
+@import "styro/*.png";
+@include all-styro-sprites;
+
 #styro-container {
   position: absolute;
   top: 0;
@@ -12,26 +15,32 @@
 
     &.base {
       @include threeDimensional(100);
+      @include sprite-dimensions($styro-sprites, base);
     }
 
     &.back {
       @include threeDimensional(200);
+      @include sprite-dimensions($styro-sprites, back);
     }
 
     &.right {
       @include threeDimensional(300);
+      @include sprite-dimensions($styro-sprites, right);
     }
 
     &.left {
       @include threeDimensional(3100);
+      @include sprite-dimensions($styro-sprites, left);
     }
 
     &.front {
       @include threeDimensional(3200);
+      @include sprite-dimensions($styro-sprites, front);
     }
 
     &.top {
       @include threeDimensional(3300);
+      @include sprite-dimensions($styro-sprites, top);
     }
 
     &.styro-label {

@@ -92,13 +92,13 @@
                 <img class="tray-part" src="../img/tray/tray.png"/>
             </div>
             <div id="styro-container">
-                <img class="styro front" src="../img/styro/front.png">
+                <div class="styro front styro-front"></div>
                 <p class="styro front styro-label">Keep Refrigerated</p>
-                <img class="styro left" src="../img/styro/left.png">
-                <img class="styro top" src="../img/styro/top.png">
-                <img class="styro back" src="../img/styro/back.png">
-                <img class="styro right" src="../img/styro/right.png">
-                <img class="styro base" src="../img/styro/base.png">
+                <div class="styro left styro-left"></div>
+                <div class="styro top styro-top"></div>
+                <div class="styro back styro-back"></div>
+                <div class="styro right styro-right"></div>
+                <div class="styro base styro-base"></div>
             </div>
             <div id="gift-message">
                 <div class="info">
