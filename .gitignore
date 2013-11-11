@@ -6,4 +6,6 @@
 /.README.md.html
 /var
 /web-app/css/externalDownloads
+/web-app/css/keyframes.css
+/web-app/css/site.css
 /web-app/js/externalDownloads
