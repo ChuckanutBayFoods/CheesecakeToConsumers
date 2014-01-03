@@ -99,6 +99,10 @@ modules = {
 
 		// Our own lovely js
 		resource url: "js/site.js"
+		
+		// Our Google Analytics tracking code
+		// https://www.google.com/analytics/web/#management/Settings/a46807185w77934287p80581653/%3Fm.page%3DTrackingCode/
+		resource url: "js/googleAnalytics.js"
 	}
 }
 
