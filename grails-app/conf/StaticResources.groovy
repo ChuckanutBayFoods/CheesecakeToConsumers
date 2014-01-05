@@ -34,7 +34,21 @@ modules = {
 			"js", getUrl(
 				"http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js", 
 				"http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"))
-
+		
+		// underscore.js - Utility-belt library for JavaScript.  Necessary for bootstrap.js.
+		// http://underscorejs.org/
+		resource url: cacheAndGetLocalUrl(
+			"js", getUrl(
+				"http://github.com/jashkenas/underscore/raw/1.5.2/underscore-min.js",
+				"http://github.com/jashkenas/underscore/raw/1.5.2/underscore.js"))
+		
+		// backbone.js - WebApp structuring library that is very flexible.
+		// http://backbonejs.org/
+		resource url: cacheAndGetLocalUrl(
+			"js", getUrl(
+				"http://github.com/jashkenas/backbone/raw/1.1.0/backbone-min.js",
+				"http://github.com/jashkenas/backbone/raw/1.1.0/backbone.js"))
+		
 		// moment.js - For date processing and formatting
 		// http://momentjs.com/
 		resource url: cacheAndGetLocalUrl(
