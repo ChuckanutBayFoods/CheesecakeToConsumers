@@ -38,6 +38,8 @@ var Utils = {
 };
 
 // Update viewport functions on resize;
+// TODO: Add comment for why this needs to be wrapped in a function.
+// Steve isn't sure it does.
 (function() {
     $(window).resize(function(e) {
         Utils._previousViewportHeight = Utils._viewportHeight;
@@ -102,11 +104,12 @@ var ScrollBoundaryManager = function() {
     S.on('beforerender', function(e) {
 
         // Call the handler function of every boundary that is about to be crossed
-        for(var i = 0; i < boundaries.length; i++) {
+        // TODO: convert to foreach
+        for (var i = 0; i < boundaries.length; i++) {
             var boundary = boundaries[i];
             if ((e.curTop > boundary.position && e.lastTop <= boundary.position) // Crossing down over the boundary
                 || (e.curTop <= boundary.position && e.lastTop > boundary.position)) { // Crossing up over the boundary
-                if(boundary.handler(e) === false) { // handler function called, the boundary should not be crossed
+                if (!!boundary.handler(e)) { // handler function called, the boundary should not be crossed
                     S.setScrollTop(boundary.position, false);
                     return false;
                 };
@@ -1031,7 +1034,7 @@ function main() {
                 createOnBoundaryHandler(
                     BOUNDARIES.PICK_TO_PERSONALIZE, 
                     function() {
-                        order.cheesecakes.isFull();
+                        return order.cheesecakes.isFull();
                     },
                     function() {
                         personalizeManager.displayPickedCheesecakesInfo();
@@ -1043,7 +1046,7 @@ function main() {
                 createOnBoundaryHandler(
                     BOUNDARIES.PERSONALIZE_TO_PACK, 
                     function() {
-                        personalizeManager.isEdited();
+                        return personalizeManager.isEdited();
                     }
                 )
             )
@@ -1052,7 +1055,7 @@ function main() {
                 createOnBoundaryHandler(
                     BOUNDARIES.PACK_TO_PAY, 
                     function() {
-                        packManager.isValid();
+                        return packManager.isValid();
                     },
                     function() {
                         payManager.displayOrderSummary();
@@ -1064,7 +1067,7 @@ function main() {
                 createOnBoundaryHandler(
                     BOUNDARIES.PAY_TO_ORDER_COMPLETE, 
                     function() {
-                        payManager.isPaymentComplete();
+                        return payManager.isPaymentComplete();
                     },
                     function() {
                         orderCompleteManager.refreshSummaryFields();
