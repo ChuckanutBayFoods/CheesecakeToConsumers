@@ -93,10 +93,6 @@ modules = {
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/dist/skrollr.stylesheets.min.js",
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/src/skrollr.stylesheets.js"))
 
-        // persist.js - For browser storage
-		// TODO: strip this out
-        resource url: "js/persist.js"
-
 		// Our own lovely js
 		resource url: "js/site.js"
 		

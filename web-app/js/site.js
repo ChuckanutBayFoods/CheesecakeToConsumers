@@ -4,7 +4,9 @@ var S;
 // Utility functions
 var Utils = {
 
-    // Returns true if unning on a mobile device
+    // Returns true if running on a mobile device
+    // TODO: this function should be memoized.
+    // Is there a library we can use to answer this?
     isMobile: function() {
         if (this._isMobile === undefined) {
             this._isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
@@ -138,6 +140,7 @@ var Order = function() {
     var Cheesecakes = function() {
         var cheesecakeSlots = [];
 
+        // TODO: add comments
         this.getUnique = function() {
             var idMap = {};
             return $.grep(cheesecakeSlots, function(v, i) {
@@ -866,6 +869,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
     var year = new Date().getFullYear();
     var month = new Date().getMonth() + 1;
     for (var i = 0; i < 12; i++) {
+        // TODO: use http://jqueryvalidation.org/jQuery.validator.format/
         $(".card-expiry-year").append($("<option value='"+(i + year)+"' "+(i === 0 ? "selected" : "")+">"+(i + year)+"</option>"));
         $(".card-expiry-month").append($("<option value='"+ (i + 1) +"' "+(month === i + 1 ? "selected" : "")+">"+ (i + 1) +"</option>"));
     }
@@ -928,51 +932,66 @@ var OrderCompleteManager = function(elementSelectors, order) {
 };
 
 function main() {
-    var store = new Persist.Store('GiveCheesecakes');
+    var order = new Order();
 
-    store.remove('incompleteOrder'); // Remove this line to activate local storage
-    var order = new Order().parse(store.get('incompleteOrder'));
-    console.log(order);
+    var pickManager = new PickManager(
+        {
+            carousel: '#flavor-carousel',
+            moreInfoButton: '#selected-cheesecake-btns .btn-more-info',
+            addButton: '#selected-cheesecake-btns .btn-add',
+            moreInfo: '#more-info',
+            showNutritionLabelButton: '.btn-show-nutrition-label',
+            tray1: '#tray1',
+            tray2: '#tray2'
+        }, 
+        order, 
+        function() {
+            S.animateTo(BOUNDARIES.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
+        }
+    );
 
-    var pickManager = new PickManager({
-        carousel: '#flavor-carousel',
-        moreInfoButton: '#selected-cheesecake-btns .btn-more-info',
-        addButton: '#selected-cheesecake-btns .btn-add',
-        moreInfo: '#more-info',
-        showNutritionLabelButton: '.btn-show-nutrition-label',
-        tray1: '#tray1',
-        tray2: '#tray2'
-    }, order, function() {
-        S.animateTo(BOUNDARIES.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
-    });
+    var personalizeManager = new PersonalizeManager(
+        {
+            main: '#gift-message'
+        }, 
+        order, 
+        function() {
+            S.animateTo(BOUNDARIES.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
+        }
+    );
 
-    var personalizeManager = new PersonalizeManager({
-        main: '#gift-message'
-    }, order, function() {
-        S.animateTo(BOUNDARIES.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
-    });
+    var packManager = new PackManager(
+        {
+            main: '#label form'
+        }, 
+        order, 
+        function() {
+            S.animateTo(BOUNDARIES.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
+        }
+    );
 
-    var packManager = new PackManager({
-        main: '#label form'
-    }, order, function() {
-        S.animateTo(BOUNDARIES.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
-    });
+    var payManager = new PayManager(
+        {
+            payForm: '#checkout-window form',
+            checkoutWindow: '#checkout-window'
+        }, 
+        order, 
+        function() {
+            store.remove('incompleteOrder');
+            pickManager.disable();
+            personalizeManager.disable();
+            packManager.disable();
+            payManager.disable();
+            S.animateTo(BOUNDARIES.END.position(), {duration: 3000, easing: 'swing'});
+        }
+    );
 
-    var payManager = new PayManager({
-        payForm: '#checkout-window form',
-        checkoutWindow: '#checkout-window'
-    }, order, function() {
-        store.remove('incompleteOrder');
-        pickManager.disable();
-        personalizeManager.disable();
-        packManager.disable();
-        payManager.disable();
-        S.animateTo(BOUNDARIES.END.position(), {duration: 3000, easing: 'swing'});
-    });
-
-    var orderCompleteManager = new OrderCompleteManager({
-        main: '#order-complete'
-    }, order);
+    var orderCompleteManager = new OrderCompleteManager(
+        {
+            main: '#order-complete'
+        }, 
+        order
+    );
 
     S = skrollr.init({
         constants: {},
@@ -983,69 +1002,85 @@ function main() {
 
     var scrollBoundaryManager = new ScrollBoundaryManager();
 
-
+    /**
+     * Create an onBoundary handler for the ScrollBoundaryManager.
+     * @param  {Object} boundary
+     * @param  {Function} allowDownwardScrollPredicate function that should return true if we're allowed to progress past this boundary.
+     * @param  {Function} successfulDownFn function to invoke if successfully advanced past the boundary.
+     * @return {Function}
+     */
+    function createOnBoundaryHandler(boundary, allowDownwardScrollPredicate, successfulDownFn) {
+        return function(e) {
+            //console.log(e);
+            if (e.direction === "up") {
+                pushBoundary(boundary);
+                return;
+            }
+            if (!allowDownwardScrollPredicate()) {
+                return false;
+            }
+            pushBoundary(boundary);
+            (successfulDownFn || $.noop).call();
+        }
+    }
     function registerBoundaries() {
         scrollBoundaryManager
             .unregisterAllBoundaries()
-            .registerBoundary(BOUNDARIES.PICK_TO_PERSONALIZE, function(e) {
-                //console.log(e);
-                if (e.direction === "down") {
-                    if (!order.cheesecakes.isFull()) {
-                        return false;
-                    } else {
-                        pushBoundary(BOUNDARIES.PICK_TO_PERSONALIZE );
+            .registerBoundary(
+                BOUNDARIES.PICK_TO_PERSONALIZE,
+                createOnBoundaryHandler(
+                    BOUNDARIES.PICK_TO_PERSONALIZE, 
+                    function() {
+                        order.cheesecakes.isFull();
+                    },
+                    function() {
                         personalizeManager.displayPickedCheesecakesInfo();
                     }
-                } else {
-                    pushBoundary(BOUNDARIES.PICK_TO_PERSONALIZE );
-                }
-            })
-            .registerBoundary(BOUNDARIES.PERSONALIZE_TO_PACK, function(e) {
-                //console.log(e);
-                if (e.direction === "down") {
-                    if (!personalizeManager.isEdited()) {
-                        return false;
-                    } else {
-                        pushBoundary(BOUNDARIES.PERSONALIZE_TO_PACK);
+                )
+            )
+            .registerBoundary(
+                BOUNDARIES.PERSONALIZE_TO_PACK,
+                createOnBoundaryHandler(
+                    BOUNDARIES.PERSONALIZE_TO_PACK, 
+                    function() {
+                        personalizeManager.isEdited();
                     }
-                } else {
-                    pushBoundary(BOUNDARIES.PERSONALIZE_TO_PACK);
-                }
-            })
-            .registerBoundary(BOUNDARIES.PACK_TO_PAY, function(e) {
-                //console.log(e);
-                if (e.direction === "down") {
-                    if (!packManager.isValid()) {
-                        return false;
-                    } else {
-                        pushBoundary(BOUNDARIES.PACK_TO_PAY);
+                )
+            )
+            .registerBoundary(
+                BOUNDARIES.PACK_TO_PAY,
+                createOnBoundaryHandler(
+                    BOUNDARIES.PACK_TO_PAY, 
+                    function() {
+                        packManager.isValid();
+                    },
+                    function() {
                         payManager.displayOrderSummary();
                     }
-                } else {
-                    pushBoundary(BOUNDARIES.PACK_TO_PAY);
-                }
-            })
-            .registerBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE, function(e) {
-                //console.log(e);
-                if (e.direction === "down") {
-                    if (!payManager.isPaymentComplete()) {
-                        return false;
-                    } else {
-                        pushBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE);
+                )
+            )
+            .registerBoundary(
+                BOUNDARIES.PAY_TO_ORDER_COMPLETE,
+                createOnBoundaryHandler(
+                    BOUNDARIES.PAY_TO_ORDER_COMPLETE, 
+                    function() {
+                        payManager.isPaymentComplete();
+                    },
+                    function() {
                         orderCompleteManager.refreshSummaryFields();
                     }
-                } else {
-                   pushBoundary(BOUNDARIES.PAY_TO_ORDER_COMPLETE);
-                }
-            });
+                )
+            );
     }
     registerBoundaries();
 
-    $(window).resize(function(e) {
-        registerBoundaries();
-    }).unload(function() {
-        !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
-    });
+    $(window)
+        .resize(function(e) {
+            registerBoundaries();
+        })
+        .unload(function() {
+            !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
+        });
 
     $('body').show();
 
