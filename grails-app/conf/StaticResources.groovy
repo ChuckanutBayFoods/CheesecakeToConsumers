@@ -108,7 +108,19 @@ modules = {
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/src/skrollr.stylesheets.js"))
 
 		// Our own lovely js
-		resource url: "js/site.js"
+		resource url: "js/Utils.js"
+		resource url: "js/Constants.js"
+		resource url: "js/ScrollBoundaryManager.js"
+		resource url: "js/Order.js"
+		resource url: "js/FlavorManager.js"
+		resource url: "js/PickManager.js"
+		resource url: "js/FlavorCarousel.js"
+		resource url: "js/PersonalizeManager.js"
+		resource url: "js/PackManager.js"
+		resource url: "js/DatePicker.js"
+		resource url: "js/PayManager.js"
+		resource url: "js/OrderCompleteManager.js"
+		resource url: "js/main.js"
 		
 		// Our Google Analytics tracking code
 		// https://www.google.com/analytics/web/#management/Settings/a46807185w77934287p80581653/%3Fm.page%3DTrackingCode/
