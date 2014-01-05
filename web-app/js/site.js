@@ -1,8 +1,5 @@
-//skrollr object
-var S;
-
 // Utility functions
-var Utils = {
+Utils = {
 
     // Returns true if running on a mobile device
     // TODO: this function should be memoized.
@@ -37,26 +34,13 @@ var Utils = {
     NUM_CHEESECAKE_SLOTS: 8
 };
 
-// Update viewport functions on resize;
-// TODO: Add comment for why this needs to be wrapped in a function.
-// Steve isn't sure it does.
-(function() {
-    $(window).resize(function(e) {
-        Utils._previousViewportHeight = Utils._viewportHeight;
-        Utils._viewportHeight = $(window).height();
-
-        // Reposition skrollr to account for size change
-        S.setScrollTop(S.getScrollTop() * Utils.getViewportHeight() / Utils.getPreviousViewportHeight(), true);
-    });
-})();
-
-var Urls = {
+Urls = {
     STRIPE_GET_PUBLISHABLE_KEY: '/stripe/getPublishableKey',
     STRIPE_CHARGE: '/stripe/charge',
     PRODUCT_GET_DUMP: '/product/getDump'
-}
+};
 
-var BOUNDARIES = {
+BOUNDARIES = {
     PICK_TO_PERSONALIZE: {
         name: 'PICK_TO_PERSONALIZE',
         friendlyName: 'pick',
@@ -92,13 +76,13 @@ var BOUNDARIES = {
             return Utils.getSectionHeight() * 5 - 2 * Utils.getViewportHeight();
         }
     }
-}
+};
 
 // Should not be called until S has been initialized.
 // Clears registered boundaries.
-var ScrollBoundaryManager = function() {
+ScrollBoundaryManager = function() {
     if (!S) {
-        throw "Initialize the skrollr object (S) first."
+        throw 'Initialize the skrollr object (S) first.';
     }
     var boundaries = [];
     S.on('beforerender', function(e) {
@@ -112,7 +96,7 @@ var ScrollBoundaryManager = function() {
                 if (!!boundary.handler(e)) { // handler function called, the boundary should not be crossed
                     S.setScrollTop(boundary.position, false);
                     return false;
-                };
+                }
             }
         }
     });
@@ -130,16 +114,16 @@ var ScrollBoundaryManager = function() {
     function getBoundaryPosition(boundary) {
         // Accounts for the fact that boundaries at positions at the bottom of the window.
         return (BOUNDARIES[boundary.name] && BOUNDARIES[boundary.name].position() || boundary - Utils.getViewportHeight());
-    };
+    }
 
     // Removes all of the boundary registrations.
     this.unregisterAllBoundaries = function() {
         boundaries = [];
         return this;
     };
-}
+};
 
-var Order = function() {
+Order = function() {
     var Cheesecakes = function() {
         var cheesecakeSlots = [];
 
@@ -175,8 +159,8 @@ var Order = function() {
         };
 
         this.isFull = function() {
-            return this.openSlots() == 0;
-        }
+            return this.openSlots() === 0;
+        };
 
         this.add = function(flavor) {
             for(var i = 0; i < Utils.NUM_CHEESECAKE_SLOTS; i++) {
@@ -200,8 +184,8 @@ var Order = function() {
                 return this;
             }
             return cheesecakeSlots;
-        }
-    }
+        };
+    };
     this.cheesecakes = new Cheesecakes();
 
     this.giftMessage = [
@@ -214,24 +198,24 @@ var Order = function() {
     ].join('\n');
 
     var Label = function() {
-        this.name        = function(name) { return Utils.getSetProp('_name', name, this) };
-        this.company     = function(company) { return Utils.getSetProp('_company', company, this) };
-        this.address     = function(address) { return Utils.getSetProp('_address', address, this) };
-        this.address2    = function(address2) { return Utils.getSetProp('_address2', address2, this) };
-        this.city        = function(city) { return Utils.getSetProp('_city', city, this) };
+        this.name        = function(name) { return Utils.getSetProp('_name', name, this); };
+        this.company     = function(company) { return Utils.getSetProp('_company', company, this); };
+        this.address     = function(address) { return Utils.getSetProp('_address', address, this); };
+        this.address2    = function(address2) { return Utils.getSetProp('_address2', address2, this); };
+        this.city        = function(city) { return Utils.getSetProp('_city', city, this); };
         this.state       = function(state) { return Utils.getSetProp('_state', (state || '').toUpperCase(), this); };
-        this.zip         = function(zip) { return Utils.getSetProp('_zip', zip, this) };
-        this.deliverdate = function(deliverdate) { return Utils.getSetProp('_deliverdate', deliverdate, this) };
+        this.zip         = function(zip) { return Utils.getSetProp('_zip', zip, this); };
+        this.deliverdate = function(deliverdate) { return Utils.getSetProp('_deliverdate', deliverdate, this); };
 
         this.all = function(data) {
             if (data) {
-                this.name(data.name)
-                this.company(data.company)
-                this.address(data.address)
-                this.address2(data.address2)
-                this.city(data.city)
-                this.state(data.state)
-                this.zip(data.zip)
+                this.name(data.name);
+                this.company(data.company);
+                this.address(data.address);
+                this.address2(data.address2);
+                this.city(data.city);
+                this.state(data.state);
+                this.zip(data.zip);
                 this.deliverdate(data.deliverdate);
                 return this;
             } else {
@@ -246,19 +230,19 @@ var Order = function() {
                     deliverdate: this.deliverdate()
                 };
             }
-        }
-    }
+        };
+    };
     this.label = new Label();
 
     var BillingInfo = function() {
-        this.name           = function(name) { return Utils.getSetProp('_name', name, this) };
-        this.email          = function(email) { return Utils.getSetProp('_email', email, this) };
-        this.stripeToken    = function(stripeToken) { return Utils.getSetProp('_stripeToken', stripeToken, this) };
+        this.name           = function(name) { return Utils.getSetProp('_name', name, this); };
+        this.email          = function(email) { return Utils.getSetProp('_email', email, this); };
+        this.stripeToken    = function(stripeToken) { return Utils.getSetProp('_stripeToken', stripeToken, this); };
 
         this.all = function(data) {
             if (data) {
-                this.name(data.name)
-                this.email(data.email)
+                this.name(data.name);
+                this.email(data.email);
                 this.stripeToken(data.stripeToken);
                 return this;
             } else {
@@ -268,8 +252,8 @@ var Order = function() {
                     stripeToken: this.stripeToken()
                 };
             }
-        }
-    }
+        };
+    };
     this.billingInfo = new BillingInfo();
 
     this.toString = function() {
@@ -279,10 +263,10 @@ var Order = function() {
             label: this.label.all(),
             billingInfo: this.billingInfo.all()
         });
-    }
+    };
 
     this.parse = function(string) {
-        if (string && string !== "undefined") {
+        if (string && string !== 'undefined') {
             order = JSON.parse(string);
             this.cheesecakes.all(order.cheesecakes);
             this.giftMessage = order.giftMessage;
@@ -290,20 +274,10 @@ var Order = function() {
             this.billingInfo.all(order.billingInfo);
         }
         return this;
-    }
-}
+    };
+};
 
-
-
-//var FaqPopover = function() {
-//    $('.questions > a').popover({
-//        placement: 'bottom',
-//        content: $('.questions-content').html(),
-//        html: true
-//    });
-//};
-
-var FlavorManager = function() {
+FlavorManager = function() {
     var flavors;
 
     this.loadFlavors = function(callback) {
@@ -340,7 +314,7 @@ var FlavorManager = function() {
 // #selected-cheesecake-btns .btn-add
 //'#more-info'
 //'.btn-show-nutrition-label'
-var PickManager = function(elementSelectors, order, onPickComplete) {
+PickManager = function(elementSelectors, order, onPickComplete) {
     var flavorCarousel;
     var flavorManager = new FlavorManager().loadFlavors(function(flavors) {
         flavorCarousel = new FlavorCarousel({
@@ -348,12 +322,12 @@ var PickManager = function(elementSelectors, order, onPickComplete) {
             leftArrow: elementSelectors.carousel + ' .arrow-left',
             rightArrow: elementSelectors.carousel + ' .arrow-right',
             hiddenImages: '#hidden-image-loading-container'
-        }, flavorManager)
+        }, flavorManager);
     });
 
     $(elementSelectors.showNutritionLabelButton).click(function() {
         $(this).hide();
-        $(elementSelectors.moreInfo).addClass('show-nutrition-label')
+        $(elementSelectors.moreInfo).addClass('show-nutrition-label');
     });
 
     $(elementSelectors.moreInfoButton).click($.proxy(function() {
@@ -368,7 +342,7 @@ var PickManager = function(elementSelectors, order, onPickComplete) {
         if (v) {
             displayCheesecake(i + 1,  v);
         }
-    })
+    });
 
     function displayMoreInfo(flavor) {
         var moreInfoWindow = $(elementSelectors.moreInfo).removeClass('show-nutrition-label').modal();
@@ -380,7 +354,7 @@ var PickManager = function(elementSelectors, order, onPickComplete) {
         moreInfoWindow.find('.allergens').text(flavor.allergens);
         moreInfoWindow.find('.nutrition-label').attr('src', flavor.nutritionLabelImageUrl);
         return this;
-    };
+    }
 
     this.disable = function() {
         $(elementSelectors.addButton).addClass('disabled');
@@ -396,10 +370,10 @@ var PickManager = function(elementSelectors, order, onPickComplete) {
         }
 
         displayCheesecake(slot + 1, flavor);
-    }
+    };
 
     function displayCheesecake(cheesecakeNumber, flavor) {
-        if (order.cheesecakes.openSlots() == 0) {
+        if (order.cheesecakes.isFull()) {
             $(elementSelectors.addButton).addClass('disabled');
             onPickComplete();
         }
@@ -448,7 +422,7 @@ var PickManager = function(elementSelectors, order, onPickComplete) {
             order.cheesecakes.remove(cheesecakeNumber - 1);
             cheesecake.popover('hide').animate({opacity: 0}, 500, function() {
                 cheesecake.remove();
-            })
+            });
             $(elementSelectors.addButton).removeClass('disabled');
             $('footer').addClass('out');
         });
@@ -462,7 +436,7 @@ var PickManager = function(elementSelectors, order, onPickComplete) {
             }
         });
         return this;
-    };
+    }
 };
 
 FlavorCarousel = function(elementSelectors, flavorManager) {
@@ -475,7 +449,7 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
 
     this.getSelectedFlavor = function() {
         return flavorManager.getFlavorById($(elementSelectors.main).find('.flavor.active').attr('data-id'));
-    }
+    };
 
     this.addFlavor = function(flavor) {
         $(elementSelectors.main).find('.scroll').append(
@@ -519,9 +493,9 @@ FlavorCarousel = function(elementSelectors, flavorManager) {
     }).sly('on', 'change', $.proxy(this.preloadSelectedBareImage, this));
 };
 
-var PersonalizeManager = function(elementSelectors, order, onPersonalizeComplete) {
+PersonalizeManager = function(elementSelectors, order, onPersonalizeComplete) {
     var mainElement = $(elementSelectors.main);
-    mainElement.find('.edit-message-label').click($.proxy(function() { this.makeEditable(true) }, this));
+    mainElement.find('.edit-message-label').click($.proxy(function() { this.makeEditable(true); }, this));
     mainElement.find('.btn-save').click($.proxy(function() {
         this.makeEditable(false);
         isEdited = true;
@@ -538,7 +512,7 @@ var PersonalizeManager = function(elementSelectors, order, onPersonalizeComplete
                 '<div class="flavor-info">' +
                     '<h5>' + v.name + '</h5>' +
                     '<div class="blurb">' + v.description + '</div>' +
-                '</div>')
+                '</div>');
         });
     };
 
@@ -559,10 +533,10 @@ var PersonalizeManager = function(elementSelectors, order, onPersonalizeComplete
         }
         mainElement.find('.non-edit').toggleClass('hide', editable);
         mainElement.find('.edit').toggleClass('hide', !editable);
-    }
+    };
 };
 
-var PackManager = function(elementSelectors, order, onPackComplete) {
+PackManager = function(elementSelectors, order, onPackComplete) {
     var form = $(elementSelectors.main);
     var isValid = false;
     var datePicker = new DatePicker($('#datepicker'));
@@ -583,46 +557,47 @@ var PackManager = function(elementSelectors, order, onPackComplete) {
     form.find('.zip').val(order.label.zip());
 
 
-    jQuery.validator.addMethod("packArrivalDate", function() {
+    jQuery.validator.addMethod('packArrivalDate', function() {
         // This is the format expected by the back-end.
         order.label.deliverdate(datePicker.getValue());
         return datePicker.validArrivalDate();
-    }, "Select a valid arrival date.");
+    }, 'Select a valid arrival date.');
 
-    jQuery.validator.addMethod("packName", function(name) {
+    var recipientPrefix = 'Enter the recipient\'s ';
+    jQuery.validator.addMethod('packName', function(name) {
         order.label.name(name);
         return name;
-    }, "Enter the recipient's name.");
+    }, recipientPrefix + 'name.');
 
-    jQuery.validator.addMethod("packCompany", function(company) {
+    jQuery.validator.addMethod('packCompany', function(company) {
         order.label.company(company);
         return true;
-    }, "Enter the recipient's company.");
+    }, recipientPrefix + 'company.');
 
-    jQuery.validator.addMethod("packAddressLine1", function(address) {
+    jQuery.validator.addMethod('packAddressLine1', function(address) {
         order.label.address(address);
         return address;
-    }, "Enter the recipient's address");
+    }, recipientPrefix + 'address');
 
-    jQuery.validator.addMethod("packAddressLine2", function(address2) {
+    jQuery.validator.addMethod('packAddressLine2', function(address2) {
         order.label.address2(address2);
         return true;
-    }, "Enter the recipient's address");
+    }, recipientPrefix + 'address');
 
-    jQuery.validator.addMethod("packCity", function(city) {
+    jQuery.validator.addMethod('packCity', function(city) {
         order.label.city(city);
         return city;
-    }, "Enter the recipient's city");
+    }, recipientPrefix + 'city');
 
-    jQuery.validator.addMethod("packState", function(state) {
+    jQuery.validator.addMethod('packState', function(state) {
         order.label.state(state);
         return (/^(A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[ANU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/).test(state.toUpperCase());
-    }, "Enter the recipient's state");
+    }, recipientPrefix + 'state');
 
-    jQuery.validator.addMethod("packZip", function(zip) {
+    jQuery.validator.addMethod('packZip', function(zip) {
         order.label.zip(zip);
         return (/^\d{5}$/).test(zip);
-    }, "Enter the recipient's zip code");
+    }, recipientPrefix + 'zip code');
 
     form.validate({
         submitHandler: $.proxy(function(e) {
@@ -639,7 +614,7 @@ var PackManager = function(elementSelectors, order, onPackComplete) {
                 isValid = false;
                 errorContainer.text(error.message);
             }
-            errorContainer.toggleClass('in', error != undefined).toggleClass('out', error == undefined);
+            errorContainer.toggleClass('in', error !== undefined).toggleClass('out', error === undefined);
         },
 
         onkeyup: false,
@@ -696,7 +671,7 @@ var PackManager = function(elementSelectors, order, onPackComplete) {
     this.isValid = function() {
         return isValid;
     };
-}
+};
 
 DatePicker = function(element) {
     this.getFirstArrivalDate = function() {
@@ -719,12 +694,12 @@ DatePicker = function(element) {
 
     this.getValue = function() {
         return element.data('datepicker').date;
-    }
+    };
 
     this.validArrivalDate = function(date) {
         date = date || this.getValue();
         return this.getFirstArrivalDate().valueOf() <= date.valueOf() && $.inArray(date.getDay(), [0, 1, 6]) == -1;
-    }
+    };
 
     element.datepicker({
         format: 'mm/dd/yyyy',
@@ -734,7 +709,7 @@ DatePicker = function(element) {
     }).data('datepicker').setValue(this.getFirstArrivalDate());
 };
 
-var PayManager = function(elementSelectors, order, onPaymentComplete) {
+PayManager = function(elementSelectors, order, onPaymentComplete) {
     var checkoutWindow = $(elementSelectors.checkoutWindow);
     var payForm = $(elementSelectors.payForm);
     var isPaymentComplete = false;
@@ -755,7 +730,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
                 '<li>' + v.quantity + 'x ' + v.name + '</li>'
             );
         });
-    },
+    };
 
     this.addInputNames = function() {
         // Not ideal, but jQuery's validate plugin requires fields to have names
@@ -764,11 +739,11 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
         payForm.find('.card-number').attr('name', 'card-number');
         payForm.find('.card-cvc').attr('name', 'card-cvc');
         payForm.find('.card-expiry-year').attr('name', 'card-expiry-year');
-    },
+    };
 
     this.removeInputNames = function() {
         payForm.find('.card-number, .card-cvc, .card-expiry-year').removeAttr('name');
-    },
+    };
 
     this.submit = function(form) {
         // remove the input field names for security
@@ -776,7 +751,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
         this.removeInputNames(); // THIS IS IMPORTANT!
 
         // given a valid form, submit the payment details to stripe
-        $(form['submit-button']).attr('disabled', 'disabled')
+        $(form['submit-button']).attr('disabled', 'disabled');
         checkoutWindow.find('.loading > *').addClass('active');
 
         Stripe.createToken({
@@ -830,7 +805,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
                             name: order.billingInfo.name()
                         }
                     }
-                }
+                };
                 $.ajax({
                     url: Urls.STRIPE_CHARGE,
                     method: 'post',
@@ -857,11 +832,11 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
         });
 
         return false;
-    }
+    };
 
     this.isPaymentComplete = function() {
         return isPaymentComplete;
-    }
+    };
 
     // Get publishable key
     $.get(Urls.STRIPE_GET_PUBLISHABLE_KEY).done(function(result) {
@@ -873,26 +848,26 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
     var month = new Date().getMonth() + 1;
     for (var i = 0; i < 12; i++) {
         // TODO: use http://jqueryvalidation.org/jQuery.validator.format/
-        $(".card-expiry-year").append($("<option value='"+(i + year)+"' "+(i === 0 ? "selected" : "")+">"+(i + year)+"</option>"));
-        $(".card-expiry-month").append($("<option value='"+ (i + 1) +"' "+(month === i + 1 ? "selected" : "")+">"+ (i + 1) +"</option>"));
+        $('.card-expiry-year').append($('<option value="'+(i + year)+'" '+(i === 0 ? 'selected' : '')+'>'+(i + year)+'</option>'));
+        $('.card-expiry-month').append($('<option value="'+ (i + 1) +'" '+(month === i + 1 ? 'selected' : '')+'>'+ (i + 1) +'</option>'));
     }
 
     // add custom rules for credit card validating
-    jQuery.validator.addMethod("billingName", function(name) {
+    jQuery.validator.addMethod('billingName', function(name) {
         order.billingInfo.name(name);
         return name;
-    }, "Enter name on credit card.");
+    }, 'Enter name on credit card.');
 
-    jQuery.validator.addMethod("billingEmail", function(email) {
+    jQuery.validator.addMethod('billingEmail', function(email) {
         order.billingInfo.email(email);
         return email;
-    }, "Enter your email.");
+    }, 'Enter your email.');
 
-    jQuery.validator.addMethod("cardNumber", Stripe.validateCardNumber, "Please enter a valid card number");
-    jQuery.validator.addMethod("cardCVC", Stripe.validateCVC, "Please enter a valid security code");
-    jQuery.validator.addMethod("cardExpiry", function() {
-        return Stripe.validateExpiry($(".card-expiry-month").val(), $(".card-expiry-year").val())
-    }, "Please enter a valid expiration");
+    jQuery.validator.addMethod('cardNumber', Stripe.validateCardNumber, 'Please enter a valid card number');
+    jQuery.validator.addMethod('cardCVC', Stripe.validateCVC, 'Please enter a valid security code');
+    jQuery.validator.addMethod('cardExpiry', function() {
+        return Stripe.validateExpiry($('.card-expiry-month').val(), $('.card-expiry-year').val());
+    }, 'Please enter a valid expiration');
 
     // We use the jQuery validate plugin to validate required params on submit
     payForm.validate({
@@ -920,7 +895,7 @@ var PayManager = function(elementSelectors, order, onPaymentComplete) {
     this.addInputNames();
 };
 
-var OrderCompleteManager = function(elementSelectors, order) {
+OrderCompleteManager = function(elementSelectors, order) {
     var element = $(elementSelectors.main);
     element.find('.new-order').click(function() {
         location.reload();
@@ -930,8 +905,7 @@ var OrderCompleteManager = function(elementSelectors, order) {
         element.find('.email').text(order.billingInfo.email());
         element.find('.recipient').text(order.label.name());
         element.find('.delivery-date').text(moment(order.label.deliverdate()).format('MMMM Do YYYY'));
-
-    }
+    };
 };
 
 function main() {
@@ -946,8 +920,8 @@ function main() {
             showNutritionLabelButton: '.btn-show-nutrition-label',
             tray1: '#tray1',
             tray2: '#tray2'
-        }, 
-        order, 
+        },
+        order,
         function() {
             S.animateTo(BOUNDARIES.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
         }
@@ -956,8 +930,8 @@ function main() {
     var personalizeManager = new PersonalizeManager(
         {
             main: '#gift-message'
-        }, 
-        order, 
+        },
+        order,
         function() {
             S.animateTo(BOUNDARIES.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
         }
@@ -966,8 +940,8 @@ function main() {
     var packManager = new PackManager(
         {
             main: '#label form'
-        }, 
-        order, 
+        },
+        order,
         function() {
             S.animateTo(BOUNDARIES.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
         }
@@ -977,8 +951,8 @@ function main() {
         {
             payForm: '#checkout-window form',
             checkoutWindow: '#checkout-window'
-        }, 
-        order, 
+        },
+        order,
         function() {
             store.remove('incompleteOrder');
             pickManager.disable();
@@ -992,7 +966,7 @@ function main() {
     var orderCompleteManager = new OrderCompleteManager(
         {
             main: '#order-complete'
-        }, 
+        },
         order
     );
 
@@ -1015,7 +989,7 @@ function main() {
     function createOnBoundaryHandler(boundary, allowDownwardScrollPredicate, successfulDownFn) {
         return function(e) {
             //console.log(e);
-            if (e.direction === "up") {
+            if (e.direction === 'up') {
                 pushBoundary(boundary);
                 return;
             }
@@ -1024,7 +998,7 @@ function main() {
             }
             pushBoundary(boundary);
             (successfulDownFn || $.noop).call();
-        }
+        };
     }
     function registerBoundaries() {
         scrollBoundaryManager
@@ -1032,7 +1006,7 @@ function main() {
             .registerBoundary(
                 BOUNDARIES.PICK_TO_PERSONALIZE,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PICK_TO_PERSONALIZE, 
+                    BOUNDARIES.PICK_TO_PERSONALIZE,
                     function() {
                         return order.cheesecakes.isFull();
                     },
@@ -1044,7 +1018,7 @@ function main() {
             .registerBoundary(
                 BOUNDARIES.PERSONALIZE_TO_PACK,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PERSONALIZE_TO_PACK, 
+                    BOUNDARIES.PERSONALIZE_TO_PACK,
                     function() {
                         return personalizeManager.isEdited();
                     }
@@ -1053,7 +1027,7 @@ function main() {
             .registerBoundary(
                 BOUNDARIES.PACK_TO_PAY,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PACK_TO_PAY, 
+                    BOUNDARIES.PACK_TO_PAY,
                     function() {
                         return packManager.isValid();
                     },
@@ -1065,7 +1039,7 @@ function main() {
             .registerBoundary(
                 BOUNDARIES.PAY_TO_ORDER_COMPLETE,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PAY_TO_ORDER_COMPLETE, 
+                    BOUNDARIES.PAY_TO_ORDER_COMPLETE,
                     function() {
                         return payManager.isPaymentComplete();
                     },
@@ -1079,10 +1053,17 @@ function main() {
 
     $(window)
         .resize(function(e) {
+            // Update viewport functions on resize;
+            Utils._previousViewportHeight = Utils._viewportHeight;
+            Utils._viewportHeight = $(window).height();
+
+            // Reposition skrollr to account for size change
+            S.setScrollTop(S.getScrollTop() * Utils.getViewportHeight() / Utils.getPreviousViewportHeight(), true);
+
             registerBoundaries();
         })
         .unload(function() {
-            !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
+            return !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
         });
 
     $('body').show();
