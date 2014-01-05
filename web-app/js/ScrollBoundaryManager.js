@@ -13,7 +13,7 @@ ScrollBoundaryManager = function() {
             var boundary = boundaries[i];
             if ((e.curTop > boundary.position && e.lastTop <= boundary.position) // Crossing down over the boundary
                 || (e.curTop <= boundary.position && e.lastTop > boundary.position)) { // Crossing up over the boundary
-                if (!!boundary.handler(e)) { // handler function called, the boundary should not be crossed
+                if (boundary.handler(e) === false) { // handler function called, the boundary should not be crossed
                     S.setScrollTop(boundary.position, false);
                     return false;
                 }
