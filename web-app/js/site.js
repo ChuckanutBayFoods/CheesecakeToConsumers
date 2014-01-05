@@ -29,51 +29,54 @@ Utils = {
     // Gets the height of the viewport prior to the most recent window resize
     getPreviousViewportHeight: function() {
         return this._previousViewportHeight;
-    },
-
-    NUM_CHEESECAKE_SLOTS: 8
+    }
 };
 
-Urls = {
-    STRIPE_GET_PUBLISHABLE_KEY: '/stripe/getPublishableKey',
-    STRIPE_CHARGE: '/stripe/charge',
-    PRODUCT_GET_DUMP: '/product/getDump'
-};
+Constants = {
 
-BOUNDARIES = {
-    PICK_TO_PERSONALIZE: {
-        name: 'PICK_TO_PERSONALIZE',
-        friendlyName: 'pick',
-        position: function() {
-            return Utils.getSectionHeight() * 1 - 2 * Utils.getViewportHeight() + $('header').height();
-        }
+    NUM_CHEESECAKE_SLOTS: 8,
+
+    Urls : {
+        STRIPE_GET_PUBLISHABLE_KEY: '/stripe/getPublishableKey',
+        STRIPE_CHARGE: '/stripe/charge',
+        PRODUCT_GET_DUMP: '/product/getDump'
     },
-    PERSONALIZE_TO_PACK: {
-        name: 'PERSONALIZE_TO_PACK',
-        friendlyName: 'personalize',
-        position: function() {
-            return Utils.getSectionHeight() * 2 - 2 * Utils.getViewportHeight();
-        }
-    },
-    PACK_TO_PAY: {
-        name: 'PACK_TO_PAY',
-        friendlyName: 'pack',
-        position: function() {
-            return Utils.getSectionHeight() * 3 - 2 * Utils.getViewportHeight();
-        }
-    },
-    PAY_TO_ORDER_COMPLETE: {
-        name: 'PAY_TO_ORDER_COMPLETE',
-        friendlyName: 'pay',
-        position: function() {
-            return Utils.getSectionHeight() * 4 - 2 * Utils.getViewportHeight();
-        }
-    },
-    END: {
-        name: 'END',
-        friendlyName: 'orderComplete',
-        position: function() {
-            return Utils.getSectionHeight() * 5 - 2 * Utils.getViewportHeight();
+    
+    Boundaries : {
+        PICK_TO_PERSONALIZE: {
+            name: 'PICK_TO_PERSONALIZE',
+            friendlyName: 'pick',
+            position: function() {
+                return Utils.getSectionHeight() * 1 - 2 * Utils.getViewportHeight() + $('header').height();
+            }
+        },
+        PERSONALIZE_TO_PACK: {
+            name: 'PERSONALIZE_TO_PACK',
+            friendlyName: 'personalize',
+            position: function() {
+                return Utils.getSectionHeight() * 2 - 2 * Utils.getViewportHeight();
+            }
+        },
+        PACK_TO_PAY: {
+            name: 'PACK_TO_PAY',
+            friendlyName: 'pack',
+            position: function() {
+                return Utils.getSectionHeight() * 3 - 2 * Utils.getViewportHeight();
+            }
+        },
+        PAY_TO_ORDER_COMPLETE: {
+            name: 'PAY_TO_ORDER_COMPLETE',
+            friendlyName: 'pay',
+            position: function() {
+                return Utils.getSectionHeight() * 4 - 2 * Utils.getViewportHeight();
+            }
+        },
+        END: {
+            name: 'END',
+            friendlyName: 'orderComplete',
+            position: function() {
+                return Utils.getSectionHeight() * 5 - 2 * Utils.getViewportHeight();
+            }
         }
     }
 };
@@ -102,7 +105,7 @@ ScrollBoundaryManager = function() {
     });
 
     // Registers a function to be called when the user scrolls to a specified location.
-    // boundary - Can be any one of BOUNDARIES or a pixel position of a boundary (at the bottom of the viewport).
+    // boundary - Can be any one of Constants.Boundaries or a pixel position of a boundary (at the bottom of the viewport).
     // onBoundary - The function to notify when the boundary is crossed. Should return false if the user should not be allowed to scroll past the boundary.
     this.registerBoundary = function(boundary, onBoundary) {
         boundaries.push({position: getBoundaryPosition(boundary), handler: onBoundary});
@@ -110,10 +113,10 @@ ScrollBoundaryManager = function() {
     };
 
     // Gets the position of the top of the viewport in pixels for any boundary.
-    // boundary - Can be any one of BOUNDARIES or a pixel position of a boundary (at the bottom of the viewport).
+    // boundary - Can be any one of Constants.Boundaries or a pixel position of a boundary (at the bottom of the viewport).
     function getBoundaryPosition(boundary) {
         // Accounts for the fact that boundaries at positions at the bottom of the window.
-        return (BOUNDARIES[boundary.name] && BOUNDARIES[boundary.name].position() || boundary - Utils.getViewportHeight());
+        return (Constants.Boundaries[boundary.name] && Constants.Boundaries[boundary.name].position() || boundary - Utils.getViewportHeight());
     }
 
     // Removes all of the boundary registrations.
@@ -150,7 +153,7 @@ Order = function() {
 
         this.openSlots = function() {
             var openSlots = 0;
-            for(var i = 0; i < Utils.NUM_CHEESECAKE_SLOTS; i++) {
+            for(var i = 0; i < Constants.NUM_CHEESECAKE_SLOTS; i++) {
                 if (!cheesecakeSlots[i]) {
                     openSlots++;
                 }
@@ -163,7 +166,7 @@ Order = function() {
         };
 
         this.add = function(flavor) {
-            for(var i = 0; i < Utils.NUM_CHEESECAKE_SLOTS; i++) {
+            for(var i = 0; i < Constants.NUM_CHEESECAKE_SLOTS; i++) {
                 if (!cheesecakeSlots[i]) {
                     cheesecakeSlots[i] = flavor;
                     return i;
@@ -284,7 +287,7 @@ FlavorManager = function() {
         if (flavors) {
             callback(flavors);
         } else {
-            $.get(Urls.PRODUCT_GET_DUMP).done(function (result) {
+            $.get(Constants.Urls.PRODUCT_GET_DUMP).done(function (result) {
                 flavors = result;
                 callback(flavors);
             });
@@ -379,7 +382,7 @@ PickManager = function(elementSelectors, order, onPickComplete) {
         }
 
         var parentContainer;
-        if (cheesecakeNumber <= Utils.NUM_CHEESECAKE_SLOTS/2) {
+        if (cheesecakeNumber <= Constants.NUM_CHEESECAKE_SLOTS/2) {
             parentContainer = $(elementSelectors.tray1);
         } else {
             parentContainer = $(elementSelectors.tray2);
@@ -544,7 +547,7 @@ PackManager = function(elementSelectors, order, onPackComplete) {
     form.find('.edit').click($.proxy(function() {
         isValid = false;
         this.makeEditable(true);
-        S.setScrollTop(BOUNDARIES.PACK_TO_PAY.position());
+        S.setScrollTop(Constants.Boundaries.PACK_TO_PAY.position());
     }, this));
 
     form.find('.arrival-date').val(order.label.deliverdate());
@@ -807,7 +810,7 @@ PayManager = function(elementSelectors, order, onPaymentComplete) {
                     }
                 };
                 $.ajax({
-                    url: Urls.STRIPE_CHARGE,
+                    url: Constants.Urls.STRIPE_CHARGE,
                     method: 'post',
                     contentType: 'application/json',
                     processData: false,
@@ -839,7 +842,7 @@ PayManager = function(elementSelectors, order, onPaymentComplete) {
     };
 
     // Get publishable key
-    $.get(Urls.STRIPE_GET_PUBLISHABLE_KEY).done(function(result) {
+    $.get(Constants.Urls.STRIPE_GET_PUBLISHABLE_KEY).done(function(result) {
         Stripe.setPublishableKey(result);
     });
 
@@ -923,7 +926,7 @@ function main() {
         },
         order,
         function() {
-            S.animateTo(BOUNDARIES.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
+            S.animateTo(Constants.Boundaries.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
         }
     );
 
@@ -933,7 +936,7 @@ function main() {
         },
         order,
         function() {
-            S.animateTo(BOUNDARIES.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
+            S.animateTo(Constants.Boundaries.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
         }
     );
 
@@ -943,7 +946,7 @@ function main() {
         },
         order,
         function() {
-            S.animateTo(BOUNDARIES.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
+            S.animateTo(Constants.Boundaries.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
         }
     );
 
@@ -959,7 +962,7 @@ function main() {
             personalizeManager.disable();
             packManager.disable();
             payManager.disable();
-            S.animateTo(BOUNDARIES.END.position(), {duration: 3000, easing: 'swing'});
+            S.animateTo(Constants.Boundaries.END.position(), {duration: 3000, easing: 'swing'});
         }
     );
 
@@ -1004,9 +1007,9 @@ function main() {
         scrollBoundaryManager
             .unregisterAllBoundaries()
             .registerBoundary(
-                BOUNDARIES.PICK_TO_PERSONALIZE,
+                Constants.Boundaries.PICK_TO_PERSONALIZE,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PICK_TO_PERSONALIZE,
+                    Constants.Boundaries.PICK_TO_PERSONALIZE,
                     function() {
                         return order.cheesecakes.isFull();
                     },
@@ -1016,18 +1019,18 @@ function main() {
                 )
             )
             .registerBoundary(
-                BOUNDARIES.PERSONALIZE_TO_PACK,
+                Constants.Boundaries.PERSONALIZE_TO_PACK,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PERSONALIZE_TO_PACK,
+                    Constants.Boundaries.PERSONALIZE_TO_PACK,
                     function() {
                         return personalizeManager.isEdited();
                     }
                 )
             )
             .registerBoundary(
-                BOUNDARIES.PACK_TO_PAY,
+                Constants.Boundaries.PACK_TO_PAY,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PACK_TO_PAY,
+                    Constants.Boundaries.PACK_TO_PAY,
                     function() {
                         return packManager.isValid();
                     },
@@ -1037,9 +1040,9 @@ function main() {
                 )
             )
             .registerBoundary(
-                BOUNDARIES.PAY_TO_ORDER_COMPLETE,
+                Constants.Boundaries.PAY_TO_ORDER_COMPLETE,
                 createOnBoundaryHandler(
-                    BOUNDARIES.PAY_TO_ORDER_COMPLETE,
+                    Constants.Boundaries.PAY_TO_ORDER_COMPLETE,
                     function() {
                         return payManager.isPaymentComplete();
                     },
