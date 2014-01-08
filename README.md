@@ -4,11 +4,13 @@
 * Set JAVA_HOME and GRAILS_HOME per http://grails.org/doc/latest/guide/gettingStarted.html#requirements
 
 ```bash
-export JAVA_HOME=/Library/Java/Home
+export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH="$PATH:$JAVA_HOME/bin"
 export GRAILS_HOME=/Applications/springsource/grails-2.2.4
 export PATH="$PATH:$GRAILS_HOME/bin"
 ```
+
+Note: we are using Grails 2.2 at the moment.  We haven't updated to Grails 2.3. 
 
 ## Setup for Compass/Sass
 
