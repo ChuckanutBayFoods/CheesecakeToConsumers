@@ -14,11 +14,11 @@ Note: we are using Grails 2.2 at the moment.  We haven't updated to Grails 2.3.
 
 ## Setup for Compass/Sass
 
-* Install Homebrew
+* Install Homebrew (per http://brew.sh/ )
 ```bash
-# Per http://brew.sh/
 ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 ```
+
 * Install JRuby
 ```bash
 brew install jruby
@@ -28,6 +28,17 @@ brew install jruby
 ```bash
 jruby -S gem update --system
 jruby -S gem install compass
+```
+
+Notes: 
+* if installing the compass gem doesn't work, one should be able to do:
+```bash
+grails update-compass
+```
+* compass depends on sass.  I had a bum version of sass once and was getting an error like "LoadError: no such file to load -- sass/script/node".  Per http://stackoverflow.com/questions/16877028/why-does-compass-watch-say-it-cannot-load-sass-script-node-loaderror , I was able to uninstall and install sass and everything went well:
+```bash
+jruby -S gem uninstall sass
+jruby -S gem install sass
 ```
 
 # Running the application 
