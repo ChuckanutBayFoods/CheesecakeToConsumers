@@ -10,12 +10,20 @@ Section = function(name, index) {
 };
 
 _.extend(Section, {
+	/**
+	 * Friendly identifier for each of the sections.
+	 * This is what will show in the hash of the URL.
+	 * These sections intentionally have a prefix.
+	 * If not, the section names conflict with DOM id's on the page.
+	 * If there is a conflict, the browser will autoscroll to that id,
+	 * preventing us from using Skrollr to animate.
+	 */
 	Name : {
-        PICK : 'pick',
-        PERSONALIZE : 'personalize',
-        PACK : 'pack',
-        PAY : 'pay',
-        ORDER_COMPLETE : 'orderComplete'
+        PICK : 'sPick',
+        PERSONALIZE : 'sPersonalize',
+        PACK : 'sPack',
+        PAY : 'sPay',
+        ORDER_COMPLETE : 'sOrderComplete'
     }
 });
 

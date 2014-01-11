@@ -93,13 +93,6 @@ modules = {
 				"https://github.com/Prinzhorn/skrollr/raw/0.6.17/dist/skrollr.min.js",
 				"https://github.com/Prinzhorn/skrollr/raw/0.6.17/src/skrollr.js"))
 
-		// skrollr-menu.js - Navigation support for skrollr
-		// https://github.com/Prinzhorn/skrollr-menu
-		resource url: cacheAndGetLocalUrl(
-			"js", getUrl(
-				"https://github.com/Prinzhorn/skrollr-menu/raw/0.1.8/dist/skrollr.menu.min.js",
-				"https://github.com/Prinzhorn/skrollr-menu/raw/0.1.8/src/skrollr.menu.js"))
-
 		// skrollr-stylesheets.js - CSS support for skrollr
 		// https://github.com/Prinzhorn/skrollr-stylesheets
 		resource url: cacheAndGetLocalUrl(
@@ -111,6 +104,7 @@ modules = {
 		resource url: "js/Utils.js"
 		resource url: "js/Constants.js"
 		resource url: "js/Section.js" 
+		resource url: "js/Router.js"
 		resource url: "js/ScrollBoundaryManager.js"
 		resource url: "js/Order.js"
 		resource url: "js/FlavorManager.js"

@@ -15,7 +15,7 @@
         },
         order,
         function() {
-            dispatcher.trigger('advanceToNextSection');
+            dispatcher.trigger('navigatetonextsection');
         }
     );
 
@@ -66,10 +66,10 @@
         constants: {},
         forceHeight: false
     });
-    skrollr.menu.init(S);
     S.setScrollTop(0);
 
-    var scrollBoundaryManager = new ScrollBoundaryManager(S, dispatcher);
+    var router = new Router(dispatcher);
+    var scrollBoundaryManager = new ScrollBoundaryManager(S, dispatcher, router);
     window.scrollBoundaryManager = scrollBoundaryManager; // for debugging
 
     /**
@@ -80,14 +80,19 @@
      * @return {Function}
      */
     function createOnBoundaryHandler(sectionName, allowDownwardScrollPredicate, successfulDownFn) {
-        dispatcher.on('beforedownfrom' + sectionName, function(result) {
-            if (!result.allowScroll) {
+        dispatcher.on('beforescrollpastboundary', function(context) {
+            if (context.fromSection.name != sectionName || context.direction != 'down' || !context.allowScroll) {
                 return;
             }
-            result.allowScroll = allowDownwardScrollPredicate();
+            context.allowScroll = allowDownwardScrollPredicate();
         });
         if (successfulDownFn) {
-            dispatcher.on('downfrom' + sectionName, successfulDownFn);
+            dispatcher.on('scrolledpastboundary', function(context) {
+                if (context.fromSection.name != sectionName || context.direction != 'down') {
+                    return;
+                } 
+                successfulDownFn.call();
+            });
         }
     };
     createOnBoundaryHandler(
@@ -124,14 +129,19 @@
         }
     );
 
-    $(window)
-        .unload(function() {
-            return !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
-        });
+    // We aren't using pushState because with Backbone it doesn't update the hash.
+    // As a result, you end up losing the query string (annoying for development/debugging),
+    // and refreshes will go to "/pick" (for example), which we don't have backend/Grails support for currently.
+    var definedRouteMatchesTheCurrentUrl = Backbone.history.start();
+    if (!definedRouteMatchesTheCurrentUrl) {
+        router.navigate(
+            Section.NAMES[0], 
+            {
+                replace : true, 
+                trigger : true
+            }
+        );
+    }
 
     $('body').show();
-
-    function pushBoundary(boundary) {
-        history.pushState(null, null, '#' + boundary.friendlyName);
-    }
 })();

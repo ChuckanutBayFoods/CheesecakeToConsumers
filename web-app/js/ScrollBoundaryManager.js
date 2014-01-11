@@ -1,17 +1,24 @@
 // Should not be called until S has been initialized.
 // Clears registered boundaries.
-ScrollBoundaryManager = function(skrollr, dispatcher) {
+ScrollBoundaryManager = function(skrollr, dispatcher, router) {
     this._skrollr = skrollr;
     this._dispatcher = dispatcher;
+    this._router = router;
 
-    this._dispatcher.on('advanceToNextSection', this._advanceToNextSection, this);
+    this._dispatcher.on({
+        'navigatetonextsection' : this._navigateToNextSection,
+        'scrolltosection' : this._scrollToSection
+    }, this);
 
     var sections = [];
+    var sectionNameToSectionMap = {};
     _.each(Section.NAMES, function(sectionName, index) {
         var section = new Section(sectionName, index);
         sections.push(section);
+        sectionNameToSectionMap[sectionName] = section;
     });
     this._sections = sections;
+    this._sectionNameToSectionMap = sectionNameToSectionMap;
     this._initializeBoundaries();
 
     this._skrollr.on('beforerender', _.bind(this._beforeSkrollrRender, this));
@@ -66,33 +73,45 @@ _.extend(ScrollBoundaryManager.prototype, {
         if (lastIndex === curIndex) {
             return;
         }
-        var result = {
+        var context = {
+            currentSection : sections[lastIndex],
+            direction : e.direction,
+            fromSection : sections[lastIndex],
+            toSection : sections[curIndex],
             allowScroll : true
         };
-        dispatcher.trigger('before' + e.direction + 'from' + sections[lastIndex].name, result);
-        dispatcher.trigger('before' + e.direction + 'to' + sections[curIndex].name, result);
-        if (result.allowScroll === false) {
+        dispatcher.trigger('beforescrollpastboundary', context);
+        if (context.allowScroll === false) {
+            dispatcher.trigger('scrollingpastboundaryprevented', context);
             this._skrollr.setScrollTop(viewportBoundaries[lastIndex], false);
             // Prevent rendering
             return false;
         } else {
-            dispatcher.trigger(e.direction + 'from' + sections[lastIndex].name);
-            dispatcher.trigger(e.direction + 'to' + sections[curIndex].name);
+            context.currentSection = context.toSection;
+            dispatcher.trigger('scrolledpastboundary', context);
         }
     },
 
     _getCurrentSection : function() {
-        // TODO:
-        return this._sections[0];
+        // If no section is found, then use section at index 0.
+        var sectionIndex = Math.max(_.indexOf(Section.NAMES, Backbone.history.fragment), 0);
+        return this._sections[sectionIndex];
     },
 
     _getNextSection : function() {
         var nextSectionIndex = this._getCurrentSection().index + 1;
-        var nextSectionName = Section.NAMES[nextSectionIndex];
         return this._sections[nextSectionIndex];
     },
 
-    _advanceToNextSection : function() {
-        this._skrollr.animateTo(this._getNextSection().getViewportBottomPosition(), {duration: 3000, easing: 'swing'});
+    _navigateToNextSection : function() {
+        this._router.navigate(this._getNextSection().name, {trigger : true});
+    },
+
+    _scrollToSection : function(sectionName) {
+        var section = this._sectionNameToSectionMap[sectionName];
+        if (!section) {
+            return;
+        }
+        this._skrollr.animateTo(section.getViewportBottomPosition(), {duration: 3000, easing: 'swing'});
     }
 });
