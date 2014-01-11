@@ -52,12 +52,21 @@ _.extend(Section.prototype, {
 		return this._getViewportHeight() + this._getTransitionHeight();
 	},
 
+	/**
+	 * @return {Number} Scroll top position so that the top of this section is at the top of the viewport.
+	 */
 	getViewportTopPosition : function() {
-		return this.getViewportBottomPosition() - this._getViewportHeight();
-	},
-
-	getViewportBottomPosition : function() {
 		// When doing the calculation, we have to account for how the welcome screen has a non-standard height.
 		return this.index === 0 ? 0 : this._getBaseOffset() + (this.index * this._getSectionHeight()) - this._getViewportHeight();
+	},
+
+	/**
+	 * @return {Number} Scroll top position so that the bottom of this section is at the bottom of the viewport.
+	 */
+	getViewportBottomPosition : function() {
+		// Our keyframes are based on percentages, which means we can't have min-height for our sections.
+		// As a result, the section will always be the height of the viewport.
+		// When we are ever able to set min-height, then this logic can be expanded.
+		return this.getViewportTopPosition();
 	},
 });
