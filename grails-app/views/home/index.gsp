@@ -268,9 +268,9 @@
             <a class="btn" data-dismiss="modal">Close</a>
         </div>
     </div>
-    <footer class="out">
-        Scroll
-        <div class="arrow-bottom"></div>
+    <footer class="in">
+        <div class="heading">To Continue:</div>
+        <div class="message">Enter a gift message</div>
     </footer>
     <r:layoutResources/>
 </body>
