@@ -1,87 +1,87 @@
 @include skrollrKeyframes('.styro.front', styroFront) {
-  110p {
+  #{$pickTop + $sectionSize * .54 + 'p'} {
     top: 352px;
-  left: 62px;
-  opacity: 0;
-}
-  130p {
-  top: 0px;
-  left: 0px;
-  opacity: 1;
-}
-450p {
-  opacity: 1;
-}
+    left: 62px;
+    opacity: 0;
+  }
+  #{$pickTop + $sectionSize * .65 + 'p'} {
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+  }
+  #{$payTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
+  }
 }
 
 @include skrollrKeyframes('.styro.back', styroBack) {
-110p {
+  #{$pickTop + $sectionSize * .54 + 'p'} {
      top: -352px;
      left: -62px;
      opacity: 0;
-   }
-130p {
+  }
+  #{$pickTop + $sectionSize * .65 + 'p'} {
      top: 0px;
      left: 0px;
      opacity: 1;
-   }
-450p {
-     opacity: 1;
-   }
   }
+  #{$payTop + $sectionSize * .25 + 'p'} {
+     opacity: 1;
+  }
+}
 
 @include skrollrKeyframes('.styro.left', styroLeft) {
-110p {
-     left: -200px;
-     opacity: 0;
-   }
-130p {
-     left: 0px;
-     opacity: 1;
-   }
-450p {
-     opacity: 1;
-   }
+  #{$pickTop + $sectionSize * .54 + 'p'} {
+    left: -200px;
+    opacity: 0;
   }
+  #{$pickTop + $sectionSize * .65 + 'p'} {
+    left: 0px;
+    opacity: 1;
+  }
+  #{$payTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
+  }
+}
 
 @include skrollrKeyframes('.styro.right', styroRight) {
-110p {
-     left: 200px;
-     opacity: 0;
-   }
-130p {
-     left: 0px;
-     opacity: 1;
-   }
-450p {
-     opacity: 1;
-   }
+  #{$pickTop + $sectionSize * .54 + 'p'} {
+    left: 200px;
+    opacity: 0;
   }
+  #{$pickTop + $sectionSize * .65 + 'p'} {
+    left: 0px;
+    opacity: 1;
+  }
+  #{$payTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
+  }
+}
 
 @include skrollrKeyframes('.styro.top', styroTop) {
-110p {
-     top: -200px;
-     opacity: 0;
-   }
-130p {
-     top: 0px;
-     opacity: 1;
-   }
-450p {
-     opacity: 1;
-   }
+  #{$pickTop + $sectionSize * .54 + 'p'} {
+    top: -200px;
+    opacity: 0;
   }
+  #{$pickTop + $sectionSize * .65 + 'p'} {
+    top: 0px;
+    opacity: 1;
+  }
+  #{$payTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
+  }
+}
 
 @include skrollrKeyframes('.styro.base', styroBase) {
-110p {
-     top: 200px;
-     opacity: 0;
-   }
-130p {
-     top: 0px;
-     opacity: 1;
-   }
-450p {
-     opacity: 1;
-   }
+  #{$pickTop + $sectionSize * .54 + 'p'} {
+    top: 200px;
+    opacity: 0;
   }
+  #{$pickTop + $sectionSize * .65 + 'p'} {
+    top: 0px;
+    opacity: 1;
+  }
+  #{$payTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
+  }
+}

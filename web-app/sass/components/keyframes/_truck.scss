@@ -1,17 +1,17 @@
 @include skrollrKeyframes("#truck", truck) {
-  630p {
+  #{$orderCompleteTop + $sectionSize * -.85 + 'p'} {
     right: -204px;
   }
 
-  660p {
+  #{$orderCompleteTop + $sectionSize * -.7 + 'p'} {
     right: 0px;
   }
 
-  780p {
+  #{$orderCompleteTop + $sectionSize * -.1 + 'p'} {
     right: 0px;
   }
 
-800p {
-     right: -204px;
-   }
+  #{$orderCompleteTop + $sectionSize * 0 + 'p'} {
+    right: -204px;
+  }
 }

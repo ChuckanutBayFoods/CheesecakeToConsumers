@@ -1,27 +1,30 @@
 
 @for $i from 1 through $numberOfSections {
+
+  $thisSectionTop: nth($sections, $i);
+
   @include skrollrKeyframes(".section#{$i}", section#{$i}Animation) {
-      -200p {
-          top: #{$i * 200 + '%'};
+      #{-$sectionSize + 'p'} {
+          top: #{$thisSectionTop + $sectionSize + '%'};
       }
 
-      #{$numberOfSections * 200 + 'p'} {
-          top: -#{($numberOfSections + 1 - $i) * 200 + '%'};
+      #{$bottom + 'p'} {
+          top: -#{$bottom - $thisSectionTop + '%'};
       }
   }
 
 
   @include skrollrKeyframes(".section#{$i} > *", section#{$i}ChildrenAnimation) {
 
-    #{($i - 1) * 200 - 50 + 'p'} {
+    #{$thisSectionTop - 50 + 'p'} {
       opacity: 0;
     }
 
-    #{($i - 1) * 200 + 'p'} {
+    #{$thisSectionTop + 'p'} {
       opacity: 1;
     }
 
-    #{($i - 1) * 200 + 50 + 'p'} {
+    #{$thisSectionTop + 50 + 'p'} {
       opacity: 0;
     }
   }

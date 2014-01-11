@@ -1,55 +1,55 @@
 @include skrollrKeyframes("#box", box) {
-  270p {
+  #{$packTop + $sectionSize * -.65 + 'p'} {
     top: 100%;
   }
 
-  300p {
+  #{$packTop + $sectionSize * -.5 + 'p'} {
     top: 0%;
   }
 
-1000p {
-     top: 0%;
-   }
+  #{$orderCompleteTop + $sectionSize * 1 + 'p'} {
+    top: 0%;
+  }
 }
 
 @include skrollrKeyframes("#box .flaps", boxFlaps) {
-270p {
-  opacity: 1;
-   }
+  #{$packTop + $sectionSize * -.65 + 'p'} {
+    opacity: 1;
+  }
 
-420p {
-     opacity: 1;
-   }
+  #{$packTop + $sectionSize * .1 + 'p'} {
+    opacity: 1;
+  }
 
-450p {
-     opacity: 0;
-   }
+  #{$packTop + $sectionSize * .25 + 'p'} {
+    opacity: 0;
+  }
 }
 
 @include skrollrKeyframes("#box .top", boxTop) {
-420p {
-     opacity: 0;
-   }
+  #{$packTop + $sectionSize * .1 + 'p'} {
+   opacity: 0;
+ }
 
-450p {
-     opacity: 1;
-   }
-
-1000p {
-     opacity: 1;
-   }
+  #{$packTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
   }
+
+  #{$orderCompleteTop + $sectionSize * 1 + 'p'} {
+    opacity: 1;
+  }
+}
 
 @include skrollrKeyframes("#box .tape", boxTape) {
-420p {
-     opacity: 0;
-   }
-
-450p {
-     opacity: 1;
-   }
-
-1000p {
-     opacity: 1;
-   }
+  #{$packTop + $sectionSize * .1 + 'p'} {
+    opacity: 0;
   }
+
+  #{$packTop + $sectionSize * .25 + 'p'} {
+    opacity: 1;
+  }
+
+#{$orderCompleteTop + $sectionSize * 1 + 'p'} {
+    opacity: 1;
+  }
+}

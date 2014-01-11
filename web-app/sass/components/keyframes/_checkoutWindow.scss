@@ -1,14 +1,14 @@
 @include skrollrKeyframes('#checkout-window', checkoutWindow) {
-  500p {
-  top: 100%;
-}
-  600p {
-  top: 0%;
-}
-  620p {
-       top: 0%;
-}
-  680p {
-       top: -100%;
-}
+  #{$payTop + $sectionSize * -.5 + 'p'} {
+    top: 100%;
+  }
+  #{$payTop + $sectionSize * 0 + 'p'} {
+    top: 0%;
+  }
+  #{$payTop + $sectionSize * .1 + 'p'} {
+    top: 0%;
+  }
+  #{$payTop + $sectionSize * .4 + 'p'} {
+    top: -100%;
+  }
 }

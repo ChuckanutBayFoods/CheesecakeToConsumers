@@ -1,8 +1,11 @@
 @include skrollrKeyframes('#complete-package', completePackage) {
-  670p {
-  transform: translateX(0px) translateY(0px) scale(1);
-}
-  770p {
-  transform: translateX(1700px) translateY(-400px) scale(.25);
-}
+  #{$orderCompleteTop + $sectionSize * -.65 + 'p'} {
+    transform: translateX(0px) translateY(0px) scale(1);
+  }
+  #{$orderCompleteTop + $sectionSize * -.40 + 'p'} {
+    transform: translateX(800px) translateY(-200px) scale(.25);
+  }
+  #{$orderCompleteTop + $sectionSize * -.15 + 'p'} {
+    transform: translateX(1700px) translateY(-400px) scale(.20);
+  }
 }

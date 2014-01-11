@@ -1,4 +1,12 @@
-$numberOfSections: 5;
+$sectionSize: 200;
+$pickTop: 0;
+$personalizeTop: $pickTop + $sectionSize;
+$packTop: $personalizeTop + $sectionSize;
+$payTop: $packTop + $sectionSize;
+$orderCompleteTop: $payTop + $sectionSize;
+$sections: $pickTop, $personalizeTop, $packTop, $payTop, $orderCompleteTop;
+$numberOfSections: length($sections);
+$bottom: ($numberOfSections + 1) * $sectionSize;
 
 @import "mixins";
 @import "colors";
@@ -16,5 +24,5 @@ $numberOfSections: 5;
 
 
 body {
-  height: #{$numberOfSections * 200 - 100 + '%'};
+  height: #{$numberOfSections * $sectionSize - 100 + '%'};
 }
