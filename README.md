@@ -41,6 +41,11 @@ jruby -S gem uninstall sass
 jruby -S gem install sass
 ```
 
+* You can update your Ruby jems with:
+```bash
+jruby -S gem update 
+```
+
 # Running the application 
 
 ## Command Line
