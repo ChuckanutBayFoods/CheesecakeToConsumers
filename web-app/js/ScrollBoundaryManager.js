@@ -82,7 +82,10 @@ _.extend(ScrollBoundaryManager.prototype, {
         };
         dispatcher.trigger('beforescrollpastboundary', context);
         if (context.allowScroll === false) {
+            // Ordering is important here.
+            // Router is tracking the currentSectionName, and expects to have this event dispatched before having the animation stopped.
             dispatcher.trigger('scrollingpastboundaryprevented', context);
+            this._skrollr.stopAnimateTo();
             this._skrollr.setScrollTop(viewportBoundaries[lastIndex], false);
             // Prevent rendering
             return false;
@@ -107,11 +110,18 @@ _.extend(ScrollBoundaryManager.prototype, {
         this._router.navigate(this._getNextSection().name, {trigger : true});
     },
 
-    _scrollToSection : function(sectionName) {
-        var section = this._sectionNameToSectionMap[sectionName];
+    _scrollToSection : function(context) {
+        var section = this._sectionNameToSectionMap[context.sectionName];
         if (!section) {
             return;
         }
-        this._skrollr.animateTo(section.getViewportBottomPosition(), {duration: 3000, easing: 'swing'});
+        this._skrollr.animateTo(
+            section.getViewportTopPosition(), 
+            {
+                duration: 3000, 
+                easing: 'swing',
+                done : context.done || _.identity
+            }
+        );
     }
 });
