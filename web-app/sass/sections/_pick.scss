@@ -32,7 +32,7 @@
       overflow: hidden;
       padding: 0;
       margin: 0;
-      @include border-radius(0px);
+      @include border-radius(4px);
 
       .scroll {
         padding: 0;
@@ -118,9 +118,22 @@
     }
   }
 
-  #selected-cheesecake-btns {
-    clear: both;
-    margin: -6px 0 6px 0;
+  #selected-cheesecake-btns-wrapper {
+    text-align: center;
+
+    #selected-cheesecake-btns {
+      @include transition(opacity 0.5s);
+      @include box-shadow(0px 2px 4px lighten($shadowColor, 50%));
+      display: inline-block;
+      border: 1px solid $lightGray;
+      border-top-color: $white;
+      padding: 12px;
+      position: relative;
+      top: -20px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+
+    }
   }
 }
 

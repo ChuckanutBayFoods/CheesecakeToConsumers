@@ -59,9 +59,11 @@
                 </div>
                 <div id="hidden-image-loading-container" style="display: none;"></div>
             </div>
-            <div id="selected-cheesecake-btns" class="btn-container">
-                <div class="btn btn-more-info">More info</div>
-                <div class="btn btn-success btn-add">Add to Box</div>
+            <div id="selected-cheesecake-btns-wrapper">
+                <div id="selected-cheesecake-btns" class="btn-container">
+                    <div class="btn btn-more-info">More info</div>
+                    <div class="btn btn-success btn-add">Add to Box</div>
+                </div>
             </div>
         </section>
         <section id="personalize" class="section2">

@@ -115,6 +115,7 @@ modules = {
 		resource url: "js/FlavorManager.js"
 		resource url: "js/PickManager.js"
 		resource url: "js/FlavorCarousel.js"
+        resource url: "js/FlavorCarouselItem.js"
 		resource url: "js/PersonalizeManager.js"
 		resource url: "js/PackManager.js"
 		resource url: "js/DatePicker.js"

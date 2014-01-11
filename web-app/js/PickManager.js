@@ -11,7 +11,9 @@ PickManager = function(elementSelectors, order, onPickComplete) {
             leftArrow: elementSelectors.carousel + ' .arrow-left',
             rightArrow: elementSelectors.carousel + ' .arrow-right',
             hiddenImages: '#hidden-image-loading-container'
-        }, flavorManager);
+        }, flavorManager, function() {
+            _pickCheesecake(flavorCarousel.getSelectedFlavor());
+        });
     });
 
     $(elementSelectors.showNutritionLabelButton).click(function() {
@@ -50,7 +52,8 @@ PickManager = function(elementSelectors, order, onPickComplete) {
         $(elementSelectors.tray1 + ', ' + elementSelectors.tray2).find('.cheesecake').off('click');
     };
 
-    this.pickCheesecake = function(flaovr) {
+
+    var _pickCheesecake = function(flaovr) {
         var flavor = flavorCarousel.getSelectedFlavor();
         var slot = order.cheesecakes.add(flavor);
 
@@ -60,6 +63,7 @@ PickManager = function(elementSelectors, order, onPickComplete) {
 
         displayCheesecake(slot + 1, flavor);
     };
+    this.pickCheesecake = _pickCheesecake;
 
     function displayCheesecake(cheesecakeNumber, flavor) {
         if (order.cheesecakes.isFull()) {
