@@ -31,3 +31,9 @@ Utils = {
         return this._previousViewportHeight;
     }
 };
+
+$(window).resize(function(e) {
+    // Update viewport functions on resize;
+    Utils._previousViewportHeight = Utils._viewportHeight;
+    Utils._viewportHeight = $(window).height();
+});

@@ -110,6 +110,7 @@ modules = {
 		// Our own lovely js
 		resource url: "js/Utils.js"
 		resource url: "js/Constants.js"
+		resource url: "js/Section.js" 
 		resource url: "js/ScrollBoundaryManager.js"
 		resource url: "js/Order.js"
 		resource url: "js/FlavorManager.js"

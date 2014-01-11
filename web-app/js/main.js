@@ -1,6 +1,8 @@
 (function main() {
     var order = new Order();
 
+    var dispatcher = _.clone(Backbone.Events);
+
     var pickManager = new PickManager(
         {
             carousel: '#flavor-carousel',
@@ -13,7 +15,7 @@
         },
         order,
         function() {
-            S.animateTo(Constants.Boundaries.PERSONALIZE_TO_PACK.position(), {duration: 4000, easing: 'swing'});
+            dispatcher.trigger('advanceToNextSection');
         }
     );
 
@@ -67,91 +69,62 @@
     skrollr.menu.init(S);
     S.setScrollTop(0);
 
-    var scrollBoundaryManager = new ScrollBoundaryManager();
+    var scrollBoundaryManager = new ScrollBoundaryManager(S, dispatcher);
+    window.scrollBoundaryManager = scrollBoundaryManager; // for debugging
 
     /**
-     * Create an onBoundary handler for the ScrollBoundaryManager.
-     * @param  {Object} boundary
+     * Creates "boundary handlers" for the ScrollBoundaryManager events.
+     * @param  {String} sectionName
      * @param  {Function} allowDownwardScrollPredicate function that should return true if we're allowed to progress past this boundary.
      * @param  {Function} successfulDownFn function to invoke if successfully advanced past the boundary.
      * @return {Function}
      */
-    function createOnBoundaryHandler(boundary, allowDownwardScrollPredicate, successfulDownFn) {
-        return function(e) {
-            //console.log(e);
-            if (e.direction === 'up') {
-                pushBoundary(boundary);
+    function createOnBoundaryHandler(sectionName, allowDownwardScrollPredicate, successfulDownFn) {
+        dispatcher.on('beforedownfrom' + sectionName, function(result) {
+            if (!result.allowScroll) {
                 return;
             }
-            if (!allowDownwardScrollPredicate()) {
-                return false;
-            }
-            pushBoundary(boundary);
-            (successfulDownFn || $.noop).call();
-        };
-    }
-    function registerBoundaries() {
-        scrollBoundaryManager
-            .unregisterAllBoundaries()
-            .registerBoundary(
-                Constants.Boundaries.PICK_TO_PERSONALIZE,
-                createOnBoundaryHandler(
-                    Constants.Boundaries.PICK_TO_PERSONALIZE,
-                    function() {
-                        return order.cheesecakes.isFull();
-                    },
-                    function() {
-                        personalizeManager.displayPickedCheesecakesInfo();
-                    }
-                )
-            )
-            .registerBoundary(
-                Constants.Boundaries.PERSONALIZE_TO_PACK,
-                createOnBoundaryHandler(
-                    Constants.Boundaries.PERSONALIZE_TO_PACK,
-                    function() {
-                        return personalizeManager.isEdited();
-                    }
-                )
-            )
-            .registerBoundary(
-                Constants.Boundaries.PACK_TO_PAY,
-                createOnBoundaryHandler(
-                    Constants.Boundaries.PACK_TO_PAY,
-                    function() {
-                        return packManager.isValid();
-                    },
-                    function() {
-                        payManager.displayOrderSummary();
-                    }
-                )
-            )
-            .registerBoundary(
-                Constants.Boundaries.PAY_TO_ORDER_COMPLETE,
-                createOnBoundaryHandler(
-                    Constants.Boundaries.PAY_TO_ORDER_COMPLETE,
-                    function() {
-                        return payManager.isPaymentComplete();
-                    },
-                    function() {
-                        orderCompleteManager.refreshSummaryFields();
-                    }
-                )
-            );
-    }
-    registerBoundaries();
+            result.allowScroll = allowDownwardScrollPredicate();
+        });
+        if (successfulDownFn) {
+            dispatcher.on('downfrom' + sectionName, successfulDownFn);
+        }
+    };
+    createOnBoundaryHandler(
+        Section.Name.PICK, 
+        function() {
+            return order.cheesecakes.isFull();
+        },
+        function() {
+            personalizeManager.displayPickedCheesecakesInfo();
+        }
+    );
+    createOnBoundaryHandler(
+        Section.Name.PERSONALIZE,
+        function() {
+            return personalizeManager.isEdited();
+        }
+    );
+    createOnBoundaryHandler(
+        Section.Name.PACK,
+        function() {
+            return packManager.isValid();
+        },
+        function() {
+            payManager.displayOrderSummary();
+        }
+    );
+    createOnBoundaryHandler(
+        Section.Name.PAY,
+        function() {
+            return payManager.isPaymentComplete();
+        },
+        function() {
+            orderCompleteManager.refreshSummaryFields();
+        }
+    );
 
     $(window)
-        .resize(function(e) {
-            // Update viewport functions on resize;
-            Utils._previousViewportHeight = Utils._viewportHeight;
-            Utils._viewportHeight = $(window).height();
-
-            // Reposition skrollr to account for size change
-            S.setScrollTop(S.getScrollTop() * Utils.getViewportHeight() / Utils.getPreviousViewportHeight(), true);
-
-            registerBoundaries();
-        })
         .unload(function() {
             return !payManager.isPaymentComplete() && store.set('incompleteOrder', order.toString());
         });
