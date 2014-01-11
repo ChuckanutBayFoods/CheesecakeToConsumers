@@ -19,6 +19,7 @@ _.extend(Section, {
 	 * preventing us from using Skrollr to animate.
 	 */
 	Name : {
+		WELCOME : 'sWelcome',
         PICK : 'sPick',
         PERSONALIZE : 'sPersonalize',
         PACK : 'sPack',
@@ -33,8 +34,9 @@ Section.NAMES = _.values(Section.Name);
 _.extend(Section.prototype, {
 
 	_getBaseOffset : function() {
-		// Special case the first section where there is the header.
-		return this.index === 0 ? $('header').height() : 0;
+		// BaseOffset concept isn't currently needed because the header is part of the welcome section.
+		// We're keeping this abstraction around in case it's needed in the future.
+		return 0;
 	},
 
 	_getViewportHeight : function() {
@@ -42,7 +44,8 @@ _.extend(Section.prototype, {
 	},
 
 	_getTransitionHeight : function() {
-		return this._getViewportHeight();
+		// Special case the first section where there the welcome screen doesn't have transition height.
+		return this.index === 0 ? 0 : this._getViewportHeight();
 	},
 
 	_getSectionHeight : function() {
@@ -54,6 +57,7 @@ _.extend(Section.prototype, {
 	},
 
 	getViewportBottomPosition : function() {
-		return this._getBaseOffset() + (this.index * this._getSectionHeight());
+		// When doing the calculation, we have to account for how the welcome screen has a non-standard height.
+		return this.index === 0 ? 0 : this._getBaseOffset() + (this.index * this._getSectionHeight()) - this._getViewportHeight();
 	},
 });
