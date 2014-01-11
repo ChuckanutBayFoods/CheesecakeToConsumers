@@ -1,0 +1,24 @@
+$welcomeDir: $imageDir + 'welcome/';
+
+#welcome-carousel {
+  .item {
+    width: 1200px;
+    height: 600px;
+  }
+
+  .welcome {
+    background: url($welcomeDir + 'welcome.png');
+  }
+
+  .pack {
+    background: url($welcomeDir + '8pack.png');
+  }
+
+  .flavors {
+    background: url($welcomeDir + 'flavors.png');
+  }
+
+  .shipping {
+    background: url($welcomeDir + '2day.png');
+  }
+}

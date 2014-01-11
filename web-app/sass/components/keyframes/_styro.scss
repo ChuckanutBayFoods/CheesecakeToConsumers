@@ -1,87 +1,87 @@
 @include skrollrKeyframes('.styro.front', styroFront) {
-  #{$pickTop + $sectionSize * .54 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .54 + 'p'} {
     top: 352px;
     left: 62px;
     opacity: 0;
   }
-  #{$pickTop + $sectionSize * .65 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .65 + 'p'} {
     top: 0px;
     left: 0px;
     opacity: 1;
   }
-  #{$payTop + $sectionSize * .25 + 'p'} {
+  #{$payTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 }
 
 @include skrollrKeyframes('.styro.back', styroBack) {
-  #{$pickTop + $sectionSize * .54 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .54 + 'p'} {
      top: -352px;
      left: -62px;
      opacity: 0;
   }
-  #{$pickTop + $sectionSize * .65 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .65 + 'p'} {
      top: 0px;
      left: 0px;
      opacity: 1;
   }
-  #{$payTop + $sectionSize * .25 + 'p'} {
+  #{$payTop + $transitioningSectionSize * .25 + 'p'} {
      opacity: 1;
   }
 }
 
 @include skrollrKeyframes('.styro.left', styroLeft) {
-  #{$pickTop + $sectionSize * .54 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .54 + 'p'} {
     left: -200px;
     opacity: 0;
   }
-  #{$pickTop + $sectionSize * .65 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .65 + 'p'} {
     left: 0px;
     opacity: 1;
   }
-  #{$payTop + $sectionSize * .25 + 'p'} {
+  #{$payTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 }
 
 @include skrollrKeyframes('.styro.right', styroRight) {
-  #{$pickTop + $sectionSize * .54 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .54 + 'p'} {
     left: 200px;
     opacity: 0;
   }
-  #{$pickTop + $sectionSize * .65 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .65 + 'p'} {
     left: 0px;
     opacity: 1;
   }
-  #{$payTop + $sectionSize * .25 + 'p'} {
+  #{$payTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 }
 
 @include skrollrKeyframes('.styro.top', styroTop) {
-  #{$pickTop + $sectionSize * .54 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .54 + 'p'} {
     top: -200px;
     opacity: 0;
   }
-  #{$pickTop + $sectionSize * .65 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .65 + 'p'} {
     top: 0px;
     opacity: 1;
   }
-  #{$payTop + $sectionSize * .25 + 'p'} {
+  #{$payTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 }
 
 @include skrollrKeyframes('.styro.base', styroBase) {
-  #{$pickTop + $sectionSize * .54 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .54 + 'p'} {
     top: 200px;
     opacity: 0;
   }
-  #{$pickTop + $sectionSize * .65 + 'p'} {
+  #{$pickTop + $transitioningSectionSize * .65 + 'p'} {
     top: 0px;
     opacity: 1;
   }
-  #{$payTop + $sectionSize * .25 + 'p'} {
+  #{$payTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 }

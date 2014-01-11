@@ -4,8 +4,8 @@
   $thisSectionTop: nth($sections, $i);
 
   @include skrollrKeyframes(".section#{$i}", section#{$i}Animation) {
-      #{-$sectionSize + 'p'} {
-          top: #{$thisSectionTop + $sectionSize + '%'};
+      #{-$transitioningSectionSize + 'p'} {
+          top: #{$thisSectionTop + $transitioningSectionSize + '%'};
       }
 
       #{$bottom + 'p'} {

@@ -1,17 +1,17 @@
 @include skrollrKeyframes("#truck", truck) {
-  #{$orderCompleteTop + $sectionSize * -.85 + 'p'} {
+  #{$orderCompleteTop + $transitioningSectionSize * -.85 + 'p'} {
     right: -204px;
   }
 
-  #{$orderCompleteTop + $sectionSize * -.7 + 'p'} {
+  #{$orderCompleteTop + $transitioningSectionSize * -.7 + 'p'} {
     right: 0px;
   }
 
-  #{$orderCompleteTop + $sectionSize * -.1 + 'p'} {
+  #{$orderCompleteTop + $transitioningSectionSize * -.1 + 'p'} {
     right: 0px;
   }
 
-  #{$orderCompleteTop + $sectionSize * 0 + 'p'} {
+  #{$orderCompleteTop + $transitioningSectionSize * 0 + 'p'} {
     right: -204px;
   }
 }

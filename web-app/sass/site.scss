@@ -1,4 +1,5 @@
 $width: 1200px;
+$imageDir: '../img/';
 
 @import "mixins";
 @import "colors";
@@ -7,6 +8,7 @@ $width: 1200px;
 @import "sideNav";
 @import "loading";
 @import "sections/container";
+@import "sections/welcome";
 @import "sections/pick";
 @import "sections/personalize";
 @import "sections/pack";

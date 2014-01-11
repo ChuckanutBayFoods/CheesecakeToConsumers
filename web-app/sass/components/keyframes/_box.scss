@@ -1,55 +1,55 @@
 @include skrollrKeyframes("#box", box) {
-  #{$packTop + $sectionSize * -.65 + 'p'} {
+  #{$packTop + $transitioningSectionSize * -.65 + 'p'} {
     top: 100%;
   }
 
-  #{$packTop + $sectionSize * -.5 + 'p'} {
+  #{$packTop + $transitioningSectionSize * -.5 + 'p'} {
     top: 0%;
   }
 
-  #{$orderCompleteTop + $sectionSize * 1 + 'p'} {
+  #{$orderCompleteTop + $transitioningSectionSize * 1 + 'p'} {
     top: 0%;
   }
 }
 
 @include skrollrKeyframes("#box .flaps", boxFlaps) {
-  #{$packTop + $sectionSize * -.65 + 'p'} {
+  #{$packTop + $transitioningSectionSize * -.65 + 'p'} {
     opacity: 1;
   }
 
-  #{$packTop + $sectionSize * .1 + 'p'} {
+  #{$packTop + $transitioningSectionSize * .1 + 'p'} {
     opacity: 1;
   }
 
-  #{$packTop + $sectionSize * .25 + 'p'} {
+  #{$packTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 0;
   }
 }
 
 @include skrollrKeyframes("#box .top", boxTop) {
-  #{$packTop + $sectionSize * .1 + 'p'} {
+  #{$packTop + $transitioningSectionSize * .1 + 'p'} {
    opacity: 0;
  }
 
-  #{$packTop + $sectionSize * .25 + 'p'} {
+  #{$packTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 
-  #{$orderCompleteTop + $sectionSize * 1 + 'p'} {
+  #{$orderCompleteTop + $transitioningSectionSize * 1 + 'p'} {
     opacity: 1;
   }
 }
 
 @include skrollrKeyframes("#box .tape", boxTape) {
-  #{$packTop + $sectionSize * .1 + 'p'} {
+  #{$packTop + $transitioningSectionSize * .1 + 'p'} {
     opacity: 0;
   }
 
-  #{$packTop + $sectionSize * .25 + 'p'} {
+  #{$packTop + $transitioningSectionSize * .25 + 'p'} {
     opacity: 1;
   }
 
-#{$orderCompleteTop + $sectionSize * 1 + 'p'} {
+#{$orderCompleteTop + $transitioningSectionSize * 1 + 'p'} {
     opacity: 1;
   }
 }

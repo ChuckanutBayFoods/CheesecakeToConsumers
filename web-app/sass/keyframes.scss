@@ -1,12 +1,14 @@
-$sectionSize: 200;
-$pickTop: 0;
-$personalizeTop: $pickTop + $sectionSize;
-$packTop: $personalizeTop + $sectionSize;
-$payTop: $packTop + $sectionSize;
-$orderCompleteTop: $payTop + $sectionSize;
-$sections: $pickTop, $personalizeTop, $packTop, $payTop, $orderCompleteTop;
+$sectionSize: 100;
+$transitioningSectionSize: 2 * $sectionSize;
+$welcome: 0;
+$pickTop: $welcome + $sectionSize;
+$personalizeTop: $pickTop + $transitioningSectionSize;
+$packTop: $personalizeTop + $transitioningSectionSize;
+$payTop: $packTop + $transitioningSectionSize;
+$orderCompleteTop: $payTop + $transitioningSectionSize;
+$sections: $welcome, $pickTop, $personalizeTop, $packTop, $payTop, $orderCompleteTop;
 $numberOfSections: length($sections);
-$bottom: ($numberOfSections + 1) * $sectionSize;
+$bottom: ($numberOfSections + 1) * $transitioningSectionSize;
 
 @import "mixins";
 @import "colors";
@@ -24,5 +26,5 @@ $bottom: ($numberOfSections + 1) * $sectionSize;
 
 
 body {
-  height: #{$numberOfSections * $sectionSize - 100 + '%'};
+  height: #{$numberOfSections * $transitioningSectionSize - 100 + '%'};
 }
