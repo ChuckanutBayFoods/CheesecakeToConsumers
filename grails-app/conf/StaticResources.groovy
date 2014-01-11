@@ -39,15 +39,15 @@ modules = {
 		// http://underscorejs.org/
 		resource url: cacheAndGetLocalUrl(
 			"js", getUrl(
-				"http://github.com/jashkenas/underscore/raw/1.5.2/underscore-min.js",
-				"http://github.com/jashkenas/underscore/raw/1.5.2/underscore.js"))
+				"https://raw.github.com/jashkenas/underscore/1.5.2/underscore-min.js",
+				"https://raw.github.com/jashkenas/underscore/1.5.2/underscore.js"))
 		
 		// backbone.js - WebApp structuring library that is very flexible.
 		// http://backbonejs.org/
 		resource url: cacheAndGetLocalUrl(
 			"js", getUrl(
-				"http://github.com/jashkenas/backbone/raw/1.1.0/backbone-min.js",
-				"http://github.com/jashkenas/backbone/raw/1.1.0/backbone.js"))
+				"https://raw.github.com/jashkenas/backbone/1.1.0/backbone-min.js",
+				"https://raw.github.com/jashkenas/backbone/1.1.0/backbone.js"))
 		
 		// moment.js - For date processing and formatting
 		// http://momentjs.com/
