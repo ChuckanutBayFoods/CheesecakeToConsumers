@@ -1,162 +1,191 @@
 $navLightBlue: unquote('rgb(0, 136, 204)');
 $navLightGray: unquote('rgb(230, 230, 230)');
 $navMediumGray: unquote('rgb(200, 200, 200)');
+
+@include skrollrKeyframes('#nav-container [data-section="welcome"] .section-label', navWelcomeText) {
+  #{-100 + 'p'} {
+    cursor: default;
+  }
+  #{$welcomeTop + $welcomeHeight * 0 + 'p'} {
+    cursor: pointer;
+    color: $navLightBlue;
+  }
+  #{$welcomeTop + $welcomeHeight * .5 + 'p'} {
+    color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
+
+@include skrollrKeyframes('#nav-container [data-section="welcome"] .dot', navWelcomeDot) {
+  #{-100 + 'p'} {
+    cursor: default;
+  }
+  #{$welcomeTop + $welcomeHeight * 0 + 'p'} {
+    cursor: pointer;
+    background-color: $navLightBlue;
+  }
+  #{$welcomeTop + $welcomeHeight * .5 + 'p'} {
+    background-color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
 @include skrollrKeyframes('#nav-container [data-section="pick"] .section-label', navPickText) {
-  -100p {
-        cursor: default;
+  #{-100 + 'p'} {
+    cursor: default;
+    color: $navLightGray
+  }
+  #{$pickTop + $welcomeHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$pickTop + $welcomeHeight * -.5 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$pickTop + $pickHeight * 0 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$pickTop + $pickHeight * 1 + 'p'} {
+    color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
 }
-  0p {
-     cursor: pointer;
-  color: $navLightBlue;
-}
-  100p {
-  color: $navMediumGray;
-}
-
-  1000p {
-  opacity: 1;
-}
-}
-
 @include skrollrKeyframes('#nav-container [data-section="pick"] .dot', navPickDot) {
-  -100p {
-        cursor: default;
-}
-  0p {
-     cursor: pointer;
-     background-color: $navLightBlue;
-}
-  100p {
-       background-color: $navMediumGray;
-}
-
-  1000p {
-  opacity: 1;
-}
+  #{-100 + 'p'} {
+    cursor: default;
+    background-color: $navLightGray
+  }
+  #{$pickTop + $welcomeHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$pickTop + $welcomeHeight * -.5 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$pickTop + $pickHeight * 0 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$pickTop + $pickHeight * 1 + 'p'} {
+    background-color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
 }
 @include skrollrKeyframes('#nav-container [data-section="personalize"] .section-label', navPersonalizeText) {
--100p {
-      cursor: default;
-      color: $navLightGray
-    }
-
-    0p {
-         cursor: pointer;
-       }
-100p {
-     color: $navLightBlue;
-   }
-200p {
-   color: $navLightBlue;
- }
-300p {
-     color: $navMediumGray;
-   }
-
-1000p {
-      opacity: 1;
-    }
+  #{-100 + 'p'} {
+    cursor: default;
+    color: $navLightGray
   }
+  #{$personalizeTop + $pickHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$personalizeTop + $pickHeight * -.5 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$personalizeTop + $personalizeHeight * 0 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$personalizeTop + $personalizeHeight * 1 + 'p'} {
+    color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
 @include skrollrKeyframes('#nav-container [data-section="personalize"] .dot', navPersonalizeDot) {
--100p {
-      cursor: default;
-      background-color: $navLightGray
-    }
-
-0p {
-   cursor: pointer;
- }
-100p {
-     background-color: $navLightBlue;
-   }
-200p {
-     background-color: $navLightBlue;
-   }
-300p {
-     background-color: $navMediumGray;
-   }
-
-1000p {
-      opacity: 1;
-    }
+  #{-100 + 'p'} {
+    cursor: default;
+    background-color: $navLightGray
   }
+  #{$personalizeTop + $pickHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$personalizeTop + $pickHeight * -.5 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$personalizeTop + $personalizeHeight * 0 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$personalizeTop + $personalizeHeight * 1 + 'p'} {
+    background-color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
 @include skrollrKeyframes('#nav-container [data-section="pack"] .section-label', navPackText) {
--100p {
-      cursor: default;
-      color: $navLightGray
-    }
-
-200p {
-   cursor: pointer;
- }
-300p {
-     color: $navLightBlue;
-   }
-400p {
-     color: $navLightBlue;
-   }
-500p {
-     color: $navMediumGray;
-   }
-
-1000p {
-      opacity: 1;
-    }
+  #{-100 + 'p'} {
+    cursor: default;
+    color: $navLightGray
   }
+  #{$packTop + $personalizeHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$packTop + $personalizeHeight * -.5 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$packTop + $packHeight * 0 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$packTop + $packHeight * 1 + 'p'} {
+    color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
 @include skrollrKeyframes('#nav-container [data-section="pack"] .dot', navPackDot) {
--100p {
-      cursor: default;
-      background-color: $navLightGray
-    }
-
-200p {
-   cursor: pointer;
- }
-300p {
-     background-color: $navLightBlue;
-   }
-400p {
-     background-color: $navLightBlue;
-   }
-500p {
-     background-color: $navMediumGray;
-   }
-
-1000p {
-      opacity: 1;
-    }
+  #{-100 + 'p'} {
+    cursor: default;
+    background-color: $navLightGray
   }
+  #{$packTop + $personalizeHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$packTop + $personalizeHeight * -.5 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$packTop + $packHeight * 0 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$packTop + $packHeight * 1 + 'p'} {
+    background-color: $navMediumGray;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
 @include skrollrKeyframes('#nav-container [data-section="pay"] .section-label', navPayText) {
--100p {
-      cursor: default;
-      color: $navLightGray
-    }
-
-400p {
-     cursor: pointer;
-   }
-500p {
-     color: $navLightBlue;
-   }
-
-1000p {
-      opacity: 1;
-    }
+  #{-100 + 'p'} {
+    cursor: default;
+    color: $navLightGray
   }
+  #{$payTop + $packHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$payTop + $packHeight * -.5 + 'p'} {
+    color: $navLightBlue;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}
 @include skrollrKeyframes('#nav-container [data-section="pay"] .dot', navPayDot) {
--100p {
-      cursor: default;
-      background-color: $navLightGray
-    }
-
-400p {
-     cursor: pointer;
-   }
-500p {
-     background-color: $navLightBlue;
-   }
-
-1000p {
-      opacity: 1;
-    }
+  #{-100 + 'p'} {
+    cursor: default;
+    background-color: $navLightGray
   }
+  #{$payTop + $packHeight * -1 + 'p'} {
+    cursor: pointer;
+  }
+  #{$payTop + $packHeight * -.5 + 'p'} {
+    background-color: $navLightBlue;
+  }
+  #{$bottom + 'p'} {
+    opacity: 1;
+  }
+}

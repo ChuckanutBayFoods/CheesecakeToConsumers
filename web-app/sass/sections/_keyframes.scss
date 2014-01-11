@@ -1,30 +1,39 @@
 
 @for $i from 1 through $numberOfSections {
 
-  $thisSectionTop: nth($sections, $i);
+  $sectionName: nth($sections, $i);
+  $sectionTop: nth($sectionTops, $i);
+  $sectionHeight: nth($sectionHeights, $i);
 
-  @include skrollrKeyframes(".section#{$i}", section#{$i}Animation) {
-      #{-$transitioningSectionSize + 'p'} {
-          top: #{$thisSectionTop + $transitioningSectionSize + '%'};
-      }
+  // The positioning of the section
+  @include skrollrKeyframes("#" + $sectionName, #{$sectionName}Animation) {
 
-      #{$bottom + 'p'} {
-          top: -#{$bottom - $thisSectionTop + '%'};
-      }
+    // When the viewport is directly above the top of the section,
+    // the top of the section should be at the bottom of the viewport
+    #{$sectionTop - 100 + 'p'} {
+      top: #{100 + '%'}
+    }
+
+    // When the viewport is directly below the bottom of the section,
+    // the bottom of the section should be at the top of the viewport
+    #{$sectionTop + $sectionHeight + 'p'} {
+      top: #{-$sectionHeight + '%'};
+    }
   }
 
+// The fade in and out of the section
+// Fade out up or down 50% from the top of the section
+  @include skrollrKeyframes("#" + $sectionName + " > *", #{$sectionName}ChildrenAnimation) {
 
-  @include skrollrKeyframes(".section#{$i} > *", section#{$i}ChildrenAnimation) {
-
-    #{$thisSectionTop - 50 + 'p'} {
+    #{$sectionTop - 50 + 'p'} {
       opacity: 0;
     }
 
-    #{$thisSectionTop + 'p'} {
+    #{$sectionTop + 'p'} {
       opacity: 1;
     }
 
-    #{$thisSectionTop + 50 + 'p'} {
+    #{$sectionTop + 50 + 'p'} {
       opacity: 0;
     }
   }

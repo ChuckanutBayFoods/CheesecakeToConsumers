@@ -21,6 +21,9 @@
         </div>
     </header>
     <div id="nav-container">
+        <div class="disabled" data-section="welcome">
+            <a href="#welcome"><span class="section-label">Welcome</span><span class="dot"></span></a>
+        </div>
         <div class="disabled" data-section="pick">
             <a href="#pick"><span class="section-label">Pick</span><span class="dot"></span></a>
         </div>
@@ -35,7 +38,7 @@
         </div>
     </div>
     <div id="section-container">
-        <section id="welcome" class="section1">
+        <section id="welcome">
             <div id="welcome-carousel" class="carousel slide">
                 <div class="carousel-inner">
                     <div class="item welcome active"></div>
@@ -45,7 +48,7 @@
                 </div>
             </div>
         </section>
-        <section id="pick" class="section2">
+        <section id="pick">
             <h1>Pick your Flavors</h1>
             <h2>Mix-and-Match from all 20 flavors</h2>
             <div id="product-price">
@@ -76,16 +79,16 @@
                 </div>
             </div>
         </section>
-        <section id="personalize" class="section3">
+        <section id="personalize">
             <h1>Personalize Gift Message</h1>
         </section>
-        <section id="pack" class="section4">
+        <section id="pack">
             <h1>Set Shipping Address</h1>
         </section>
-        <section id="pay" class="section5">
+        <section id="pay">
             <h1>Checkout and Pay</h1>
         </section>
-        <section id="order-complete" class="section6">
+        <section id="order-complete">
             <h1>Thank you for your order!</h1>
             <div class="summary">An email confirming your order will be sent to
                 <span class="email"></span> and <br>

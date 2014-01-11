@@ -1,14 +1,36 @@
 $sectionSize: 100;
 $transitioningSectionSize: 2 * $sectionSize;
-$welcome: 0;
-$pickTop: $welcome + $sectionSize;
-$personalizeTop: $pickTop + $transitioningSectionSize;
-$packTop: $personalizeTop + $transitioningSectionSize;
-$payTop: $packTop + $transitioningSectionSize;
-$orderCompleteTop: $payTop + $transitioningSectionSize;
-$sections: $welcome, $pickTop, $personalizeTop, $packTop, $payTop, $orderCompleteTop;
+
+$welcomeTop: 0;
+$welcomeHeight: $sectionSize;
+
+$pickTop: $welcomeTop + $welcomeHeight;
+$pickHeight: $transitioningSectionSize;
+
+$personalizeTop: $pickTop + $pickHeight;
+$personalizeHeight: $transitioningSectionSize;
+
+$packTop: $personalizeTop + $personalizeHeight;
+$packHeight: $transitioningSectionSize;
+
+$payTop: $packTop + $packHeight;
+$payHeight: $transitioningSectionSize;
+
+$orderCompleteTop: $payTop + $payHeight;
+$orderCompleteHeight: $sectionSize;
+
+$sections: 'welcome', 'pick', 'personalize', 'pack', 'pay', 'order-complete';
+$sectionTops: $welcomeTop, $pickTop, $personalizeTop, $packTop, $payTop, $orderCompleteTop;
+$sectionHeights: $welcomeHeight, $pickHeight, $personalizeHeight, $packHeight, $payHeight, $orderCompleteHeight;
+
 $numberOfSections: length($sections);
-$bottom: ($numberOfSections + 1) * $transitioningSectionSize;
+
+$height: 0;
+@each $sectionHeight in $sectionHeights {
+  $height: $height + $sectionHeight;
+}
+
+$bottom: $height;
 
 @import "mixins";
 @import "colors";
@@ -26,5 +48,5 @@ $bottom: ($numberOfSections + 1) * $transitioningSectionSize;
 
 
 body {
-  height: #{$numberOfSections * $transitioningSectionSize - 100 + '%'};
+  height: #{$height + '%'};
 }
