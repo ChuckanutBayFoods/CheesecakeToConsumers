@@ -2,6 +2,7 @@
     var order = new Order();
 
     var dispatcher = _.clone(Backbone.Events);
+    new MetricReporter(dispatcher);
 
     var pickManager = new PickManager(
         {

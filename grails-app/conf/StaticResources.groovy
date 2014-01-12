@@ -8,6 +8,10 @@ modules = {
 	core {
 		defaultBundle 'common'
 		
+		// Our Google Analytics tracking code
+		// https://www.google.com/analytics/web/#management/Settings/a46807185w77934287p80581653/%3Fm.page%3DTrackingCode/
+		resource url: "js/googleAnalytics.js"
+		
 		resource url: cacheAndGetLocalUrl(
 			"css", getUrl(
 				"http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css", 
@@ -116,11 +120,10 @@ modules = {
 		resource url: "js/DatePicker.js"
 		resource url: "js/PayManager.js"
 		resource url: "js/OrderCompleteManager.js"
+		resource url: "js/MetricReporter.js"
 		resource url: "js/main.js"
 		
-		// Our Google Analytics tracking code
-		// https://www.google.com/analytics/web/#management/Settings/a46807185w77934287p80581653/%3Fm.page%3DTrackingCode/
-		resource url: "js/googleAnalytics.js"
+
 	}
 }
 
