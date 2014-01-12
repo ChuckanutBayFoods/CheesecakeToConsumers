@@ -68,14 +68,6 @@ modules = {
 				"http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js",
 				"http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.js"))
 
-		// bootstrap-datepicker.js - A datepicker UI element from bootstrap
-		// https://github.com/eternicode/bootstrap-datepicker
-		resource url: cacheAndGetLocalUrl(
-			"js", getUrl(
-				"http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js",
-				"http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.js"))
-		
-
 		// sly.js - Carousel UI element
 		// http://darsa.in/sly
 		resource url: cacheAndGetLocalUrl(
@@ -103,6 +95,9 @@ modules = {
 			"js", getUrl(
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/dist/skrollr.stylesheets.min.js",
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/src/skrollr.stylesheets.js"))
+
+        // Manually downloaded and checked in resources
+        resource url: "js/manualExternalDownloads/bootstrap-datepicker.js"
 
 		// Our own lovely js
 		resource url: "js/Utils.js"
