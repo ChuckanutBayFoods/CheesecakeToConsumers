@@ -148,4 +148,7 @@
     }
 
     $('body').show();
+    $('.btn').on('click', function(jQueryEvent) {
+        dispatcher.trigger('clickedbutton', jQueryEvent);
+    });
 })();
