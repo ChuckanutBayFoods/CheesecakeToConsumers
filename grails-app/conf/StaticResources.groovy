@@ -115,6 +115,7 @@ modules = {
 		resource url: "js/DatePicker.js"
 		resource url: "js/PayManager.js"
 		resource url: "js/OrderCompleteManager.js"
+		resource url: "js/NavigationView.js"
 		resource url: "js/MetricReporter.js"
 		resource url: "js/main.js"
 		

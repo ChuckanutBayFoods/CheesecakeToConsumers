@@ -147,6 +147,10 @@
         );
     }
 
+    var navigationView = new NavigationView({
+        el : $('#nav-container'),
+        router : router
+    });
     $('body').show();
     $('.btn').on('click', function(jQueryEvent) {
         dispatcher.trigger('clickedbutton', jQueryEvent);
