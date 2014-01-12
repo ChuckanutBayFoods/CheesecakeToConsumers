@@ -2,11 +2,18 @@
     var order = new Order();
 
     var dispatcher = _.clone(Backbone.Events);
+    // Useful for debugging!
+    // dispatcher.on('all', function() {
+    //     console.log(arguments);
+    // });
     new MetricReporter(dispatcher);
 
     // Initialize welcome carousel
     $('#welcome-carousel').carousel({interval: 5000, pause: 'false'}).carousel('cycle');
 
+    var dispatchNavigateToNextSection = function() {
+        dispatcher.trigger('navigatetonextsection');
+    };
     var pickManager = new PickManager(
         {
             carousel: '#flavor-carousel',
@@ -18,9 +25,7 @@
             tray2: '#tray2'
         },
         order,
-        function() {
-            dispatcher.trigger('navigatetonextsection');
-        }
+        dispatchNavigateToNextSection
     );
 
     var personalizeManager = new PersonalizeManager(
@@ -28,9 +33,7 @@
             main: '#gift-message'
         },
         order,
-        function() {
-            S.animateTo(Constants.Boundaries.PACK_TO_PAY.position(), {duration: 3000, easing: 'swing'});
-        }
+        dispatchNavigateToNextSection
     );
 
     var packManager = new PackManager(
@@ -38,9 +41,7 @@
             main: '#label form'
         },
         order,
-        function() {
-            S.animateTo(Constants.Boundaries.PAY_TO_ORDER_COMPLETE.position(), {duration: 3000, easing: 'swing'});
-        }
+        dispatchNavigateToNextSection
     );
 
     var payManager = new PayManager(
@@ -50,12 +51,11 @@
         },
         order,
         function() {
-            store.remove('incompleteOrder');
             pickManager.disable();
             personalizeManager.disable();
             packManager.disable();
             payManager.disable();
-            S.animateTo(Constants.Boundaries.END.position(), {duration: 3000, easing: 'swing'});
+            dispatchNavigateToNextSection();
         }
     );
 

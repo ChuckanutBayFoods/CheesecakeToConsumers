@@ -29,6 +29,11 @@ Router = Backbone.Router.extend({
 
     section : function(sectionName) {
         this._isScrolling = true;
+        // If a section hasn't been set yet, use this one.
+        // If this isn't done, then _announceNewSection can be called with _currentSectionName being ''.
+        if (!this._currentSectionName) {
+            this._currentSectionName = sectionName;
+        }
         this._dispatcher.trigger(
             'scrolltosection', {
                 sectionName : sectionName, 
