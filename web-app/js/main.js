@@ -4,6 +4,9 @@
     var dispatcher = _.clone(Backbone.Events);
     new MetricReporter(dispatcher);
 
+    // Initialize welcome carousel
+    $('#welcome-carousel').carousel({interval: 5000, pause: 'false'}).carousel('cycle');
+
     var pickManager = new PickManager(
         {
             carousel: '#flavor-carousel',

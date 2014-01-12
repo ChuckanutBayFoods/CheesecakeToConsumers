@@ -41,10 +41,31 @@
         <section id="welcome">
             <div id="welcome-carousel" class="carousel slide">
                 <div class="carousel-inner">
-                    <div class="item welcome active"></div>
-                    <div class="item pack"></div>
-                    <div class="item flavors"></div>
-                    <div class="item shipping"></div>
+                    <div class="item welcome active">
+                        <div class="content">
+                            <h1>Welcome to GiveCheesecakes.com</h1>
+                            <h2>Give the gift of cheesecakes. The best way to say Merry Christmas, Congratulations, or I Love You.</h2>
+                        </div>
+                    </div>
+                    <div class="item pack">
+                        <div class="content">
+                            <h1>8 Pack of 3” Cheesecakes</h1>
+                            <h2>$49.99 includes tax and shipping.</h2>
+                        </div>
+                    </div>
+                    <div class="item flavors">
+                        <div class="content">
+                            <h1>Over 20 flavors</h1>
+                            <div class="multipleCheesecakes"></div>
+                        </div>
+                    </div>
+                    <div class="item shipping">
+                        <div class="content">
+                            <div class="washToHome"></div>
+                            <h1>Free 2nd Day Air</h1>
+                            <h2>For maximum freshness</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

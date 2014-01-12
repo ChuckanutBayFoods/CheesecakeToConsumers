@@ -1,4 +1,4 @@
-$headerFooterHeight: 60px;
+$headerFooterHeight: 50px;
 $headerFooterWidth: 150px;
 
 .header-footer-base {
@@ -15,7 +15,7 @@ $headerFooterWidth: 150px;
 header {
   @extend .header-footer-base;
 
-  border-bottom: 1px solid $transparentMediumGray;
+  //border-bottom: 1px solid $transparentMediumGray;
   z-index: 9000;
   top: 0;
   width: 100%;
