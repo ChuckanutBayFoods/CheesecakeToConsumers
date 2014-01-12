@@ -1,21 +1,17 @@
 @include skrollrKeyframes("#tray1", tray1) {
-  #{$pickTop + $transitioningSectionSize * -.05 + 'p'} {
-    top: 80px;
+  #{$pickTop + $transitioningSectionSize * -.15 + 'p'} {
+    top: 580px;
   }
-
   #{$pickTop + 'p'} {
     top: 80px;
   }
-
   #{$pickTop + $transitioningSectionSize * .025 + 'p'} {
     top: 40px;
   }
-
   #{$pickTop + $transitioningSectionSize * .15 + 'p'} {
     top: 40px;
     left: -30px;
   }
-
   #{$pickTop + $transitioningSectionSize * .30 + 'p'} {
     top:  -200px;
     left: 0px;
@@ -23,36 +19,29 @@
   #{$pickTop + $transitioningSectionSize * .45 + 'p'} {
     top:  -150px;
   }
-
   #{$pickTop + $transitioningSectionSize + 'p'} {
     top:  -150px;
   }
 }
 
 @include skrollrKeyframes("#tray2", tray2) {
-  #{$pickTop + $transitioningSectionSize * -.05 + 'p'} {
-    top: 80px;
+  #{$pickTop + $transitioningSectionSize * -.15 + 'p'} {
+    top: 580px;
   }
   #{$pickTop + 'p'} {
     top: 80px;
   }
-
   #{$pickTop + $transitioningSectionSize * .025 + 'p'} {
     top: 40px;
   }
-
   #{$pickTop + $transitioningSectionSize * .25 + 'p'} {
     left: 570px;
   }
-
   #{$pickTop + $transitioningSectionSize * .45 + 'p'} {
     left: 0px;
     top: 0px;
   }
-
   #{$pickTop + $transitioningSectionSize + 'p'} {
     top: 0px;
   }
-
-
 }
