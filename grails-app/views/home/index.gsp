@@ -68,6 +68,7 @@
                     </div>
                 </div>
             </div>
+            <div class="event-catcher"></div>
         </section>
         <section id="pick">
             <h1>Pick your Flavors</h1>

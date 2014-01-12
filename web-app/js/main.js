@@ -9,7 +9,7 @@
     new MetricReporter(dispatcher);
 
     // Initialize welcome carousel
-    $('#welcome-carousel').carousel({interval: 5000, pause: 'false'}).carousel('cycle');
+    $('#welcome-carousel').carousel();
 
     var dispatchNavigateToNextSection = function() {
         dispatcher.trigger('navigatetonextsection');

@@ -5,6 +5,15 @@ $welcomeDir: $imageDir + 'welcome/';
   width: 100%;
   left: 0%;
   margin-left: 0px;
+
+  .event-catcher {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: all;
+  }
 }
 
 #welcome-carousel {
