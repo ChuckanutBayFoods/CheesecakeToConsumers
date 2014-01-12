@@ -1,6 +1,6 @@
-$navLightBlue: unquote('rgb(0, 136, 204)');
+$navLightBlue: unquote('rgba(0, 136, 204, 1)');
 $navLightGray: $transparentDarkGray;
-$navMediumGray: unquote('rgb(200, 200, 200)');
+$navMediumGray: unquote('rgba(200, 200, 200, 1)');
 
 @include skrollrKeyframes('#nav-container [data-section="welcome"] .section-label', navWelcomeText) {
   #{-100 + 'p'} {
