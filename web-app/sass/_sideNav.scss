@@ -35,4 +35,6 @@ $dotSize: 8px;
       background-color: $lightGray;
     }
   }
+
+  @include threeDimensional(9000);
 }
