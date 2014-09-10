@@ -10,7 +10,7 @@ export GRAILS_HOME=/Applications/springsource/grails-2.2.4
 export PATH="$PATH:$GRAILS_HOME/bin"
 ```
 
-Note: we are using Grails 2.2 at the moment.  We haven't updated to Grails 2.3. 
+Note: we are using Grails 2.2 at the moment.  We haven't updated to Grails 2.3. You can download Grails 2.2.4 directly from: http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-2.4.3.zip 
 
 ## Setup for Compass/Sass
 
@@ -24,11 +24,14 @@ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 brew install jruby
 ```
 
-* Install Compass
+* Install SASS and Compass
 ```bash
 jruby -S gem update --system
-jruby -S gem install compass
+jruby -S gem install sass --version 3.2.14
+jruby -S gem install compass --version 0.12.7
 ```
+
+
 
 Notes: 
 * if installing the compass gem doesn't work, one should be able to do:
