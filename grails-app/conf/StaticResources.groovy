@@ -39,12 +39,12 @@ modules = {
 				"http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js", 
 				"http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"))
 		
-		// underscore.js - Utility-belt library for JavaScript.  Necessary for bootstrap.js.
-		// http://underscorejs.org/
+		// lodash.js - Utility-belt library for JavaScript.  Necessary for bootstrap.js.
+		// http://lodash.com/
 		resource url: cacheAndGetLocalUrl(
 			"js", getUrl(
-				"https://raw.github.com/jashkenas/underscore/1.5.2/underscore-min.js",
-				"https://raw.github.com/jashkenas/underscore/1.5.2/underscore.js"))
+				"https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js",
+				"https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"))
 		
 		// backbone.js - WebApp structuring library that is very flexible.
 		// http://backbonejs.org/
@@ -96,6 +96,13 @@ modules = {
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/dist/skrollr.stylesheets.min.js",
 				"https://github.com/Prinzhorn/skrollr-stylesheets/raw/0.0.4/src/skrollr.stylesheets.js"))
 
+        // angular.js - Client-side javascript framework
+        // https://angularjs.org/
+        resource url: cacheAndGetLocalUrl(
+                "js", getUrl(
+                "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"))
+
         // Manually downloaded and checked in resources
         resource url: "js/manualExternalDownloads/bootstrap-datepicker.js"
 
@@ -106,7 +113,6 @@ modules = {
 		resource url: "js/Router.js"
 		resource url: "js/ScrollBoundaryManager.js"
 		resource url: "js/Order.js"
-		resource url: "js/FlavorManager.js"
 		resource url: "js/PickManager.js"
 		resource url: "js/FlavorCarousel.js"
         resource url: "js/FlavorCarouselItem.js"
@@ -118,6 +124,10 @@ modules = {
 		resource url: "js/NavigationView.js"
 		resource url: "js/MetricReporter.js"
 		resource url: "js/main.js"
+        resource url: "js/providers/constants/urls.js"
+        resource url: "js/providers/factories/Flavor.js"
+        resource url: "js/providers/factories/Flavors.js"
+        resource url: "js/providers/factories/flavorsFactory.js"
 		
 
 	}

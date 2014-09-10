@@ -8,7 +8,7 @@
     <r:require modules="core"/>
     <r:layoutResources/>
 </head>
-<body style="display: none">
+<body style="display: none" ng-app="giveCheesecakes">
     <header>
         <div class="content container">
             <div class="row">

@@ -3,15 +3,15 @@
 // #selected-cheesecake-btns .btn-add
 //'#more-info'
 //'.btn-show-nutrition-label'
-PickManager = function(elementSelectors, order, onPickComplete) {
+PickManager = function(elementSelectors, order, onPickComplete, flavorFactory) {
     var flavorCarousel;
-    var flavorManager = new FlavorManager().loadFlavors(function(flavors) {
+    flavorFactory.getAllFlavors().then(function(flavors) {
         flavorCarousel = new FlavorCarousel({
             main: elementSelectors.carousel + ' .well',
             leftArrow: elementSelectors.carousel + ' .arrow-left',
             rightArrow: elementSelectors.carousel + ' .arrow-right',
             hiddenImages: '#hidden-image-loading-container'
-        }, flavorManager, function() {
+        }, flavors, function() {
             _pickCheesecake(flavorCarousel.getSelectedFlavor());
         });
     });

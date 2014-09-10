@@ -1,4 +1,7 @@
-(function main() {
+
+var app = angular.module('giveCheesecakes', []);
+
+app.run(['flavorsFactory', function(flavorsFactory) {
     var order = new Order();
 
     var dispatcher = _.clone(Backbone.Events);
@@ -25,7 +28,8 @@
             tray2: '#tray2'
         },
         order,
-        dispatchNavigateToNextSection
+        dispatchNavigateToNextSection,
+        flavorsFactory
     );
 
     var personalizeManager = new PersonalizeManager(
@@ -155,4 +159,4 @@
     $('.btn').on('click', function(jQueryEvent) {
         dispatcher.trigger('clickedbutton', jQueryEvent);
     });
-})();
+}]);

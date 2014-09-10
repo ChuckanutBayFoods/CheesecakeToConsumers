@@ -8,7 +8,7 @@
  * @param {function} [onDoubleClick] Called when an element is double clicked
  * @constructor
  */
-FlavorCarousel = function(elementSelectors, flavorManager, onDoubleClick) {
+FlavorCarousel = function(elementSelectors, flavors, onDoubleClick) {
 
     this.preloadSelectedBareImage = function() {
         $(elementSelectors.hiddenImages).append(
@@ -21,7 +21,7 @@ FlavorCarousel = function(elementSelectors, flavorManager, onDoubleClick) {
      * @returns {Object}
      */
     this.getSelectedFlavor = function() {
-        return flavorManager.getFlavorById($(elementSelectors.main).find('.flavor.active').attr('data-id'));
+        return flavors.getFlavorById($(elementSelectors.main).find('.flavor.active').attr('data-id'));
     };
 
     /**
@@ -37,11 +37,11 @@ FlavorCarousel = function(elementSelectors, flavorManager, onDoubleClick) {
      * @param {Array} flavors
      */
     this.addAllFlavors = function(flavors) {
-        $.each(flavors, $.proxy(function(i, v) {
+        $.each(flavors.getAll(), $.proxy(function(i, v) {
             this.addFlavor(v);
         }, this));
     };
-    this.addAllFlavors(flavorManager.getAllFlavors());
+    this.addAllFlavors(flavors);
 
     // See http://darsa.in/sly/examples/horizontal.html
     $(elementSelectors.main).sly({
