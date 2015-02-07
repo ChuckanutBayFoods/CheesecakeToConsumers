@@ -31,6 +31,7 @@ class Product {
 	String ingredients
 	boolean isGlutenFree = false
 	boolean isNoSugarAdded = false
+    boolean hasPlated = false
 	
 	String getStageImageUrl() {
 		return getImageUrl("stage")

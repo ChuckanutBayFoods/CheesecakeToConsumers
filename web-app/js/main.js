@@ -1,7 +1,7 @@
 
 var app = angular.module('giveCheesecakes', []);
 
-app.run(['flavorsFactory', function(flavorsFactory) {
+app.run(['$rootScope', 'flavorsFactory', 'orderFactory', function($rootScope, flavorsFactory, orderFactory) {
     var order = new Order();
 
     var dispatcher = _.clone(Backbone.Events);
@@ -29,7 +29,7 @@ app.run(['flavorsFactory', function(flavorsFactory) {
         },
         order,
         dispatchNavigateToNextSection,
-        flavorsFactory
+        $rootScope
     );
 
     var personalizeManager = new PersonalizeManager(

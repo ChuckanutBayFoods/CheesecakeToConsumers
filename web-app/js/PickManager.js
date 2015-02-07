@@ -3,17 +3,15 @@
 // #selected-cheesecake-btns .btn-add
 //'#more-info'
 //'.btn-show-nutrition-label'
-PickManager = function(elementSelectors, order, onPickComplete, flavorFactory) {
+PickManager = function(elementSelectors, order, onPickComplete, $rootScope) {
     var flavorCarousel;
-    flavorFactory.getAllFlavors().then(function(flavors) {
-        flavorCarousel = new FlavorCarousel({
-            main: elementSelectors.carousel + ' .well',
-            leftArrow: elementSelectors.carousel + ' .arrow-left',
-            rightArrow: elementSelectors.carousel + ' .arrow-right',
-            hiddenImages: '#hidden-image-loading-container'
-        }, flavors, function() {
-            _pickCheesecake(flavorCarousel.getSelectedFlavor());
-        });
+    flavorCarousel = new FlavorCarousel({
+        main: elementSelectors.carousel + ' .well',
+        leftArrow: elementSelectors.carousel + ' .arrow-left',
+        rightArrow: elementSelectors.carousel + ' .arrow-right',
+        hiddenImages: '#hidden-image-loading-container'
+    }, $rootScope, function() {
+        _pickCheesecake(flavorCarousel.getSelectedFlavor());
     });
 
     $(elementSelectors.showNutritionLabelButton).click(function() {
@@ -22,11 +20,13 @@ PickManager = function(elementSelectors, order, onPickComplete, flavorFactory) {
     });
 
     $(elementSelectors.moreInfoButton).click($.proxy(function() {
-        displayMoreInfo(flavorCarousel.getSelectedFlavor());
+        displayMoreInfo($rootScope.flavors[0]);
+        //displayMoreInfo(flavorCarousel.getSelectedFlavor());
     }, this));
 
     $(elementSelectors.addButton).click($.proxy(function() {
-        this.pickCheesecake(flavorCarousel.getSelectedFlavor());
+        this.pickCheesecake($rootScope.flavors[0]);
+        // this.pickCheesecake(flavorCarousel.getSelectedFlavor());
     }, this));
 
     $.each(order.cheesecakes.all(), function(i, v) {
@@ -53,8 +53,8 @@ PickManager = function(elementSelectors, order, onPickComplete, flavorFactory) {
     };
 
 
-    var _pickCheesecake = function(flaovr) {
-        var flavor = flavorCarousel.getSelectedFlavor();
+    var _pickCheesecake = function(flavor) {
+        //var flavor = flavorCarousel.getSelectedFlavor();
         var slot = order.cheesecakes.add(flavor);
 
         if (slot === false) {
@@ -67,8 +67,8 @@ PickManager = function(elementSelectors, order, onPickComplete, flavorFactory) {
 
     function displayCheesecake(cheesecakeNumber, flavor) {
         if (order.cheesecakes.isFull()) {
-            $(elementSelectors.addButton).addClass('disabled');
-            onPickComplete();
+            // $(elementSelectors.addButton).addClass('disabled');
+            // onPickComplete();
         }
 
         var parentContainer;

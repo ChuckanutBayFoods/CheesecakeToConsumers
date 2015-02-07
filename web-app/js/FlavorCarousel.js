@@ -8,7 +8,7 @@
  * @param {function} [onDoubleClick] Called when an element is double clicked
  * @constructor
  */
-FlavorCarousel = function(elementSelectors, flavors, onDoubleClick) {
+FlavorCarousel = function(elementSelectors, $rootScope, onDoubleClick) {
 
     this.preloadSelectedBareImage = function() {
         $(elementSelectors.hiddenImages).append(
@@ -37,11 +37,13 @@ FlavorCarousel = function(elementSelectors, flavors, onDoubleClick) {
      * @param {Array} flavors
      */
     this.addAllFlavors = function(flavors) {
-        $.each(flavors.getAll(), $.proxy(function(i, v) {
+        $.each(flavors, $.proxy(function(i, v) {
             this.addFlavor(v);
         }, this));
     };
-    this.addAllFlavors(flavors);
+    $rootScope.$watchCollection('flavors', _.bind(function(flavors) {
+        this.addAllFlavors(flavors);
+    }, this));
 
     // See http://darsa.in/sly/examples/horizontal.html
     $(elementSelectors.main).sly({

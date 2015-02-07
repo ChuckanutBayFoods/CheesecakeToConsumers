@@ -22,10 +22,29 @@
 
   }
 
-  #flavor-carousel {
+  .flavor-carousel {
     margin: 0px auto;
     width: 80%;
     text-align: center;
+
+    .frame {
+      height: 250px;
+      line-height: 250px;
+      width: 100%;
+    }
+
+    .slidee {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-size: 50px;
+    }
+
+    .test {
+      float: left; margin: 0 5px 0 0; padding: 0; width: 250px; height: 100%;
+      background: green;
+    }
 
     .well {
       height: 205px;

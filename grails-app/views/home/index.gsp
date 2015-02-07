@@ -70,7 +70,7 @@
             </div>
             <div class="event-catcher"></div>
         </section>
-        <section id="pick">
+        <section id="pick" ng-controller="pickController">
             <h1>Pick your Flavors</h1>
             <h2>Mix-and-Match from all 20 flavors</h2>
             <div id="product-price">
@@ -81,23 +81,11 @@
                     8 Single-Serve 3" Handmade Cheesecakes
                 </div>
             </div>
-            <div id="flavor-carousel">
-                <div class="arrow-left"></div>
-                <div class="arrow-right"></div>
-                <div class="well">
-                    <ul class="scroll">
-                    </ul>
-                </div>
-                <div class="carrot-container">
-                    <div class="outer-carrot"></div>
-                    <div class="inner-carrot"></div>
-                </div>
-                <div id="hidden-image-loading-container" style="display: none;"></div>
-            </div>
+            <flavor-carousel flavors="flavors"></flavor-carousel>
             <div id="selected-cheesecake-btns-wrapper">
                 <div id="selected-cheesecake-btns" class="btn-container">
                     <div class="btn btn-more-info">More info</div>
-                    <div class="btn btn-success btn-add">Add to Box</div>
+                    <div class="btn btn-success btn-add" ng-click="addToBox()" ng-class="{'test' : true, 'disabled' : isFull()}">Add to Box</div>
                 </div>
             </div>
         </section>

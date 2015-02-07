@@ -1,24 +1,21 @@
 /**
  * Provides cheesecake flavor data from the backend.
  */
-app.factory('flavorsFactory', ['$http', '$q', 'URLS', 'Flavors', function($http, $q, URLS, Flavors) {
+app.factory('flavorsFactory', ['$http', '$rootScope', 'URLS', 'EVENTS', function($http, $rootScope, URLS, EVENTS) {
+    $rootScope.flavors = [];
 
-    // Immediately load the flavors
-    var promise = $http.get(URLS.PRODUCT.GET_DUMP);
-
-    var flavorsFactory = {};
-
-    /**
-     * Gets all of the flavors from the backend.
-     * @returns {Promise}
-     */
-    flavorsFactory.getAllFlavors = function() {
-        var deferred = $q.defer();
-        promise.then(function(response) {
-            deferred.resolve(new Flavors(response.data));
-        }, deferred.reject);
-        return deferred.promise;
+    var flavorsFactory = {
+        getFlavorById : function(id) {
+            return _.find($rootScope.flavors, { id : id });
+        }
     };
+
+    // Immediately load flavors
+    $http.get(URLS.PRODUCT.GET_DUMP).then(function(response) {
+        $rootScope.flavors = response.data;
+    }, function(reason) {
+        $rootScope.$broadcast(EVENTS.FLAVORS.LOAD_ERROR, reason);
+    });
 
     return flavorsFactory;
 }]);

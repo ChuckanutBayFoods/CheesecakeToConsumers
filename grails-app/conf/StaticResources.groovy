@@ -72,8 +72,8 @@ modules = {
 		// http://darsa.in/sly
 		resource url: cacheAndGetLocalUrl(
 			"js", getUrl(
-				"https://github.com/Darsain/sly/raw/v1.2.0/dist/sly.min.js",
-				"https://github.com/Darsain/sly/raw/v1.2.0/dist/sly.js"))
+				"https://github.com/Darsain/sly/raw/v1.2.5/dist/sly.min.js",
+				"https://github.com/Darsain/sly/raw/v1.2.5/dist/sly.js"))
 
 		// stripe.js - Credit-card and checkout processing
 		// https://stripe.com/docs/tutorials/forms
@@ -124,10 +124,13 @@ modules = {
 		resource url: "js/NavigationView.js"
 		resource url: "js/MetricReporter.js"
 		resource url: "js/main.js"
+        resource url: "js/controllers/pickController.js"
+        resource url: "js/directives/flavorCarousel.js"
+        resource url: "js/directives/flavorCarouselItem.js"
+        resource url: "js/providers/constants/events.js"
         resource url: "js/providers/constants/urls.js"
-        resource url: "js/providers/factories/Flavor.js"
-        resource url: "js/providers/factories/Flavors.js"
         resource url: "js/providers/factories/flavorsFactory.js"
+        resource url: "js/providers/factories/orderFactory.js"
 		
 
 	}
